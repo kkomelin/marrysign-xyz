@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   const title = "MarrySign";
   const description = "We empower any couple to register marriage online";
   return (
-    <div className={styles.container}>
+    <div className={c(styles.container, 'bg-[#fcf6fa]')}>
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
