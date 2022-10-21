@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
   const title = "MarrySign";
-  const description = "We empower couples to register their marriage online";
+  const description = "We empower couples to register marriage online";
   return (
     <div className={styles.container}>
       <Head>
