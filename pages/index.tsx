@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
+import c from 'clsx'
 
 const Home: NextPage = () => {
   const title = "MarrySign";
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
           <a href="https://marrysign.com" className="font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">{title}</a>
         </h1>
 
-        <p className={styles.description}>{description}</p>
+        <p className={c(styles.description, 'text-gray-600')}>{description}</p>
       </main>
 
       {/* <footer className={styles.footer}>
