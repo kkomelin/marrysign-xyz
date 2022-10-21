@@ -14,8 +14,8 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          <a href="https://marrysign.com">{title}</a>
+        <h1>
+          <a href="https://marrysign.com" className="font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">{title}</a>
         </h1>
 
         <p className={styles.description}>{description}</p>
