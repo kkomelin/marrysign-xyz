@@ -5,7 +5,7 @@ import c from 'clsx'
 
 const Home: NextPage = () => {
   const title = "MarrySign";
-  const description = "We empower couples to register marriage online";
+  const description = "We empower any couple to register marriage online";
   return (
     <div className={styles.container}>
       <Head>
