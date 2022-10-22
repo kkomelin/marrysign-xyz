@@ -12,17 +12,19 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col justify-center text-center grow">
+      <main className="flex flex-col justify-center px-8 text-center grow">
         <h1>
           <a
             href="https://marrysign.com"
-            className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+            className="text-5xl font-extrabold text-transparent sm:text-6xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
           >
             {title}
           </a>
         </h1>
 
-        <p className="my-8 text-2xl leading-8 text-gray-600">{description}</p>
+        <p className="my-8 text-2xl font-light leading-8 text-gray-500 sm:text-3xl">
+          {description}
+        </p>
       </main>
 
       <footer className="flex flex-row items-center justify-center w-full py-6 text-gray-400 border-t">
