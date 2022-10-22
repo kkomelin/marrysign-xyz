@@ -1,41 +1,43 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import c from 'clsx'
+import type { NextPage } from 'next'
+import Head from 'next/head'
 
 const Home: NextPage = () => {
-  const title = "MarrySign";
-  const description = "We empower any couple to register marriage online";
+  const title = 'MarrySign'
+  const description = 'We empower any couple to register marriage online'
   return (
-    <div className={c(styles.container, 'bg-[#fcf6fa]')}>
+    <div className="bg-[#fcf6fa] h-screen flex flex-col justify-center items-center">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className="flex flex-col justify-center text-center grow">
         <h1>
-          <a href="https://marrysign.com" className="font-extrabold text-transparent text-6xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">{title}</a>
+          <a
+            href="https://marrysign.com"
+            className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+          >
+            {title}
+          </a>
         </h1>
 
-        <p className={c(styles.description, 'text-gray-600')}>{description}</p>
+        <p className="my-8 text-2xl leading-8 text-gray-600">{description}</p>
       </main>
 
-      {/* <footer className={styles.footer}>
+      <footer className="flex flex-row items-center justify-center w-full py-6 text-gray-400 border-t">
+        <span>For updates, follow</span>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://twitter.com/kkomelin/status/1572157121214685184"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
+          className="inline-block mx-1 text-indigo-400 hover:underline"
         >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+          @kkomelin
         </a>
-      </footer> */}
+      </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
