@@ -4,9 +4,7 @@ import { FC, PropsWithChildren } from 'react'
 import { WagmiConfig } from 'wagmi'
 import auth from '../../../lib/auth/init'
 
-type Props = {
-  [key: string]: any
-}
+type Props = {}
 const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
   return (
     <WagmiConfig client={auth.wagmiClient}>
@@ -14,7 +12,7 @@ const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
         coolMode
         chains={auth.chains}
         theme={lightTheme({
-          accentColor: '#c084fc',
+          accentColor: '#c084fc', // primary color, see _variables.css.
           accentColorForeground: 'white',
           borderRadius: 'medium',
           fontStack: 'system',

@@ -27,8 +27,8 @@ const Home: NextPage = () => {
           {description}
         </p>
 
-        <div className='flex flex-row justify-center'>
-            <ConnectButton label='Sign in' />
+        <div className="flex flex-row justify-center bg-primary">
+          <ConnectButton label="Sign in" />
         </div>
       </main>
 
