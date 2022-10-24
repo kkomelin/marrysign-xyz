@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "id": "/AgreementContent",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "content"
+  ]
+}
