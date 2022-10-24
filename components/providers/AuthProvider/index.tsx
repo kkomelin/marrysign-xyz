@@ -9,7 +9,6 @@ const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
   return (
     <WagmiConfig client={auth.wagmiClient}>
       <RainbowKitProvider
-        coolMode
         chains={auth.chains}
         theme={lightTheme({
           accentColor: '#c084fc', // primary color, see _variables.css.
