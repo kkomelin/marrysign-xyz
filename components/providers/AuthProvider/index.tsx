@@ -16,7 +16,7 @@ const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
         theme={lightTheme({
           accentColor: '#c084fc',
           accentColorForeground: 'white',
-          borderRadius: 'small',
+          borderRadius: 'medium',
           fontStack: 'system',
           overlayBlur: 'small',
         })}
