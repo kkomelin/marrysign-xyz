@@ -1,6 +1,8 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { toast } from 'react-toastify'
+import { getAgreementCount } from '../lib/contract/contract'
 
 const Home: NextPage = () => {
   const title = 'MarrySign'
@@ -27,8 +29,23 @@ const Home: NextPage = () => {
           {description}
         </p>
 
-        <div className="flex flex-row justify-center bg-primary">
-          <ConnectButton label="Sign in" />
+        <div className="flex flex-col items-center justify-center">
+          <ConnectButton label="Sign in" showBalance={false} />
+
+          <button
+            className="block px-3 py-2 mt-3 text-white border rounded-lg bg-secondary"
+            onClick={async () => {
+              try {
+                const count = await getAgreementCount()
+                toast(`Current agreement count is ${count}`)
+              } catch (e) {
+                toast.error('An error has occurred. Please contact support.')
+                console.error(e)
+              }
+            }}
+          >
+            getAgreementCount
+          </button>
         </div>
       </main>
 

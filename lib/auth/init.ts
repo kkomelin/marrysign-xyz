@@ -11,12 +11,19 @@ import { publicProvider } from 'wagmi/providers/public'
 import { APP_NAME } from '../config'
 import { isProd } from '../helpers'
 
-const networkds = [chain.mainnet, 
-  // chain.polygon, chain.optimism, chain.arbitrum
+let networkds = [
+  chain.mainnet,
+  // chain.polygon,
+  // chain.optimism,
+  // chain.arbitrum
 ]
 
 if (!isProd()) {
-  networkds.concat([chain.goerli, chain.hardhat, chain.localhost])
+  networkds = [
+    // chain.goerli, 
+    chain.hardhat, 
+    // chain.localhost
+  ]
 }
 
 const { chains, provider } = configureChains(networkds, [
