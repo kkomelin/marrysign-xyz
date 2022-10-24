@@ -1,3 +1,4 @@
+import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 
@@ -25,6 +26,10 @@ const Home: NextPage = () => {
         <p className="my-8 text-2xl font-light leading-8 text-gray-500 sm:text-3xl">
           {description}
         </p>
+
+        <div className='flex flex-row justify-center'>
+            <ConnectButton label='Sign in' />
+        </div>
       </main>
 
       <footer className="flex flex-row items-center justify-center w-full py-6 text-gray-400 border-t">
