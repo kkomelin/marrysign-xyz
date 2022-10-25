@@ -2,15 +2,31 @@
   "type": "object",
   "id": "/AgreementContent",
   "properties": {
-    "name": {
-      "type": "string"
+    "partner1": {
+      "type": "object",
+      "id": "/AgreementParty",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
     },
-    "content": {
+    "partner2": {
+      "type": "object",
+      "id": "/AgreementParty",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "vow": {
       "type": "string"
     }
   },
   "required": [
-    "name",
-    "content"
+    "partner1",
+    "partner2",
+    "vow"
   ]
 }
