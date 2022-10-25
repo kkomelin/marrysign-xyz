@@ -1,12 +1,30 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { getAgreementCount } from '../lib/contract/agreement'
+import AgreementList from '../components/AgreementList'
+import { getAgreementCount, getAgreements } from '../lib/contract/agreement'
 
 const Home: NextPage = () => {
   const title = 'MarrySign'
   const description = 'We empower any couple to register marriage online'
+
+  const [agreements, setAgreements] = useState([])
+
+  const loadAgreements = async () => {
+    try {
+      const agreements = await getAgreements()
+      setAgreements(agreements)
+    } catch (e) {
+      toast.error('An error has occurred. Please contact support.')
+      console.error(e)
+    }
+  }
+
+  useEffect(() => {
+    loadAgreements()
+  }, [])
 
   return (
     <div className="bg-[#fcf6fa] h-screen flex flex-col justify-center items-center">
@@ -47,6 +65,17 @@ const Home: NextPage = () => {
           >
             getAgreementCount
           </button>
+
+          <button
+            className="block px-3 py-2 mt-3 text-white border rounded-lg bg-secondary"
+            onClick={() =>
+              setAgreements([...agreements, { content: '0x1111' } as never])
+            }
+          >
+            Add agreement
+          </button>
+
+          <AgreementList agreements={agreements} />
         </div>
       </main>
 

@@ -207,6 +207,51 @@ export const MARRYSIGN_ABI = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'getAgreements',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'address',
+            name: 'alice',
+            type: 'address',
+          },
+          {
+            internalType: 'address',
+            name: 'bob',
+            type: 'address',
+          },
+          {
+            internalType: 'bytes',
+            name: 'content',
+            type: 'bytes',
+          },
+          {
+            internalType: 'uint256',
+            name: 'terminationCost',
+            type: 'uint256',
+          },
+          {
+            internalType: 'enum MarrySign.AgreementState',
+            name: 'state',
+            type: 'uint8',
+          },
+          {
+            internalType: 'uint256',
+            name: 'updatedAt',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct MarrySign.Agreement[]',
+        name: '',
+        type: 'tuple[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'uint256',
