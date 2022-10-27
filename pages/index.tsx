@@ -3,14 +3,17 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import AgreementCreationForm from '../components/AgreementCreationForm'
 import AgreementList from '../components/AgreementList'
-import { getAgreementCount, getAgreements } from '../lib/contract/agreement'
+import { getAgreements } from '../lib/contract/agreement'
+import { MarrySign } from '../typechain'
 
 const Home: NextPage = () => {
   const title = 'MarrySign'
   const description = 'We empower any couple to register marriage online'
 
-  const [agreements, setAgreements] = useState([])
+  const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
+  const [lastAgreementId, setLastAgreementId] = useState<number>(-1)
 
   const loadAgreements = async () => {
     try {
@@ -22,19 +25,25 @@ const Home: NextPage = () => {
     }
   }
 
+  const handleAgreementCreated = (agreementId: number) => {
+    if (agreementId != lastAgreementId) {
+      setLastAgreementId(agreementId)
+    }
+  }
+
   useEffect(() => {
     loadAgreements()
-  }, [])
+  }, [lastAgreementId])
 
   return (
-    <div className="bg-[#fcf6fa] h-screen flex flex-col justify-center items-center">
+    <div className="bg-[#fcf6fa] flex flex-col items-center justify-center h-screen">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col justify-center px-8 text-center grow">
+      <main className="flex flex-col justify-center w-full px-8 py-12 text-center grow">
         <h1>
           <a
             href="https://marrysign.com"
@@ -51,29 +60,7 @@ const Home: NextPage = () => {
         <div className="flex flex-col items-center justify-center">
           <ConnectButton label="Sign in" showBalance={false} />
 
-          <button
-            className="block px-3 py-2 mt-3 text-white border rounded-lg bg-secondary"
-            onClick={async () => {
-              try {
-                const count = await getAgreementCount()
-                toast(`Current agreement count is ${count}`)
-              } catch (e) {
-                toast.error('An error has occurred. Please contact support.')
-                console.error(e)
-              }
-            }}
-          >
-            getAgreementCount
-          </button>
-
-          <button
-            className="block px-3 py-2 mt-3 text-white border rounded-lg bg-secondary"
-            onClick={() =>
-              setAgreements([...agreements, { content: '0x1111' } as never])
-            }
-          >
-            Add agreement
-          </button>
+          <AgreementCreationForm onAgreementCreated={handleAgreementCreated} />
 
           <AgreementList agreements={agreements} />
         </div>
