@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
-import { toast } from 'react-toastify'
+import { DEFAULT_VOW } from '../lib/config/strings'
 import { createAgreement } from '../lib/contract/agreement'
+import { handleException } from '../lib/helpers'
 import Button from './Button'
 import TextArea from './TextArea'
 import TextField from './TextField'
@@ -17,9 +18,7 @@ const AgreementCreationForm: FC<Props> = (props) => {
   const [partner2Address, setPartner2Address] = useState<string>(
     '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'
   )
-  const [vow, setVow] = useState<string>(
-    `I take you to be my spouse, to have and to hold from this day forward, for better, for worse, for richer, for poorer, in sickness and in health, to love and to cherish, until parted by death. This is my solemn vow.`
-  )
+  const [vow, setVow] = useState<string>(DEFAULT_VOW)
 
   const handleAgreementCreation = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -36,8 +35,7 @@ const AgreementCreationForm: FC<Props> = (props) => {
         }
       )
     } catch (e) {
-      toast.error('An error has occurred. Please contact support.')
-      console.error(e)
+      handleException(e)
     }
   }
 

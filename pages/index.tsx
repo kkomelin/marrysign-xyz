@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   }, [lastAgreementId])
 
   return (
-    <div className="bg-[#fcf6fa] flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen bg-tertiary">
       <Head>
         <title>{title}</title>
         <meta name="description" content={description} />
