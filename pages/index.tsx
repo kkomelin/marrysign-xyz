@@ -2,10 +2,10 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import AgreementCreationForm from '../components/AgreementCreationForm'
+import CreateAgreementForm from '../components/CreateAgreementForm'
 import AgreementList from '../components/AgreementList'
 import { getAgreements } from '../lib/contract/agreement'
+import { handleException } from '../lib/helpers'
 import { MarrySign } from '../typechain'
 
 const Home: NextPage = () => {
@@ -20,8 +20,7 @@ const Home: NextPage = () => {
       const agreements = await getAgreements()
       setAgreements(agreements)
     } catch (e) {
-      toast.error('An error has occurred. Please contact support.')
-      console.error(e)
+      handleException(e)
     }
   }
 
@@ -60,7 +59,7 @@ const Home: NextPage = () => {
         <div className="flex flex-col items-center justify-center">
           <ConnectButton label="Sign in" showBalance={false} />
 
-          <AgreementCreationForm onAgreementCreated={handleAgreementCreated} />
+          <CreateAgreementForm onAgreementCreated={handleAgreementCreated} />
 
           <AgreementList agreements={agreements} />
         </div>

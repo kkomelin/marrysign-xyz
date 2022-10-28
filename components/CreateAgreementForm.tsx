@@ -9,7 +9,7 @@ import TextField from './TextField'
 type Props = {
   onAgreementCreated: (agreementId: number) => void
 }
-const AgreementCreationForm: FC<Props> = (props) => {
+const CreateAgreementForm: FC<Props> = (props) => {
   const { onAgreementCreated } = props
   // const { isConnected } = useAccount()
   const [isAddButtonEnabled, setIsAddButtonEnabled] = useState<boolean>(true)
@@ -20,7 +20,7 @@ const AgreementCreationForm: FC<Props> = (props) => {
   )
   const [vow, setVow] = useState<string>(DEFAULT_VOW)
 
-  const handleAgreementCreation = async (e: MouseEvent<HTMLButtonElement>) => {
+  const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
       await createAgreement(
@@ -43,20 +43,21 @@ const AgreementCreationForm: FC<Props> = (props) => {
     <div className="flex flex-col items-center justify-center w-full mt-6">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <TextField
+          label="Your full name"
           value={partner1Name}
-          placeholder="Your name"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPartner1Name(e.target.value)
           }
         />
         <TextField
+          label="Your partner's full name"
           value={partner2Name}
-          placeholder="Name of your partner"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPartner2Name(e.target.value)
           }
         />
         <TextField
+          label="Your partner's ETH address"
           value={partner2Address}
           placeholder="0xf3…2266"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -64,15 +65,16 @@ const AgreementCreationForm: FC<Props> = (props) => {
           }
         />
         <TextArea
+          label="Your marital vow"
           value={vow}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
             setVow(e.target.value)
           }
         />
-        <Button onClick={handleAgreementCreation}>Create agreement</Button>
+        <Button onClick={handleCreateAgreement}>Create agreement</Button>
       </form>
     </div>
   )
 }
 
-export default AgreementCreationForm
+export default CreateAgreementForm
