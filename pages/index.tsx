@@ -57,13 +57,13 @@ const Home: NextPage = () => {
           {description}
         </p>
 
-        <div className="flex flex-col items-center justify-center">
+        {/* <div className="flex flex-col items-center justify-center">
           <ConnectButton label="Sign in" showBalance={false} />
 
           <AgreementCreationForm onAgreementCreated={handleAgreementCreated} />
 
           <AgreementList agreements={agreements} />
-        </div>
+        </div> */}
       </main>
 
       <footer className="flex flex-row items-center justify-center w-full py-6 text-gray-400 border-t">
