@@ -1,6 +1,6 @@
 import { ethers } from 'ethers'
 import { MarrySign__factory } from '../../typechain'
-import { hasEthereum, hexToString, nowTimestamp, stringToHex } from '../helpers'
+import { hasEthereum, nowTimestamp, stringToHex } from '../helpers'
 
 export const getAgreementCount = async () => {
   _checkPrerequisites()
@@ -21,7 +21,7 @@ export const createAgreement = async (
   partner2Address: string,
   vow: string,
   terminationCost: number,
-  onCreate: (agreementId: number) => void
+  onCreate?: (agreementId: number) => void
 ) => {
   _checkPrerequisites()
 
@@ -40,16 +40,23 @@ export const createAgreement = async (
 
   const contract = await _getContract()
 
-  contract.on('AgreementCreated', (result) => {
-    onCreate(result.toNumber())
-  })
+  if (onCreate) {
+    contract.removeAllListeners('AgreementCreated')
+    contract.on('AgreementCreated', (result) => {
+      onCreate(result.toNumber())
+    })
+  }
 
-  return await(await _getContract()).createAgreement(
+  const receipt = await(await _getContract()).createAgreement(
     partner2Address,
     content,
     terminationCost,
     createdAt
   )
+
+  const result = await receipt.wait()
+
+  return result.status === 1
 }
 
 const _getContract = async () => {
@@ -63,8 +70,15 @@ const _getContract = async () => {
 
   const signer = provider.getSigner()
 
-  return new ethers.Contract(contractAddress, MarrySign__factory.abi, signer)
+  const contract = new ethers.Contract(
+    contractAddress,
+    MarrySign__factory.abi,
+    signer
+  )
+
+  return contract
 }
+
 const _checkPrerequisites = () => {
   if (!hasEthereum()) {
     throw new Error('Please sign in with your wallet first.')

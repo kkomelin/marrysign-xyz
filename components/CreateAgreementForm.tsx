@@ -2,12 +2,12 @@ import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { DEFAULT_VOW } from '../lib/config/strings'
 import { createAgreement } from '../lib/contract/agreement'
 import { handleException } from '../lib/helpers'
-import Button from './Button'
-import TextArea from './TextArea'
-import TextField from './TextField'
+import Button from './controls/Button'
+import TextArea from './controls/TextArea'
+import TextField from './controls/TextField'
 
 type Props = {
-  onAgreementCreated: (agreementId: number) => void
+  onAgreementCreated: () => void
 }
 const CreateAgreementForm: FC<Props> = (props) => {
   const { onAgreementCreated } = props
@@ -23,17 +23,18 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
-      await createAgreement(
+      const successful = await createAgreement(
         partner1Name,
         partner2Name,
         partner2Address,
         vow,
-        10,
-        (agreementId: number) => {
-          onAgreementCreated(agreementId)
-          setIsAddButtonEnabled(true)
-        }
+        10
       )
+
+      if (successful) {
+        onAgreementCreated()
+        setIsAddButtonEnabled(true)
+      }
     } catch (e) {
       handleException(e)
     }

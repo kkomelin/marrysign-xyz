@@ -1,20 +1,18 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import CreateAgreementForm from '../../components/CreateAgreementForm'
 import MainLayout from '../../components/layouts/MainLayout'
 
-const AgreementNewPage: NextPage = () => {
-  const [lastAgreementId, setLastAgreementId] = useState<number>(-1)
+const CreateAgreementPage: NextPage = () => {
   const { isDisconnected } = useAccount()
+  const router = useRouter()
 
-  const handleAgreementCreated = (agreementId: number) => {
-    if (agreementId != lastAgreementId) {
-      toast('Congrats! Your agreement has been created on blockchain!')
-      setLastAgreementId(agreementId)
-    }
+  const handleAgreementCreated = () => {
+    toast('Congrats! Your agreement has been created on blockchain!')
+    router.push('/')
   }
 
   return (
@@ -30,4 +28,4 @@ const AgreementNewPage: NextPage = () => {
   )
 }
 
-export default AgreementNewPage
+export default CreateAgreementPage

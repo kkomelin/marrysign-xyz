@@ -15,7 +15,6 @@ const TextField: FC<Props> = (props) => {
     id,
     onChange,
     disabled = false,
-    name,
     placeholder,
     value,
     label,
