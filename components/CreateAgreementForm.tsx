@@ -57,9 +57,8 @@ const CreateAgreementForm: FC<Props> = (props) => {
           }
         />
         <TextField
-          label="Your partner's ETH address"
+          label="Your partner's ETH address (e.g. 0xf3...2266)"
           value={partner2Address}
-          placeholder="0xf3…2266"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPartner2Address(e.target.value)
           }
