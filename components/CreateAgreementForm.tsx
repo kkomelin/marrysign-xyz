@@ -45,6 +45,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         <TextField
           label="Your full name"
           value={partner1Name}
+          required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPartner1Name(e.target.value)
           }
@@ -52,6 +53,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         <TextField
           label="Your partner's full name"
           value={partner2Name}
+          required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPartner2Name(e.target.value)
           }
@@ -59,6 +61,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         <TextField
           label="Your partner's ETH address (e.g. 0xf3...2266)"
           value={partner2Address}
+          required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setPartner2Address(e.target.value)
           }
@@ -66,6 +69,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         <TextArea
           label="Your marital vow"
           value={vow}
+          required={true}
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
             setVow(e.target.value)
           }

@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 
 type Props = {
-  name?: string
+  id?: string
   label?: string
   description?: string
   placeholder?: string
@@ -12,7 +12,7 @@ type Props = {
 }
 const TextArea: FC<Props> = (props) => {
   const {
-    name,
+    id,
     label,
     placeholder,
     disabled,
@@ -23,12 +23,18 @@ const TextArea: FC<Props> = (props) => {
   } = props
 
   return (
-    <div className='mt-2'>
+    <div className="mt-2">
       {value && label && (
-        <div className="text-xs text-left text-gray-500 text-thin">{label}</div>
+        <label
+          htmlFor={id}
+          className="block text-xs text-left text-gray-500 text-thin"
+        >
+          {label}
+        </label>
       )}
       <textarea
-        name={name}
+        id={id}
+        name={id}
         placeholder={placeholder ? placeholder : label}
         disabled={disabled}
         className="block w-full h-32 px-3 py-2 border rounded shadow-sm disabled:bg-secondary border-accent focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"

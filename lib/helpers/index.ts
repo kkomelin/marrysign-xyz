@@ -1,5 +1,6 @@
 import { BytesLike, ethers } from 'ethers'
 import { toast } from 'react-toastify'
+import { APP_URL } from '../config'
 import { USER_FRIENDLY_ERROR_MESSAGE } from '../config/strings'
 
 export const isProd = () => {
@@ -29,4 +30,16 @@ export const randomNum = (maxNum: number): number => {
 export const handleException = (e: any) => {
   toast.error(USER_FRIENDLY_ERROR_MESSAGE)
   console.error(e)
+}
+
+export const isAbsolute = (url: string): boolean => {
+  const r = new RegExp('^(?:[a-z]+:)?//', 'i')
+  return r.test(url)
+}
+export const toAbsolute = (url: string): string => {
+  if (isAbsolute(url)) {
+    return url
+  }
+
+  return `${APP_URL}${url}`
 }
