@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useAccount } from 'wagmi'
 import AgreementCreationForm from '../components/AgreementCreationForm'
 import AgreementList from '../components/AgreementList'
 import { getAgreements } from '../lib/contract/agreement'
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
 
   const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
   const [lastAgreementId, setLastAgreementId] = useState<number>(-1)
+  const {isDisconnected} = useAccount()
 
   const loadAgreements = async () => {
     try {
@@ -32,8 +34,11 @@ const Home: NextPage = () => {
   }
 
   useEffect(() => {
+    if (isDisconnected) {
+      return
+    }
     loadAgreements()
-  }, [lastAgreementId])
+  }, [lastAgreementId, isDisconnected])
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-tertiary">
