@@ -22,7 +22,8 @@ const Home: NextPage = () => {
       const agreements = await getAgreements()
       setAgreements(agreements)
     } catch (e) {
-      toast.error('An error has occurred. Please contact support.')
+      // @todo: Uncomment this line.
+      // toast.error('An error has occurred. Please contact support.')
       console.error(e)
     }
   }
