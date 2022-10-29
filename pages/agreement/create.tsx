@@ -11,7 +11,9 @@ const CreateAgreementPage: NextPage = () => {
   const router = useRouter()
 
   const handleAgreementCreated = () => {
-    toast('Congrats! Your agreement has been created on blockchain!')
+    toast(
+      'Congrats! Your agreement has been registered. Now you may ask you partner to accept it.'
+    )
     router.push('/')
   }
 

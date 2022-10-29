@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from 'react'
-import Meta from '../common/Meta'
+import Meta from '../misc/Meta'
 import Header from './Header'
 
 type Props = {
