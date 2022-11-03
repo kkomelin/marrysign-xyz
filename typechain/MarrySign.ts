@@ -30,6 +30,7 @@ import type {
 
 export declare namespace MarrySign {
   export type AgreementStruct = {
+    id: PromiseOrValue<BytesLike>;
     alice: PromiseOrValue<string>;
     bob: PromiseOrValue<string>;
     content: PromiseOrValue<BytesLike>;
@@ -42,10 +43,12 @@ export declare namespace MarrySign {
     string,
     string,
     string,
+    string,
     BigNumber,
     number,
     BigNumber
   ] & {
+    id: string;
     alice: string;
     bob: string;
     content: string;
@@ -57,13 +60,14 @@ export declare namespace MarrySign {
 
 export interface MarrySignInterface extends utils.Interface {
   functions: {
-    "acceptAgreement(uint256,uint256)": FunctionFragment;
+    "acceptAgreement(bytes32,uint256)": FunctionFragment;
     "createAgreement(address,bytes,uint256,uint256)": FunctionFragment;
-    "getAgreement(uint256)": FunctionFragment;
+    "getAcceptedAgreements()": FunctionFragment;
+    "getAgreement(bytes32)": FunctionFragment;
+    "getAgreementByAddress(address)": FunctionFragment;
     "getAgreementCount()": FunctionFragment;
-    "getAgreements()": FunctionFragment;
-    "refuseAgreement(uint256,uint256)": FunctionFragment;
-    "terminateAgreement(uint256)": FunctionFragment;
+    "refuseAgreement(bytes32,uint256)": FunctionFragment;
+    "terminateAgreement(bytes32)": FunctionFragment;
     "withdraw()": FunctionFragment;
   };
 
@@ -71,9 +75,10 @@ export interface MarrySignInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "acceptAgreement"
       | "createAgreement"
+      | "getAcceptedAgreements"
       | "getAgreement"
+      | "getAgreementByAddress"
       | "getAgreementCount"
-      | "getAgreements"
       | "refuseAgreement"
       | "terminateAgreement"
       | "withdraw"
@@ -81,7 +86,7 @@ export interface MarrySignInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "acceptAgreement",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "createAgreement",
@@ -93,24 +98,28 @@ export interface MarrySignInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
+    functionFragment: "getAcceptedAgreements",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "getAgreement",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getAgreementByAddress",
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "getAgreementCount",
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getAgreements",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "refuseAgreement",
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "terminateAgreement",
-    values: [PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
@@ -123,15 +132,19 @@ export interface MarrySignInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "getAcceptedAgreements",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getAgreement",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getAgreementCount",
+    functionFragment: "getAgreementByAddress",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getAgreements",
+    functionFragment: "getAgreementCount",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -145,10 +158,10 @@ export interface MarrySignInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
-    "AgreementAccepted(uint256)": EventFragment;
-    "AgreementCreated(uint256)": EventFragment;
-    "AgreementRefused(uint256)": EventFragment;
-    "AgreementTerminated(uint256)": EventFragment;
+    "AgreementAccepted(bytes32)": EventFragment;
+    "AgreementCreated(bytes32)": EventFragment;
+    "AgreementRefused(bytes32)": EventFragment;
+    "AgreementTerminated(bytes32)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AgreementAccepted"): EventFragment;
@@ -158,10 +171,10 @@ export interface MarrySignInterface extends utils.Interface {
 }
 
 export interface AgreementAcceptedEventObject {
-  index: BigNumber;
+  id: string;
 }
 export type AgreementAcceptedEvent = TypedEvent<
-  [BigNumber],
+  [string],
   AgreementAcceptedEventObject
 >;
 
@@ -169,10 +182,10 @@ export type AgreementAcceptedEventFilter =
   TypedEventFilter<AgreementAcceptedEvent>;
 
 export interface AgreementCreatedEventObject {
-  index: BigNumber;
+  id: string;
 }
 export type AgreementCreatedEvent = TypedEvent<
-  [BigNumber],
+  [string],
   AgreementCreatedEventObject
 >;
 
@@ -180,10 +193,10 @@ export type AgreementCreatedEventFilter =
   TypedEventFilter<AgreementCreatedEvent>;
 
 export interface AgreementRefusedEventObject {
-  index: BigNumber;
+  id: string;
 }
 export type AgreementRefusedEvent = TypedEvent<
-  [BigNumber],
+  [string],
   AgreementRefusedEventObject
 >;
 
@@ -191,10 +204,10 @@ export type AgreementRefusedEventFilter =
   TypedEventFilter<AgreementRefusedEvent>;
 
 export interface AgreementTerminatedEventObject {
-  index: BigNumber;
+  id: string;
 }
 export type AgreementTerminatedEvent = TypedEvent<
-  [BigNumber],
+  [string],
   AgreementTerminatedEventObject
 >;
 
@@ -229,7 +242,7 @@ export interface MarrySign extends BaseContract {
 
   functions: {
     acceptAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -242,25 +255,30 @@ export interface MarrySign extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    getAcceptedAgreements(
+      overrides?: CallOverrides
+    ): Promise<[MarrySign.AgreementStructOutput[]]>;
+
     getAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[MarrySign.AgreementStructOutput]>;
+
+    getAgreementByAddress(
+      partnerAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[MarrySign.AgreementStructOutput]>;
 
     getAgreementCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getAgreements(
-      overrides?: CallOverrides
-    ): Promise<[MarrySign.AgreementStructOutput[]]>;
-
     refuseAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     terminateAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -270,7 +288,7 @@ export interface MarrySign extends BaseContract {
   };
 
   acceptAgreement(
-    index: PromiseOrValue<BigNumberish>,
+    id: PromiseOrValue<BytesLike>,
     acceptedAt: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -283,25 +301,30 @@ export interface MarrySign extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  getAcceptedAgreements(
+    overrides?: CallOverrides
+  ): Promise<MarrySign.AgreementStructOutput[]>;
+
   getAgreement(
-    index: PromiseOrValue<BigNumberish>,
+    id: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<MarrySign.AgreementStructOutput>;
+
+  getAgreementByAddress(
+    partnerAddress: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<MarrySign.AgreementStructOutput>;
 
   getAgreementCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getAgreements(
-    overrides?: CallOverrides
-  ): Promise<MarrySign.AgreementStructOutput[]>;
-
   refuseAgreement(
-    index: PromiseOrValue<BigNumberish>,
+    id: PromiseOrValue<BytesLike>,
     refusedAt: PromiseOrValue<BigNumberish>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   terminateAgreement(
-    index: PromiseOrValue<BigNumberish>,
+    id: PromiseOrValue<BytesLike>,
     overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -311,7 +334,7 @@ export interface MarrySign extends BaseContract {
 
   callStatic: {
     acceptAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -324,25 +347,30 @@ export interface MarrySign extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    getAcceptedAgreements(
+      overrides?: CallOverrides
+    ): Promise<MarrySign.AgreementStructOutput[]>;
+
     getAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<MarrySign.AgreementStructOutput>;
+
+    getAgreementByAddress(
+      partnerAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<MarrySign.AgreementStructOutput>;
 
     getAgreementCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getAgreements(
-      overrides?: CallOverrides
-    ): Promise<MarrySign.AgreementStructOutput[]>;
-
     refuseAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     terminateAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -350,24 +378,22 @@ export interface MarrySign extends BaseContract {
   };
 
   filters: {
-    "AgreementAccepted(uint256)"(index?: null): AgreementAcceptedEventFilter;
-    AgreementAccepted(index?: null): AgreementAcceptedEventFilter;
+    "AgreementAccepted(bytes32)"(id?: null): AgreementAcceptedEventFilter;
+    AgreementAccepted(id?: null): AgreementAcceptedEventFilter;
 
-    "AgreementCreated(uint256)"(index?: null): AgreementCreatedEventFilter;
-    AgreementCreated(index?: null): AgreementCreatedEventFilter;
+    "AgreementCreated(bytes32)"(id?: null): AgreementCreatedEventFilter;
+    AgreementCreated(id?: null): AgreementCreatedEventFilter;
 
-    "AgreementRefused(uint256)"(index?: null): AgreementRefusedEventFilter;
-    AgreementRefused(index?: null): AgreementRefusedEventFilter;
+    "AgreementRefused(bytes32)"(id?: null): AgreementRefusedEventFilter;
+    AgreementRefused(id?: null): AgreementRefusedEventFilter;
 
-    "AgreementTerminated(uint256)"(
-      index?: null
-    ): AgreementTerminatedEventFilter;
-    AgreementTerminated(index?: null): AgreementTerminatedEventFilter;
+    "AgreementTerminated(bytes32)"(id?: null): AgreementTerminatedEventFilter;
+    AgreementTerminated(id?: null): AgreementTerminatedEventFilter;
   };
 
   estimateGas: {
     acceptAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -380,23 +406,28 @@ export interface MarrySign extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
+    getAcceptedAgreements(overrides?: CallOverrides): Promise<BigNumber>;
+
     getAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    getAgreementByAddress(
+      partnerAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getAgreementCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getAgreements(overrides?: CallOverrides): Promise<BigNumber>;
-
     refuseAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     terminateAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -407,7 +438,7 @@ export interface MarrySign extends BaseContract {
 
   populateTransaction: {
     acceptAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
@@ -420,23 +451,30 @@ export interface MarrySign extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
+    getAcceptedAgreements(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    getAgreementByAddress(
+      partnerAddress: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getAgreementCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getAgreements(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     refuseAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     terminateAgreement(
-      index: PromiseOrValue<BigNumberish>,
+      id: PromiseOrValue<BytesLike>,
       overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 

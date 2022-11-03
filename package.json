@@ -1,12 +1,14 @@
 {
   "name": "marrysign.com",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export",
+    "copy-types": "bash ./scripts/copy-types.sh"
   },
   "dependencies": {
     "@rainbow-me/rainbowkit": "^0.7.3",

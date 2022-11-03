@@ -9,10 +9,10 @@ export const getAgreementCount = async () => {
   return value.toNumber()
 }
 
-export const getAgreements = async () => {
+export const getAcceptedAgreements = async () => {
   _checkPrerequisites()
 
-  return await (await _getContract()).getAgreements()
+  return await(await _getContract()).getAcceptedAgreements()
 }
 
 export const createAgreement = async (

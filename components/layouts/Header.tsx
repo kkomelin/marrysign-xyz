@@ -1,5 +1,10 @@
 import { FC } from 'react'
-import { APP_DESCRIPTION, APP_NAME, APP_URL } from '../../lib/config'
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_SLOGAN,
+  APP_URL,
+} from '../../lib/config'
 
 type Props = {}
 
@@ -18,6 +23,8 @@ const Header: FC<Props> = () => {
       <h2 className="my-8 text-2xl font-light leading-8 text-gray-500 sm:text-3xl">
         {APP_DESCRIPTION}
       </h2>
+
+      <p className="text-lg text-pink-400">{APP_SLOGAN}</p>
     </header>
   )
 }

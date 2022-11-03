@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import AgreementList from '../components/AgreementList'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
-import { getAgreements } from '../lib/contract/agreement'
+import { getAcceptedAgreements } from '../lib/contract/agreement'
 import { handleException } from '../lib/helpers'
 import { MarrySign } from '../typechain'
 
@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
   const loadAgreements = async () => {
     try {
-      const agreements = await getAgreements()
+      const agreements = await getAcceptedAgreements()
       setAgreements(agreements)
     } catch (e) {
       handleException(e)
