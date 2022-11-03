@@ -15,6 +15,12 @@ export const getAcceptedAgreements = async () => {
   return await(await _getContract()).getAcceptedAgreements()
 }
 
+export const getAgreementByAddress = async (partnerAddress: string) => {
+  _checkPrerequisites()
+
+  return await (await _getContract()).getAgreementByAddress(partnerAddress)
+}
+
 export const createAgreement = async (
   partner1Name: string,
   partner2Name: string,
@@ -47,12 +53,56 @@ export const createAgreement = async (
     })
   }
 
-  const receipt = await(await _getContract()).createAgreement(
+  const receipt = await contract.createAgreement(
     partner2Address,
     content,
     terminationCost,
     createdAt
   )
+
+  const result = await receipt.wait()
+
+  return result.status === 1
+}
+
+export const acceptAgreement = async (
+  id: string,
+  onAccept?: (agreementId: number) => void
+) => {
+  _checkPrerequisites()
+
+  const contract = await _getContract()
+
+  if (onAccept) {
+    contract.removeAllListeners('AgreementAccepted')
+    contract.on('AgreementAccepted', (result) => {
+      onAccept(result.toNumber())
+    })
+  }
+
+  const receipt = await contract.acceptAgreement(id, nowTimestamp())
+
+  const result = await receipt.wait()
+
+  return result.status === 1
+}
+
+export const refuseAgreement = async (
+  id: string,
+  onRefuse?: (agreementId: number) => void
+) => {
+  _checkPrerequisites()
+
+  const contract = await _getContract()
+
+  if (onRefuse) {
+    contract.removeAllListeners('AgreementRefused')
+    contract.on('AgreementRefused', (result) => {
+      onRefuse(result.toNumber())
+    })
+  }
+
+  const receipt = await contract.refuseAgreement(id, nowTimestamp())
 
   const result = await receipt.wait()
 

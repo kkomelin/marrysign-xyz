@@ -8,23 +8,28 @@ import AcceptAgreementForm from '../../components/AcceptAgreementForm'
 import MainLayout from '../../components/layouts/MainLayout'
 
 const AcceptAgreementPage: NextPage = () => {
-  const [txRegistered, setTxRegistered] = useState<boolean>(false)
+  const [agreementId, setAgreementId] = useState<string>()
   const { isDisconnected } = useAccount()
   const router = useRouter()
 
-  const loadAgreement = () => {
+  const loadAgreementByAddress = (partnerAddress: string) => {
     
   }
 
-  const handleAgreementAccepted = (agreementId: number) => {
-    console.log(agreementId)
-    if (!txRegistered) {
-      setTxRegistered(true)
-      return
-    }
-
+  const handleAgreementAccepted = () => {
+    toast('Congrats! Your marriage is registered! Time to celebrate!')
     router.push('/')
-    toast('Congrats! Your agreement has been created on blockchain!')
+  }
+  const handleAgreementRefused = () => {
+    toast(
+      'Congrats! You have successfullty refused the agreement your loved one created for you. If it helps, now you may create your own better version.'
+    )
+    router.push('/')
+  }
+
+  // @todo: Make sure the agreement found by address.
+  if (agreementId == null) {
+    return <></>
   }
 
   return (
@@ -34,7 +39,11 @@ const AcceptAgreementPage: NextPage = () => {
           <ConnectButton label="Sign in" showBalance={false} />
         )}
 
-        <AcceptAgreementForm onAgreementAccepted={handleAgreementAccepted} />
+        <AcceptAgreementForm
+          agreementId={agreementId}
+          onAgreementAccepted={handleAgreementAccepted}
+          onAgreementRefused={handleAgreementRefused}
+        />
       </div>
     </MainLayout>
   )
