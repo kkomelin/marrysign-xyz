@@ -1,4 +1,5 @@
 import { BytesLike } from 'ethers'
+import Link from 'next/link'
 import { FC } from 'react'
 import { hexToString } from '../lib/helpers'
 import { MarrySign } from '../typechain'
@@ -9,17 +10,15 @@ type Props = {
 const AgreementList: FC<Props> = (props) => {
   const { agreements } = props
 
-  if (agreements.length === 0) {
-    return <></>
-  }
-
   return (
     <div className="w-full mt-6">
+      {agreements.length === 0 && (
+        <p>
+          We have no agreements accepted yet. We'd be happy if yours was{' '}
+          <Link href="/agreement/create">the first</Link>.
+        </p>
+      )}
       {agreements
-        // .filter(
-        //   (agreement: MarrySign.AgreementStruct) =>
-        //     agreement.state == AgreementState.Accepted
-        // )
         .map((agreement: MarrySign.AgreementStruct, index: number) => {
           const content = JSON.parse(
             hexToString(agreement.content as BytesLike)

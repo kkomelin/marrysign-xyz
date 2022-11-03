@@ -12,6 +12,10 @@ const AcceptAgreementPage: NextPage = () => {
   const { isDisconnected } = useAccount()
   const router = useRouter()
 
+  const loadAgreement = () => {
+    
+  }
+
   const handleAgreementAccepted = (agreementId: number) => {
     console.log(agreementId)
     if (!txRegistered) {
