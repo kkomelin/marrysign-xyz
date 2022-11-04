@@ -1,23 +1,24 @@
-import { ChangeEvent, FC, MouseEvent, useState } from 'react'
+import { BytesLike } from 'ethers'
+import { FC, MouseEvent } from 'react'
+import { parseAgreementContent } from '../lib/content'
 import { acceptAgreement, refuseAgreement } from '../lib/contract/agreement'
 import { handleException } from '../lib/helpers'
+import { MarrySign } from '../typechain'
 import Button from './controls/Button'
 import TextArea from './controls/TextArea'
 
 type Props = {
-  agreementId: string
+  agreement: MarrySign.AgreementStruct
   onAgreementAccepted: () => void
   onAgreementRefused: () => void
 }
 const AcceptAgreementForm: FC<Props> = (props) => {
-  const { onAgreementAccepted, agreementId, onAgreementRefused } = props
-  const [vow, setVow] = useState<string>('')
+  const { onAgreementAccepted, agreement, onAgreementRefused } = props
 
   const handleAcceptAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
-      const successful = await acceptAgreement(agreementId)
-
+      const successful = await acceptAgreement(agreement.id.toString())
       if (successful) {
         onAgreementAccepted()
       }
@@ -29,8 +30,7 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const handleRefuseAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
-      const successful = await refuseAgreement(agreementId)
-
+      const successful = await refuseAgreement(agreement.id.toString())
       if (successful) {
         onAgreementRefused()
       }
@@ -39,19 +39,15 @@ const AcceptAgreementForm: FC<Props> = (props) => {
     }
   }
 
+  const agreementContent = parseAgreementContent(agreement.content as BytesLike)
+
   return (
     <div className="flex flex-col items-center justify-center w-full mt-6">
       <form className="flex flex-col justify-center w-full max-w-sm">
-        <TextArea
-          readOnly={true}
-          value={vow}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-            setVow(e.target.value)
-          }
-        />
+        <TextArea readOnly={true} value={agreementContent.vow} />
         <div className="flex flex-col justify-between">
           <Button onClick={handleAcceptAgreement}>Accept</Button>
-          <Button color="secondary" onClick={handleAcceptAgreement}>
+          <Button color="secondary" onClick={handleRefuseAgreement}>
             Refuse
           </Button>
         </div>

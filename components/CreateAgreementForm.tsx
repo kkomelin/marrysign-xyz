@@ -11,8 +11,6 @@ type Props = {
 }
 const CreateAgreementForm: FC<Props> = (props) => {
   const { onAgreementCreated } = props
-  // const { isConnected } = useAccount()
-  const [isAddButtonEnabled, setIsAddButtonEnabled] = useState<boolean>(true)
   const [partner1Name, setPartner1Name] = useState<string>('Alice Smith')
   const [partner2Name, setPartner2Name] = useState<string>('Bob Johnson')
   const [partner2Address, setPartner2Address] = useState<string>(
@@ -33,7 +31,6 @@ const CreateAgreementForm: FC<Props> = (props) => {
 
       if (successful) {
         onAgreementCreated()
-        setIsAddButtonEnabled(true)
       }
     } catch (e) {
       handleException(e)

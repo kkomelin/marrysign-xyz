@@ -21,6 +21,12 @@ export const getAgreementByAddress = async (partnerAddress: string) => {
   return await (await _getContract()).getAgreementByAddress(partnerAddress)
 }
 
+export const getAgreementById = async (id: string) => {
+  _checkPrerequisites()
+
+  return await (await _getContract()).getAgreement(id)
+}
+
 export const createAgreement = async (
   partner1Name: string,
   partner2Name: string,

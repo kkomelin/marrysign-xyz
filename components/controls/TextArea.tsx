@@ -6,7 +6,7 @@ type Props = {
   description?: string
   placeholder?: string
   disabled?: boolean
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void
   value?: string
   [key: string]: any
 }

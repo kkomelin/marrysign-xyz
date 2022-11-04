@@ -18,18 +18,13 @@ const AcceptAgreementPage: NextPage = () => {
 
   const handleAgreementAccepted = () => {
     toast('Congrats! Your marriage is registered! Time to celebrate!')
-    router.push('/')
+    // router.push('/')
   }
   const handleAgreementRefused = () => {
     toast(
       'Congrats! You have successfullty refused the agreement your loved one created for you. If it helps, now you may create your own better version.'
     )
-    router.push('/')
-  }
-
-  // @todo: Make sure the agreement found by address.
-  if (agreementId == null) {
-    return <></>
+    // router.push('/')
   }
 
   return (
@@ -40,7 +35,7 @@ const AcceptAgreementPage: NextPage = () => {
         )}
 
         <AcceptAgreementForm
-          agreementId={agreementId}
+          agreement={agreement}
           onAgreementAccepted={handleAgreementAccepted}
           onAgreementRefused={handleAgreementRefused}
         />
