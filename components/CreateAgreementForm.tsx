@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { DEFAULT_VOW } from '../lib/config/strings'
 import { createAgreement } from '../lib/contract/agreement'
-import { handleException } from '../lib/helpers'
+import { handleContractError } from '../lib/helpers'
 import Button from './controls/Button'
 import TextArea from './controls/TextArea'
 import TextField from './controls/TextField'
@@ -33,7 +33,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         onAgreementCreated()
       }
     } catch (e) {
-      handleException(e)
+      handleContractError(e)
     }
   }
 

@@ -1,5 +1,6 @@
 import { BytesLike, ethers } from 'ethers'
 import { toast } from 'react-toastify'
+import { ICustomContractError } from '../../types/ICustomContractError'
 import { APP_URL } from '../config'
 import { USER_FRIENDLY_ERROR_MESSAGE } from '../config/strings'
 
@@ -27,9 +28,10 @@ export const randomNum = (maxNum: number): number => {
   return Math.floor(Math.random() * maxNum)
 }
 
-export const handleException = (e: any) => {
+export const handleContractError = (e: ICustomContractError) => {
   toast.error(USER_FRIENDLY_ERROR_MESSAGE)
   console.error(e)
+  console.error(e.errorName)
 }
 
 export const isAbsolute = (url: string): boolean => {
@@ -42,4 +44,8 @@ export const toAbsolute = (url: string): string => {
   }
 
   return `${APP_URL}${url}`
+}
+
+export const stripHtml = (str: string): string => {
+  return str.replace(/(<([^>]+)>)/gi, '')
 }

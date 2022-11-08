@@ -1,29 +1,34 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { BigNumberish, BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
-import AcceptAgreementForm from '../../components/AcceptAgreementForm'
+import { AppContext } from '../../components/context/AppContext'
 import MainLayout from '../../components/layouts/MainLayout'
+import { parseAgreementContent } from '../../lib/content'
 import { getAgreementById } from '../../lib/contract/agreement'
-import { handleException } from '../../lib/helpers'
+import { contractStructToObject } from '../../lib/contract/contractStructs'
+import { contractStateToString } from '../../lib/contract/helpers'
+import { handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
+import { IAppContext } from '../../types/IAppContext'
 
-const AgreementPage: NextPage = (props) => {
-  const [agreementId, setAgreementId] = useState<string>()
+const AgreementPage: NextPage = () => {
   const { isDisconnected } = useAccount()
-  const [userAgreement, setUserAgreement] =
-    useState<MarrySign.AgreementStruct>()
+  const { setUserAgreement, userAgreement } =
+    useContext<IAppContext>(AppContext)
   const router = useRouter()
 
   const loadAgreement = async (id: string) => {
     try {
       const agreement = await getAgreementById(id)
-      setUserAgreement(agreement)
-      console.log(agreement)
+      setUserAgreement(
+        contractStructToObject(agreement) as MarrySign.AgreementStruct
+      )
     } catch (e) {
-      handleException(e)
+      handleContractError(e)
     }
   }
 
@@ -45,12 +50,11 @@ const AgreementPage: NextPage = (props) => {
     }
 
     loadAgreement(router.query.id.toString())
-  }, [])
+  }, [isDisconnected, router])
 
-  // @todo: Make sure the agreement found by address.
-  // if (agreementId == null) {
-  //   return <></>
-  // }
+  const agreementContent = userAgreement?.content
+    ? parseAgreementContent(userAgreement?.content as BytesLike)
+    : null
 
   return (
     <MainLayout>
@@ -59,12 +63,22 @@ const AgreementPage: NextPage = (props) => {
           <ConnectButton label="Sign in" showBalance={false} />
         )}
 
-        {userAgreement && (
-          <AcceptAgreementForm
-            agreement={userAgreement}
-            onAgreementAccepted={handleAgreementAccepted}
-            onAgreementRefused={handleAgreementRefused}
-          />
+        {userAgreement && agreementContent && (
+          <div>
+            <div>Agreement: {userAgreement.id.toString()}</div>
+            <div>
+              Parties:
+              <br />
+              {agreementContent.partner2.name}
+              <br />
+              {agreementContent.partner1.name}
+            </div>
+            <div>{agreementContent.vow}</div>
+            <div>
+              State:{' '}
+              {contractStateToString(userAgreement.state as BigNumberish)}
+            </div>
+          </div>
         )}
       </div>
     </MainLayout>

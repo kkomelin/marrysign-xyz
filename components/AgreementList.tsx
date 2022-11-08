@@ -1,3 +1,4 @@
+import c from 'clsx'
 import { BytesLike } from 'ethers'
 import Link from 'next/link'
 import { FC } from 'react'
@@ -6,9 +7,10 @@ import { MarrySign } from '../typechain'
 
 type Props = {
   agreements: MarrySign.AgreementStruct[]
+  userAgreementId?: BytesLike
 }
 const AgreementList: FC<Props> = (props) => {
-  const { agreements } = props
+  const { agreements, userAgreementId } = props
 
   return (
     <div className="w-full mt-6">
@@ -22,14 +24,22 @@ const AgreementList: FC<Props> = (props) => {
         const content = parseAgreementContent(agreement.content as BytesLike)
 
         return (
-          <div
+          <Link
             key={index}
-            className="p-0.5 my-3 border rounded bg-gradient-to-r from-pink-600 via-indigo-500 to-purple-400"
+            href={`/agreement/${agreement.id.toString()}`}
+            className={c(
+              'block p-0.5 my-3 border rounded bg-gradient-to-r from-pink-600 via-indigo-500 to-purple-400'
+            )}
           >
-            <div className="p-3 bg-white rounded">
+            <div
+              className={c(
+                'p-3 rounded',
+                userAgreementId === agreement.id ? 'bg-pink-300' : 'bg-white'
+              )}
+            >
               {content.partner1.name} + {content.partner2.name}
             </div>
-          </div>
+          </Link>
         )
       })}
     </div>
