@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+import { BytesLike, ethers } from 'ethers'
 import { MarrySign__factory } from '../../typechain'
 import { hasEthereum, nowTimestamp, stringToHex } from '../helpers'
 
@@ -33,7 +33,7 @@ export const createAgreement = async (
   partner2Address: string,
   vow: string,
   terminationCost: number,
-  onCreate?: (agreementId: number) => void
+  onCreate?: (agreementId: BytesLike) => void
 ) => {
   _checkPrerequisites()
 
@@ -54,8 +54,9 @@ export const createAgreement = async (
 
   if (onCreate) {
     contract.removeAllListeners('AgreementCreated')
-    contract.on('AgreementCreated', (result) => {
-      onCreate(result.toNumber())
+    contract.on('AgreementCreated', (agreementId: BytesLike) => {
+      console.log(agreementId)
+      onCreate(agreementId)
     })
   }
 
@@ -66,14 +67,14 @@ export const createAgreement = async (
     createdAt
   )
 
-  const result = await receipt.wait()
+  const result = await receipt.wait(1)
 
   return result.status === 1
 }
 
 export const acceptAgreement = async (
   id: string,
-  onAccept?: (agreementId: number) => void
+  onAccept?: (agreementId: BytesLike) => void
 ) => {
   _checkPrerequisites()
 
@@ -81,21 +82,21 @@ export const acceptAgreement = async (
 
   if (onAccept) {
     contract.removeAllListeners('AgreementAccepted')
-    contract.on('AgreementAccepted', (result) => {
-      onAccept(result.toNumber())
+    contract.on('AgreementAccepted', (agreementId: BytesLike) => {
+      onAccept(agreementId)
     })
   }
 
   const receipt = await contract.acceptAgreement(id, nowTimestamp())
 
-  const result = await receipt.wait()
+  const result = await receipt.wait(1)
 
   return result.status === 1
 }
 
 export const refuseAgreement = async (
   id: string,
-  onRefuse?: (agreementId: number) => void
+  onRefuse?: (agreementId: BytesLike) => void
 ) => {
   _checkPrerequisites()
 
@@ -103,14 +104,14 @@ export const refuseAgreement = async (
 
   if (onRefuse) {
     contract.removeAllListeners('AgreementRefused')
-    contract.on('AgreementRefused', (result) => {
-      onRefuse(result.toNumber())
+    contract.on('AgreementRefused', (agreementId: BytesLike) => {
+      onRefuse(agreementId)
     })
   }
 
   const receipt = await contract.refuseAgreement(id, nowTimestamp())
 
-  const result = await receipt.wait()
+  const result = await receipt.wait(1)
 
   return result.status === 1
 }

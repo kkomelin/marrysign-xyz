@@ -14,26 +14,22 @@ const AcceptAgreementPage: NextPage = () => {
   const { userAgreement } = useContext<IAppContext>(AppContext)
   const router = useRouter()
 
-  const handleAgreementAccepted = async () => {
+  const handleAgreementAccepted = () => {
     toast('Congrats! Your marriage is registered! Time to celebrate!')
 
     if (userAgreement) {
-      router.push(`/agreeement/${userAgreement.id}`)
+      router.push(`/agreement/${userAgreement.id}`)
     }
   }
   const handleAgreementRefused = () => {
     toast(
-      'Congrats! You have successfullty refused the agreement your loved one created for you. If it helps, now you may create your own better version.'
+      'You have successfullty refused the agreement your loved one created for you. If it helps, now you may create your own better version.'
     )
-    router.push('/')
+    router.push('/agreement/create')
   }
 
   useEffect(() => {
-    if (address == null) {
-      return
-    }
-
-    if (userAgreement === null) {
+    if (address == null || userAgreement === null) {
       return
     }
 

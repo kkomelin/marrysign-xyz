@@ -1,3 +1,4 @@
+import { BytesLike } from 'ethers'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { DEFAULT_VOW } from '../lib/config/strings'
 import { createAgreement } from '../lib/contract/agreement'
@@ -7,7 +8,7 @@ import TextArea from './controls/TextArea'
 import TextField from './controls/TextField'
 
 type Props = {
-  onAgreementCreated: () => void
+  onAgreementCreated: (agreementId: BytesLike) => void
 }
 const CreateAgreementForm: FC<Props> = (props) => {
   const { onAgreementCreated } = props
@@ -26,12 +27,13 @@ const CreateAgreementForm: FC<Props> = (props) => {
         partner2Name,
         partner2Address,
         vow,
-        10
+        10,
+        onAgreementCreated
       )
 
-      if (successful) {
-        onAgreementCreated()
-      }
+      // if (successful) {
+      //   onAgreementCreated()
+      // }
     } catch (e) {
       handleContractError(e)
     }

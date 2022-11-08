@@ -49,3 +49,7 @@ export const toAbsolute = (url: string): string => {
 export const stripHtml = (str: string): string => {
   return str.replace(/(<([^>]+)>)/gi, '')
 }
+
+export const absoluteAgreementUrl = (agreementId: BytesLike): string => {
+  return toAbsolute(`/agreement/${agreementId.toString()}`)
+}

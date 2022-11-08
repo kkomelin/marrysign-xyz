@@ -38,7 +38,6 @@ const Home: NextPage = () => {
   }
 
   const loadAgreementByAddress = async (address: string) => {
-    console.log(address)
     try {
       const agreement = await getAgreementByAddress(address)
       const converted = contractStructToObject(agreement)

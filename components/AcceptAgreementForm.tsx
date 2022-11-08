@@ -48,14 +48,14 @@ const AcceptAgreementForm: FC<Props> = (props) => {
         {agreementContent && (
           <>
             <div>
-              By pressing Accept, you{' '}
+              By pressing Accept, you,{' '}
               {agreement.alice === address
                 ? agreementContent.partner1.name
-                : agreementContent.partner2.name}{' '}
-              promise the following to
+                : agreementContent.partner2.name}
+              , promise the following to{' '}
               {agreement.alice === address
                 ? agreementContent.partner2.name
-                : agreementContent.partner1.name}{' '}
+                : agreementContent.partner1.name}
               :
             </div>
             <div>{agreementContent.vow}</div>
