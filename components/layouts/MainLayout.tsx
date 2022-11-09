@@ -8,7 +8,7 @@ type Props = {
 
 const MainLayout: FC<PropsWithChildren<Props>> = ({ children, meta }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-tertiary">
+    <div className="py-6">
       <Meta>{meta}</Meta>
       <Header />
       <main className="flex flex-col items-center justify-between mx-auto flex-grow-1 bg-j-primary">

@@ -6,7 +6,7 @@ type Props = {}
 
 const Header: FC<Props> = () => {
   return (
-    <header className="flex flex-col items-center justify-center pt-8 pb-4">
+    <header className="flex flex-col items-center justify-center pb-8">
       <h1>
         <Link
           href="/"

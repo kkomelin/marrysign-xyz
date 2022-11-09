@@ -17,7 +17,7 @@ const AgreementList: FC<Props> = (props) => {
       {agreements.length === 0 && (
         <p>
           We have no agreements accepted yet. We'd be happy if yours was{' '}
-          <Link href="/agreement/create">the first</Link>.
+          <Link href="/create">the first</Link>.
         </p>
       )}
       {agreements.map((agreement: MarrySign.AgreementStruct, index: number) => {
@@ -26,7 +26,7 @@ const AgreementList: FC<Props> = (props) => {
         return (
           <Link
             key={index}
-            href={`/agreement/${agreement.id.toString()}`}
+            href={`/${agreement.id.toString()}`}
             className={c(
               'block p-0.5 my-3 border rounded bg-gradient-to-r from-pink-600 via-indigo-500 to-purple-400'
             )}

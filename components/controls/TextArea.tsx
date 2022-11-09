@@ -27,7 +27,7 @@ const TextArea: FC<Props> = (props) => {
       {value && label && (
         <label
           htmlFor={id}
-          className="block text-xs text-left text-gray-500 text-thin"
+          className="block text-xs text-left text-gray-600 text-thin"
         >
           {label}
         </label>

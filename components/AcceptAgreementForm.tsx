@@ -49,11 +49,11 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const agreementContent = parseAgreementContent(agreement.content as BytesLike)
 
   return (
-    <div className="flex flex-col items-center justify-center w-full mt-6">
+    <div className="flex flex-col items-center justify-center w-full p-6 mt-6 border rounded-sm">
       <form className="flex flex-col justify-center w-full max-w-sm">
         {agreementContent && (
           <>
-            <div>
+            <div className="text-red-600">
               By pressing Accept, you,{' '}
               {agreement.alice === address
                 ? agreementContent.partner1.name

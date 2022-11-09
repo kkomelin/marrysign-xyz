@@ -51,5 +51,5 @@ export const stripHtml = (str: string): string => {
 }
 
 export const absoluteAgreementUrl = (agreementId: BytesLike): string => {
-  return toAbsolute(`/agreement/${agreementId.toString()}`)
+  return toAbsolute(`/${agreementId.toString()}`)
 }
