@@ -1,4 +1,4 @@
-import { BytesLike, ethers } from 'ethers'
+import { BigNumberish, BytesLike, ethers } from 'ethers'
 import { MarrySign__factory } from '../../typechain'
 import { hasEthereum, nowTimestamp, stringToHex } from '../helpers'
 
@@ -110,6 +110,32 @@ export const refuseAgreement = async (
   }
 
   const receipt = await contract.refuseAgreement(id, nowTimestamp())
+
+  const result = await receipt.wait(1)
+
+  return result.status === 1
+}
+
+
+export const terminateAgreement = async (
+  id: string,
+  terminationCost: BigNumberish,
+  onTerminate?: (agreementId: BytesLike) => void
+) => {
+  _checkPrerequisites()
+
+  const contract = await _getContract()
+
+  if (onTerminate) {
+    contract.removeAllListeners('AgreementTerminated')
+    contract.on('AgreementTerminated', (agreementId: BytesLike) => {
+      onTerminate(agreementId)
+    })
+  }
+
+  const receipt = await contract.terminateAgreement(id, {
+    value: terminationCost,
+  })
 
   const result = await receipt.wait(1)
 

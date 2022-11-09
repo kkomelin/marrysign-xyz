@@ -1,4 +1,5 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
@@ -14,18 +15,16 @@ const AcceptAgreementPage: NextPage = () => {
   const { userAgreement } = useContext<IAppContext>(AppContext)
   const router = useRouter()
 
-  const handleAgreementAccepted = () => {
+  const handleAgreementAccepted = (agreementId: BytesLike) => {
     toast('Congrats! Your marriage is registered! Time to celebrate!')
 
-    if (userAgreement) {
-      router.push(`/agreement/${userAgreement.id}`)
-    }
+    router.push(`/agreement/${agreementId.toString()}`)
   }
-  const handleAgreementRefused = () => {
+  const handleAgreementRefused = (agreementId: BytesLike) => {
     toast(
       'You have successfullty refused the agreement your loved one created for you. If it helps, now you may create your own better version.'
     )
-    router.push('/agreement/create')
+    router.push(`/agreement/${agreementId.toString()}`)
   }
 
   useEffect(() => {

@@ -9,8 +9,8 @@ import Button from './controls/Button'
 
 type Props = {
   agreement: MarrySign.AgreementStruct
-  onAgreementAccepted: () => void
-  onAgreementRefused: () => void
+  onAgreementAccepted: (agreementId: BytesLike) => void
+  onAgreementRefused: (agreementId: BytesLike) => void
 }
 const AcceptAgreementForm: FC<Props> = (props) => {
   const { onAgreementAccepted, agreement, onAgreementRefused } = props
@@ -19,9 +19,12 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const handleAcceptAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
-      const successful = await acceptAgreement(agreement.id.toString())
+      const successful = await acceptAgreement(
+        agreement.id.toString(),
+        onAgreementAccepted
+      )
       if (successful) {
-        onAgreementAccepted()
+        // onAgreementAccepted()
       }
     } catch (e) {
       handleContractError(e)
@@ -31,9 +34,12 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const handleRefuseAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
-      const successful = await refuseAgreement(agreement.id.toString())
+      const successful = await refuseAgreement(
+        agreement.id.toString(),
+        onAgreementRefused
+      )
       if (successful) {
-        onAgreementRefused()
+        // onAgreementRefused()
       }
     } catch (e) {
       handleContractError(e)

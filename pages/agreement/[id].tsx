@@ -3,10 +3,11 @@ import { BigNumberish, BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import { AppContext } from '../../components/context/AppContext'
-import Button from '../../components/controls/Button'
 import MainLayout from '../../components/layouts/MainLayout'
+import TerminateAgreementForm from '../../components/TerminateAgreementForm'
 import { parseAgreementContent } from '../../lib/content'
 import {
   getAgreementByAddress,
@@ -51,6 +52,14 @@ const AgreementPage: NextPage = () => {
 
       handleContractError(e)
     }
+  }
+
+  const handleAgreementTerminated = (agreementId: BytesLike) => {
+    toast(
+      "Your agreement has been terminated. We're sorry you had to do it but life is life and it's going on, so we'd be happy to see you again here."
+    )
+
+    router.push(`/`)
   }
 
   useEffect(() => {
@@ -102,7 +111,10 @@ const AgreementPage: NextPage = () => {
         )}
 
         {userAgreement && agreement && userAgreement.id === agreement.id && (
-          <Button onClick={() => alert('terminate')}>Terminate</Button>
+          <TerminateAgreementForm
+            agreement={agreement}
+            onAgreementTerminated={handleAgreementTerminated}
+          />
         )}
       </div>
     </MainLayout>
