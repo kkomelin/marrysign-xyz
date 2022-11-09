@@ -1,16 +1,14 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import { AppContext } from '../components/context/AppContext'
+import ConnectButton from '../components/controls/ConnectButton'
 import CreateAgreementForm from '../components/CreateAgreementForm'
 import MainLayout from '../components/layouts/MainLayout'
-import AgreementQRCode from '../components/misc/AgreementQRCode'
-import { absoluteAgreementUrl } from '../lib/helpers'
+import ShareWithPartnerWidget from '../components/ShareWithPartnerWidget'
 import { EAgreementState } from '../types/EAgreementState'
 import { IAppContext } from '../types/IAppContext'
 
@@ -27,7 +25,7 @@ const WizardPage: NextPage = () => {
 
     enableForceLoadUserAgreement()
 
-    // router.push(`/${agreementId.toString()}`)
+    // router.push(agreementPath(agreement.id as BytesLike))
   }
 
   return (
@@ -39,9 +37,7 @@ const WizardPage: NextPage = () => {
           <h3 className="font-bold">
             {isConnected && <>(done)</>} 1. Connect with your wallet
           </h3>
-          {isDisconnected && (
-            <ConnectButton label="Sign in" showBalance={false} />
-          )}
+          {isDisconnected && <ConnectButton />}
         </div>
 
         <div>
@@ -56,25 +52,12 @@ const WizardPage: NextPage = () => {
 
         <div>
           <h3 className="font-bold">
-            {isConnected && <>(done)</>} 3. Connect with your wallet
+            3. Share with your partner
           </h3>
           {userAgreement &&
             userAgreement.state == EAgreementState.Created &&
             userAgreement.alice === address && (
-              <div className="flex flex-col items-center justify-center w-full max-w-sm p-6 my-6 border rounded-sm">
-                <div className="py-2 text-center">
-                  Your agreement is created,
-                  <br />
-                  next step is to share it with your loved one!
-                </div>
-                <AgreementQRCode id={userAgreement.id as BytesLike} />
-                <Link
-                  className="block break-all"
-                  href={`/${userAgreement.id.toString()}`}
-                >
-                  {absoluteAgreementUrl(userAgreement.id.toString())}
-                </Link>
-              </div>
+              <ShareWithPartnerWidget agreement={userAgreement} />
             )}
         </div>
       </div>

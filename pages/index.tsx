@@ -5,10 +5,11 @@ import { useAccount } from 'wagmi'
 import AgreementList from '../components/AgreementList'
 import { AppContext } from '../components/context/AppContext'
 import ButtonLink from '../components/controls/ButtonLink'
+import ConnectButton from '../components/controls/ConnectButton'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
 import { getAcceptedAgreements } from '../lib/contract/agreement'
 import { contractStructToObject } from '../lib/contract/contractStructs'
-import { handleContractError } from '../lib/helpers'
+import { agreementPath, handleContractError } from '../lib/helpers'
 import { MarrySign } from '../typechain'
 import { IAppContext } from '../types/IAppContext'
 import { ICustomContractError } from '../types/ICustomContractError'
@@ -16,6 +17,7 @@ import { ICustomContractError } from '../types/ICustomContractError'
 const Home: NextPage = () => {
   const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
   const { userAgreement } = useContext<IAppContext>(AppContext)
+  const { isConnected, isDisconnected } = useAccount()
 
   const loadAgreements = async () => {
     try {
@@ -34,7 +36,16 @@ const Home: NextPage = () => {
 
   return (
     <FrontpageLayout>
-      <ButtonLink href="/create">Let's get started</ButtonLink>
+      {isConnected && userAgreement == null && (
+        <ButtonLink href="/create">Let's get started</ButtonLink>
+      )}
+      {isConnected && userAgreement && (
+        <ButtonLink href={agreementPath(userAgreement.id as BytesLike)}>
+          My agreement
+        </ButtonLink>
+      )}
+
+      {isDisconnected && <ConnectButton />}
 
       <AgreementList
         agreements={agreements}

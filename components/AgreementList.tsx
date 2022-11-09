@@ -3,6 +3,7 @@ import { BytesLike } from 'ethers'
 import Link from 'next/link'
 import { FC } from 'react'
 import { parseAgreementContent } from '../lib/content'
+import { agreementPath } from '../lib/helpers'
 import { MarrySign } from '../typechain'
 
 type Props = {
@@ -14,19 +15,15 @@ const AgreementList: FC<Props> = (props) => {
 
   return (
     <div className="w-full mt-6">
-      {agreements.length === 0 && (
-        <p>
-          We have no agreements accepted yet. We'd be happy if yours was{' '}
-          <Link href="/create">the first</Link>.
-        </p>
-      )}
+      {agreements.length === 0 && <p>There are no accepted agreements yet</p>}
+
       {agreements.map((agreement: MarrySign.AgreementStruct, index: number) => {
         const content = parseAgreementContent(agreement.content as BytesLike)
 
         return (
           <Link
             key={index}
-            href={`/${agreement.id.toString()}`}
+            href={agreementPath(agreement.id as BytesLike)}
             className={c(
               'block p-0.5 my-3 border rounded bg-gradient-to-r from-pink-600 via-indigo-500 to-purple-400'
             )}

@@ -55,7 +55,6 @@ export const createAgreement = async (
   if (onCreate) {
     contract.removeAllListeners('AgreementCreated')
     contract.on('AgreementCreated', (agreementId: BytesLike) => {
-      console.log(agreementId)
       onCreate(agreementId)
     })
   }

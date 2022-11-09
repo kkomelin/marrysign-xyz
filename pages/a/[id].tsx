@@ -1,23 +1,22 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { BigNumberish, BytesLike } from 'ethers'
+import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
-import AcceptAgreementForm from '../components/AcceptAgreementForm'
-import { AppContext } from '../components/context/AppContext'
-import MainLayout from '../components/layouts/MainLayout'
-import AgreementQRCode from '../components/misc/AgreementQRCode'
-import TerminateAgreementForm from '../components/TerminateAgreementForm'
-import { parseAgreementContent } from '../lib/content'
-import { getAgreementById } from '../lib/contract/agreement'
-import { contractStructToObject } from '../lib/contract/contractStructs'
-import { contractStateToString } from '../lib/contract/helpers'
-import { handleContractError } from '../lib/helpers'
-import { MarrySign } from '../typechain'
-import { EAgreementState } from '../types/EAgreementState'
-import { IAppContext } from '../types/IAppContext'
+import AcceptAgreementForm from '../../components/AcceptAgreementForm'
+import AgreementInfoWidget from '../../components/AgreementInfoWidget'
+import { AppContext } from '../../components/context/AppContext'
+import ConnectButton from '../../components/controls/ConnectButton'
+import MainLayout from '../../components/layouts/MainLayout'
+import TerminateAgreementForm from '../../components/TerminateAgreementForm'
+import { parseAgreementContent } from '../../lib/content'
+import { getAgreementById } from '../../lib/contract/agreement'
+import { contractStructToObject } from '../../lib/contract/contractStructs'
+import { handleContractError } from '../../lib/helpers'
+import { MarrySign } from '../../typechain'
+import { EAgreementState } from '../../types/EAgreementState'
+import { IAppContext } from '../../types/IAppContext'
 
 const AgreementPage: NextPage = () => {
   const { isDisconnected } = useAccount()
@@ -97,35 +96,13 @@ const AgreementPage: NextPage = () => {
   return (
     <MainLayout>
       <div className="flex flex-col items-center justify-center">
-        {isDisconnected && (
-          <ConnectButton label="Sign in" showBalance={false} />
-        )}
+        {isDisconnected && <ConnectButton />}
 
         {agreement && agreementContent && (
-          <div className="w-full max-w-sm text-center">
-            <div className="flex flex-col items-center justify-center">
-              <AgreementQRCode id={agreement.id as BytesLike} />
-            </div>
-            <div className="py-1 break-all">
-              Agreement ID: <br /> {agreement.id.toString()}
-            </div>
-            <div className="py-1">
-              Parties:
-              <br />
-              {agreementContent.partner2.name}
-              <br />
-              {agreementContent.partner1.name}
-            </div>
-            <div className="py-1">
-              Vow:
-              <br />
-              {agreementContent.vow}
-            </div>
-            <div className="py-1">
-              State:
-              <br /> {contractStateToString(agreement.state as BigNumberish)}
-            </div>
-          </div>
+          <AgreementInfoWidget
+            agreement={agreement}
+            agreementContent={agreementContent}
+          />
         )}
 
         {address &&

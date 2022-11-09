@@ -50,6 +50,10 @@ export const stripHtml = (str: string): string => {
   return str.replace(/(<([^>]+)>)/gi, '')
 }
 
+export const agreementPath = (agreementId: BytesLike): string => {
+  return `/a/${agreementId.toString()}`
+}
+
 export const absoluteAgreementUrl = (agreementId: BytesLike): string => {
-  return toAbsolute(`/${agreementId.toString()}`)
+  return toAbsolute(agreementPath(agreementId))
 }

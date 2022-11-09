@@ -1,10 +1,11 @@
 import '@rainbow-me/rainbowkit/styles.css'
+import { BytesLike } from 'ethers'
 import { useRouter } from 'next/router'
 import { FC, PropsWithChildren, useContext, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { getAgreementByAddress } from '../../lib/contract/agreement'
 import { contractStructToObject } from '../../lib/contract/contractStructs'
-import { handleContractError } from '../../lib/helpers'
+import { agreementPath, handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { ECustomContractError } from '../../types/ECustomContractError'
@@ -34,7 +35,7 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
         agreement.state === EAgreementState.Created &&
         agreement.bob === address
       ) {
-        return router.push(`/${agreement?.id.toString()}`)
+        return router.push(agreementPath(agreement.id as BytesLike))
       }
     } catch (e: ICustomContractError) {
       if (e.errorName === ECustomContractError.AgreementNotFound) {
