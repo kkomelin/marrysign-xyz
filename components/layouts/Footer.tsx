@@ -12,20 +12,28 @@ const Footer: FC<Props> = () => {
 
   return (
     <footer className="flex flex-col items-center justify-center w-full py-6 text-gray-400 border-t">
-      <div className="flex flex-row items-center justify-center w-full">
-        <span>For updates, follow</span>
-        <a
-          href={twitterUrl}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-          className="inline-block mx-1 text-indigo-400 hover:underline"
-        >
-          @{APP_TWITTER_HANDLE}
-        </a>
-      </div>
-
+      <Follow twitterUrl={twitterUrl} />
       <Disclaimer />
     </footer>
+  )
+}
+
+type FollowProps = {
+  twitterUrl: string
+}
+const Follow: FC<FollowProps> = ({ twitterUrl }) => {
+  return (
+    <div className="flex flex-row items-center justify-center w-full">
+      <span>For updates, follow</span>
+      <a
+        href={twitterUrl}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        className="inline-block mx-1 text-indigo-400 hover:underline"
+      >
+        @{APP_TWITTER_HANDLE}
+      </a>
+    </div>
   )
 }
 
