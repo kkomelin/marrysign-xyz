@@ -8,8 +8,10 @@ export const AppContext = createContext<IAppContext>({
   enableForceLoadUserAgreement: () => {},
   disableForceLoadUserAgreement: () => {},
 
-  appLoading: true,
-  setAppLoading: () => {},
+  appLoading: false,
+  appLoadingMessage: undefined,
+  showAppLoading: () => {},
+  hideAppLoading: () => {},
 })
 
 export const AppContextProvider = AppContext.Provider

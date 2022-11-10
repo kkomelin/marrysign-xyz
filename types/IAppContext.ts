@@ -6,7 +6,9 @@ export type IAppContext = {
   isForceLoadUserAgreementEnabled: boolean
   enableForceLoadUserAgreement: () => void
   disableForceLoadUserAgreement: () => void
-  
+
   appLoading: boolean
-  setAppLoading: (newState: boolean) => void
+  appLoadingMessage?: string
+  showAppLoading: (message?: string) => void
+  hideAppLoading: () => void
 }

@@ -2,6 +2,7 @@ import { BigNumberish, BytesLike } from 'ethers'
 import { FC } from 'react'
 import { contractStateToString } from '../lib/contract/helpers'
 import { MarrySign } from '../typechain'
+import { EAgreementState } from '../types/EAgreementState'
 import { IAgreementContent } from '../types/IAgreementContent'
 import CopyToClipboardButton from './controls/CopyToClipboardButton'
 import AgreementQRCode from './misc/AgreementQRCode'
@@ -15,6 +16,13 @@ const AgreementInfoWidget: FC<Props> = (props) => {
 
   if (!agreement || !agreementContent) {
     return <></>
+  }
+
+  let state = contractStateToString(agreement.state as BigNumberish)
+
+  // Adapt the state language because it's Cancelled for Alice and Refused for Bob.
+  if (agreement.state === EAgreementState.Refused) {
+    state = state + '/Cancelled'
   }
 
   return (
@@ -41,9 +49,7 @@ const AgreementInfoWidget: FC<Props> = (props) => {
         <br />
         <b>{agreementContent.vow}</b>
       </div>
-      <div className="py-1">
-        State: {contractStateToString(agreement.state as BigNumberish)}
-      </div>
+      <div className="py-1">State: {state}</div>
     </div>
   )
 }

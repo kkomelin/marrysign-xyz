@@ -10,17 +10,17 @@ const Header: FC<Props> = () => {
       <h1>
         <Link
           href="/"
-          className="text-5xl font-extrabold text-transparent sm:text-6xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+          className="text-4xl font-extrabold text-transparent sm:text-5xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
         >
           {APP_NAME}
         </Link>
       </h1>
 
-      <h2 className="my-8 text-2xl font-light leading-8 text-gray-500 sm:text-3xl">
+      <h2 className="mt-4 mb-4 text-xl font-light leading-8 text-center text-gray-500 md:mt-6 sm:text-2xl">
         {APP_DESCRIPTION}
       </h2>
 
-      <p className="text-lg text-pink-400">{APP_SLOGAN}</p>
+      {/* <p className="text-lg text-pink-400">{APP_SLOGAN}</p> */}
     </header>
   )
 }

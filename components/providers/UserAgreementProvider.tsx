@@ -1,7 +1,7 @@
 import '@rainbow-me/rainbowkit/styles.css'
 import { BytesLike } from 'ethers'
 import { useRouter } from 'next/router'
-import { FC, PropsWithChildren, useContext, useEffect } from 'react'
+import { FC, PropsWithChildren, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { getAgreementByAddress } from '../../lib/contract/agreement'
 import { contractStructToObject } from '../../lib/contract/contractStructs'
@@ -9,9 +9,8 @@ import { agreementPath, handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { ECustomContractError } from '../../types/ECustomContractError'
-import { IAppContext } from '../../types/IAppContext'
 import { ICustomContractError } from '../../types/ICustomContractError'
-import { AppContext } from '../context/AppContext'
+import { useAppContext } from '../hooks/useAppContext'
 
 type Props = {}
 const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
@@ -20,14 +19,16 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
     setUserAgreement,
     userAgreement,
     appLoading,
-    setAppLoading,
+    showAppLoading,
+    hideAppLoading,
     isForceLoadUserAgreementEnabled,
     disableForceLoadUserAgreement,
-  } = useContext<IAppContext>(AppContext)
+  } = useAppContext()
   const router = useRouter()
 
   const loadAgreementByAddress = async (address: string) => {
     try {
+      showAppLoading('Adapting the app for you...')
       const agreement = await getAgreementByAddress(address)
       const converted = contractStructToObject(agreement)
       setUserAgreement(converted as MarrySign.AgreementStruct)
@@ -45,7 +46,7 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
         handleContractError(e)
       }
     } finally {
-      setAppLoading(false)
+      hideAppLoading()
     }
   }
 
@@ -67,9 +68,9 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
     loadAgreementByAddress(address)
   }, [isDisconnected, address, userAgreement, isForceLoadUserAgreementEnabled])
 
-  if (isConnected && appLoading) {
-    return <>Loading...</>
-  }
+  // if (isConnected && appLoading) {
+  //   return <>Loading...</>
+  // }
 
   return <>{children}</>
 }

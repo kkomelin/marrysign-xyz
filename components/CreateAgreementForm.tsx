@@ -8,6 +8,7 @@ import { handleContractError } from '../lib/helpers'
 import Button from './controls/Button'
 import TextArea from './controls/TextArea'
 import TextField from './controls/TextField'
+import { useAppContext } from './hooks/useAppContext'
 
 type Props = {
   onAgreementCreated: (agreementId: BytesLike) => void
@@ -22,6 +23,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
     '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'
   )
   const [vow, setVow] = useState<string>(DEFAULT_VOW)
+  const { showAppLoading, hideAppLoading } = useAppContext()
 
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -35,19 +37,24 @@ const CreateAgreementForm: FC<Props> = (props) => {
     }
 
     try {
+      showAppLoading('Creating your agreement...')
       const successful = await createAgreement(
         partner1Name,
         partner2Name,
         partner2Address,
         vow,
         terminationCost,
-        onAgreementCreated
+        (agreementId: BytesLike) => {
+          hideAppLoading()
+          return onAgreementCreated(agreementId)
+        }
       )
 
       // if (successful) {
       //   onAgreementCreated()
       // }
     } catch (e) {
+      hideAppLoading()
       handleContractError(e)
     }
   }

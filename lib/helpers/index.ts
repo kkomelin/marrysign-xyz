@@ -29,7 +29,16 @@ export const randomNum = (maxNum: number): number => {
 }
 
 export const handleContractError = (e: ICustomContractError) => {
-  toast.error(USER_FRIENDLY_ERROR_MESSAGE)
+  let errorMessage = USER_FRIENDLY_ERROR_MESSAGE
+
+  if (e?.code == 'ACTION_REJECTED') {
+    toast.warn(
+      "Seems like you rejected the transaction. Let's maybe try one more time"
+    )
+  } else {
+    toast.error(errorMessage)
+  }
+
   console.error(e)
   console.error(e.errorName)
 }

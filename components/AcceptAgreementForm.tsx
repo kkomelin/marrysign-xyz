@@ -6,6 +6,7 @@ import { acceptAgreement, refuseAgreement } from '../lib/contract/agreement'
 import { handleContractError } from '../lib/helpers'
 import { MarrySign } from '../typechain'
 import Button from './controls/Button'
+import { useAppContext } from './hooks/useAppContext'
 
 type Props = {
   agreement: MarrySign.AgreementStruct
@@ -15,18 +16,24 @@ type Props = {
 const AcceptAgreementForm: FC<Props> = (props) => {
   const { onAgreementAccepted, agreement, onAgreementRefused } = props
   const { address } = useAccount()
+  const { showAppLoading, hideAppLoading } = useAppContext()
 
   const handleAcceptAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
+      showAppLoading('Accepting the agreement...')
       const successful = await acceptAgreement(
         agreement.id.toString(),
-        onAgreementAccepted
+        (agreementId: BytesLike) => {
+          hideAppLoading()
+          return onAgreementAccepted(agreementId)
+        }
       )
-      if (successful) {
-        // onAgreementAccepted()
-      }
+      // if (successful) {
+      //   // onAgreementAccepted()
+      // }
     } catch (e) {
+      hideAppLoading()
       handleContractError(e)
     }
   }
@@ -34,14 +41,19 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const handleRefuseAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     try {
+      showAppLoading('Refusing the agreement...')
       const successful = await refuseAgreement(
         agreement.id.toString(),
-        onAgreementRefused
+        (agreementId: BytesLike) => {
+          hideAppLoading()
+          return onAgreementRefused(agreementId)
+        }
       )
-      if (successful) {
-        // onAgreementRefused()
-      }
+      // if (successful) {
+      //   // onAgreementRefused()
+      // }
     } catch (e) {
+      hideAppLoading()
       handleContractError(e)
     }
   }

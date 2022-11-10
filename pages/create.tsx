@@ -1,22 +1,17 @@
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { useContext } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
-import { AppContext } from '../components/context/AppContext'
 import ConnectButton from '../components/controls/ConnectButton'
 import CreateAgreementForm from '../components/CreateAgreementForm'
+import { useAppContext } from '../components/hooks/useAppContext'
 import MainLayout from '../components/layouts/MainLayout'
 import ShareWithPartnerWidget from '../components/ShareWithPartnerWidget'
 import { EAgreementState } from '../types/EAgreementState'
-import { IAppContext } from '../types/IAppContext'
 
 const WizardPage: NextPage = () => {
   const { isDisconnected, isConnected, address } = useAccount()
-  const { userAgreement, enableForceLoadUserAgreement } =
-    useContext<IAppContext>(AppContext)
-  const router = useRouter()
+  const { userAgreement, enableForceLoadUserAgreement } = useAppContext()
 
   const handleAgreementCreated = (agreementId: BytesLike) => {
     toast(
@@ -31,29 +26,27 @@ const WizardPage: NextPage = () => {
   return (
     <MainLayout>
       <div className="flex flex-col">
-        <h2 className="text-lg font-bold">3 easy steps:</h2>
+        <h2 className="text-2xl font-bold">3 easy steps:</h2>
 
-        <div>
-          <h3 className="font-bold">
-            {isConnected && <>(done)</>} 1. Connect with your wallet
+        <div className="py-2 my-2">
+          <h3 className="font-semibold">
+            1. Connect with your wallet {isConnected && <>(done)</>}
           </h3>
           {isDisconnected && <ConnectButton />}
         </div>
 
-        <div>
-          <h3 className="font-bold">
-            {isConnected && userAgreement && <>(done)</>} 2. Create your
-            agreement
+        <div className="py-2 my-2">
+          <h3 className="font-semibold">
+            2. Create your agreement{' '}
+            {isConnected && userAgreement && <>(done)</>}
           </h3>
           {isConnected && userAgreement == null && (
             <CreateAgreementForm onAgreementCreated={handleAgreementCreated} />
           )}
         </div>
 
-        <div>
-          <h3 className="font-bold">
-            3. Share with your partner
-          </h3>
+        <div className="py-2 my-2">
+          <h3 className="font-semibold">3. Share with your partner</h3>
           {userAgreement &&
             userAgreement.state == EAgreementState.Created &&
             userAgreement.alice === address && (

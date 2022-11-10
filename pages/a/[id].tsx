@@ -1,13 +1,14 @@
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import AcceptAgreementForm from '../../components/AcceptAgreementForm'
 import AgreementInfoWidget from '../../components/AgreementInfoWidget'
-import { AppContext } from '../../components/context/AppContext'
+import CancelAgreementByTheOwnerForm from '../../components/CancelAgreementByTheOwnerForm'
 import ConnectButton from '../../components/controls/ConnectButton'
+import { useAppContext } from '../../components/hooks/useAppContext'
 import MainLayout from '../../components/layouts/MainLayout'
 import TerminateAgreementForm from '../../components/TerminateAgreementForm'
 import { parseAgreementContent } from '../../lib/content'
@@ -16,23 +17,30 @@ import { contractStructToObject } from '../../lib/contract/contractStructs'
 import { handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
-import { IAppContext } from '../../types/IAppContext'
 
 const AgreementPage: NextPage = () => {
   const { isDisconnected } = useAccount()
   const [agreement, setAgreement] = useState<MarrySign.AgreementStruct>()
-  const { userAgreement, setUserAgreement, enableForceLoadUserAgreement } =
-    useContext<IAppContext>(AppContext)
+  const {
+    userAgreement,
+    setUserAgreement,
+    enableForceLoadUserAgreement,
+    showAppLoading,
+    hideAppLoading,
+  } = useAppContext()
   const router = useRouter()
   const { address } = useAccount()
 
   const loadAgreement = async (id: string) => {
     try {
+      showAppLoading('Loading the agreement...')
       const agreement = await getAgreementById(id)
       setAgreement(
         contractStructToObject(agreement) as MarrySign.AgreementStruct
       )
+      hideAppLoading()
     } catch (e) {
+      hideAppLoading()
       handleContractError(e)
     }
   }
@@ -40,15 +48,13 @@ const AgreementPage: NextPage = () => {
   const handleAgreementAccepted = (agreementId: BytesLike) => {
     toast('Congrats! Your marriage is registered! Time to celebrate!')
 
-    setAgreement({
+    const updatedAgreement = {
       ...userAgreement,
       state: EAgreementState.Accepted,
-    } as MarrySign.AgreementStruct)
+    } as MarrySign.AgreementStruct
 
-    setUserAgreement({
-      ...userAgreement,
-      state: EAgreementState.Accepted,
-    } as MarrySign.AgreementStruct)
+    setAgreement(updatedAgreement)
+    setUserAgreement(updatedAgreement)
 
     enableForceLoadUserAgreement()
   }
@@ -57,15 +63,28 @@ const AgreementPage: NextPage = () => {
       'You have successfullty refused the agreement your loved one created for you. If it helps, now you may create your own better version.'
     )
 
-    setAgreement({
+    const updatedAgreement = {
       ...userAgreement,
       state: EAgreementState.Refused,
-    } as MarrySign.AgreementStruct)
+    } as MarrySign.AgreementStruct
 
-    setUserAgreement({
+    setAgreement(updatedAgreement)
+    setUserAgreement(updatedAgreement)
+
+    enableForceLoadUserAgreement()
+  }
+  const handleAgreementCancelled = (agreementId: BytesLike) => {
+    toast(
+      "You have successfullty cancelled your agreement. Your partner won't be able to accept it anymore."
+    )
+
+    const updatedAgreement = {
       ...userAgreement,
       state: EAgreementState.Refused,
-    } as MarrySign.AgreementStruct)
+    } as MarrySign.AgreementStruct
+
+    setAgreement(updatedAgreement)
+    setUserAgreement(updatedAgreement)
 
     enableForceLoadUserAgreement()
   }
@@ -117,12 +136,26 @@ const AgreementPage: NextPage = () => {
             />
           )}
 
-        {userAgreement && agreement && userAgreement.id === agreement.id && (
-          <TerminateAgreementForm
-            agreement={agreement}
-            onAgreementTerminated={handleAgreementTerminated}
-          />
-        )}
+        {address &&
+          userAgreement &&
+          address === userAgreement.alice &&
+          address !== userAgreement.bob &&
+          userAgreement.state == EAgreementState.Created && (
+            <CancelAgreementByTheOwnerForm
+              agreement={userAgreement}
+              onAgreementCanceled={handleAgreementCancelled}
+            />
+          )}
+
+        {userAgreement &&
+          agreement &&
+          userAgreement.id === agreement.id &&
+          address !== userAgreement.alice && (
+            <TerminateAgreementForm
+              agreement={agreement}
+              onAgreementTerminated={handleAgreementTerminated}
+            />
+          )}
       </div>
     </MainLayout>
   )
