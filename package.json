@@ -11,6 +11,7 @@
     "copy-types": "bash ./scripts/copy-types.sh"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.4",
     "@rainbow-me/rainbowkit": "^0.7.3",
     "boring-avatars": "^1.7.0",
     "clsx": "^1.2.1",

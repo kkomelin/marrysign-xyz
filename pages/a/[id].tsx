@@ -1,4 +1,4 @@
-import { BytesLike } from 'ethers'
+import { BytesLike, ethers } from 'ethers'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -17,6 +17,8 @@ import { contractStructToObject } from '../../lib/contract/contractStructs'
 import { handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
+import { ECustomContractError } from '../../types/ECustomContractError'
+import { ICustomContractError } from '../../types/ICustomContractError'
 
 const AgreementPage: NextPage = () => {
   const { isDisconnected } = useAccount()
@@ -31,17 +33,30 @@ const AgreementPage: NextPage = () => {
   const router = useRouter()
   const { address } = useAccount()
 
+  const agreementNotFound = () => {
+    toast.warn('The agreement your were trying to access does not exist.')
+    return router.push('/')
+  }
+
   const loadAgreement = async (id: string) => {
     try {
       showAppLoading('Loading the agreement...')
       const agreement = await getAgreementById(id)
+      if (agreement.state === EAgreementState.Terminated) {
+        hideAppLoading()
+        return agreementNotFound()
+      }
       setAgreement(
         contractStructToObject(agreement) as MarrySign.AgreementStruct
       )
-      hideAppLoading()
-    } catch (e) {
-      hideAppLoading()
+    } catch (e: ICustomContractError) {
+      if (e.errorName === ECustomContractError.AgreementNotFound) {
+        hideAppLoading()
+        return agreementNotFound()
+      }
       handleContractError(e)
+    } finally {
+      hideAppLoading()
     }
   }
 
@@ -108,9 +123,11 @@ const AgreementPage: NextPage = () => {
     loadAgreement(router.query.id.toString())
   }, [router])
 
-  const agreementContent = agreement?.content
-    ? parseAgreementContent(agreement?.content as BytesLike)
-    : null
+  const agreementContent =
+    agreement?.content &&
+    ethers.utils.hexDataLength(agreement.content as BytesLike) > 0
+      ? parseAgreementContent(agreement.content as BytesLike)
+      : null
 
   return (
     <MainLayout>
