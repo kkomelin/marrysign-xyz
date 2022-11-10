@@ -1,16 +1,22 @@
 import { BytesLike } from 'ethers'
 import { FC, MouseEvent } from 'react'
-import { refuseAgreement } from '../lib/contract/agreement'
-import { handleContractError } from '../lib/helpers'
-import { MarrySign } from '../typechain'
-import Button from './controls/Button'
-import { useAppContext } from './hooks/useAppContext'
+import { refuseAgreement } from '../../lib/contract/agreement'
+import { handleContractError } from '../../lib/helpers'
+import { MarrySign } from '../../typechain'
+import Button from '../controls/Button'
+import { useAppContext } from '../hooks/useAppContext'
 
 type Props = {
   agreement: MarrySign.AgreementStruct
   onAgreementCanceled: (agreementId: BytesLike) => void
 }
-const CancelAgreementByTheOwnerForm: FC<Props> = (props) => {
+/**
+ * The Cancel Agreement action is nothing but Refusing
+ * but the language is rephrased to better suite the agreement creator.
+ * @param props
+ * @returns
+ */
+const CancelAgreementForm: FC<Props> = (props) => {
   const { agreement, onAgreementCanceled } = props
   const { showAppLoading, hideAppLoading } = useAppContext()
 
@@ -52,4 +58,4 @@ const CancelAgreementByTheOwnerForm: FC<Props> = (props) => {
   )
 }
 
-export default CancelAgreementByTheOwnerForm
+export default CancelAgreementForm

@@ -1,10 +1,10 @@
 import { BigNumberish, BytesLike } from 'ethers'
 import { FC, MouseEvent } from 'react'
-import { terminateAgreement } from '../lib/contract/agreement'
-import { handleContractError } from '../lib/helpers'
-import { MarrySign } from '../typechain'
-import Button from './controls/Button'
-import { useAppContext } from './hooks/useAppContext'
+import { terminateAgreement } from '../../lib/contract/agreement'
+import { handleContractError } from '../../lib/helpers'
+import { MarrySign } from '../../typechain'
+import Button from '../controls/Button'
+import { useAppContext } from '../hooks/useAppContext'
 
 type Props = {
   agreement: MarrySign.AgreementStruct

@@ -1,17 +1,17 @@
 import { BigNumberish, BytesLike } from 'ethers'
 import { FC } from 'react'
-import { contractStateToString } from '../lib/contract/helpers'
-import { MarrySign } from '../typechain'
-import { EAgreementState } from '../types/EAgreementState'
-import { IAgreementContent } from '../types/IAgreementContent'
-import CopyToClipboardButton from './controls/CopyToClipboardButton'
-import AgreementQRCode from './misc/AgreementQRCode'
+import { contractStateToString } from '../../lib/contract/helpers'
+import { MarrySign } from '../../typechain'
+import { EAgreementState } from '../../types/EAgreementState'
+import { IAgreementContent } from '../../types/IAgreementContent'
+import CopyToClipboardButton from '../controls/CopyToClipboardButton'
+import AgreementQRCode from '../misc/AgreementQRCode'
 
 type Props = {
   agreement: MarrySign.AgreementStruct | null
   agreementContent: IAgreementContent | null
 }
-const AgreementInfoWidget: FC<Props> = (props) => {
+const AgreementInfoBlock: FC<Props> = (props) => {
   const { agreement, agreementContent } = props
 
   if (!agreement || !agreementContent) {
@@ -54,4 +54,4 @@ const AgreementInfoWidget: FC<Props> = (props) => {
   )
 }
 
-export default AgreementInfoWidget
+export default AgreementInfoBlock

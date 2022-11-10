@@ -4,13 +4,13 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
-import AcceptAgreementForm from '../../components/AcceptAgreementForm'
-import AgreementInfoWidget from '../../components/AgreementInfoWidget'
-import CancelAgreementByTheOwnerForm from '../../components/CancelAgreementByTheOwnerForm'
+import AgreementInfoBlock from '../../components/blocks/AgreementInfoBlock'
 import ConnectButton from '../../components/controls/ConnectButton'
+import AcceptAgreementForm from '../../components/forms/AcceptAgreementForm'
+import CancelAgreementForm from '../../components/forms/CancelAgreementByTheOwnerForm'
+import TerminateAgreementForm from '../../components/forms/TerminateAgreementForm'
 import { useAppContext } from '../../components/hooks/useAppContext'
 import MainLayout from '../../components/layouts/MainLayout'
-import TerminateAgreementForm from '../../components/TerminateAgreementForm'
 import { parseAgreementContent } from '../../lib/content'
 import { getAgreementById } from '../../lib/contract/agreement'
 import { contractStructToObject } from '../../lib/contract/contractStructs'
@@ -118,7 +118,7 @@ const AgreementPage: NextPage = () => {
         {isDisconnected && <ConnectButton />}
 
         {agreement && agreementContent && (
-          <AgreementInfoWidget
+          <AgreementInfoBlock
             agreement={agreement}
             agreementContent={agreementContent}
           />
@@ -141,7 +141,7 @@ const AgreementPage: NextPage = () => {
           address === userAgreement.alice &&
           address !== userAgreement.bob &&
           userAgreement.state == EAgreementState.Created && (
-            <CancelAgreementByTheOwnerForm
+            <CancelAgreementForm
               agreement={userAgreement}
               onAgreementCanceled={handleAgreementCancelled}
             />

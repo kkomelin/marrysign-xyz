@@ -1,15 +1,15 @@
 import { BytesLike } from 'ethers'
 import { FC } from 'react'
-import { agreementPath } from '../lib/helpers'
-import { MarrySign } from '../typechain'
-import ButtonLink from './controls/ButtonLink'
-import CopyToClipboardButton from './controls/CopyToClipboardButton'
-import AgreementQRCode from './misc/AgreementQRCode'
+import { agreementPath } from '../../lib/helpers'
+import { MarrySign } from '../../typechain'
+import ButtonLink from '../controls/ButtonLink'
+import CopyToClipboardButton from '../controls/CopyToClipboardButton'
+import AgreementQRCode from '../misc/AgreementQRCode'
 
 type Props = {
   agreement: MarrySign.AgreementStruct | null
 }
-const ShareWithPartnerWidget: FC<Props> = (props) => {
+const ShareWithPartnerBlock: FC<Props> = (props) => {
   const { agreement } = props
 
   if (!agreement) {
@@ -23,9 +23,9 @@ const ShareWithPartnerWidget: FC<Props> = (props) => {
         <br />
         Next step is to share it with your loved one!
       </div>
-      
+
       <AgreementQRCode id={agreement.id as BytesLike} />
-      
+
       <div className="flex flex-col items-center justify-center">
         <CopyToClipboardButton agreementId={agreement.id as BytesLike} />
       </div>
@@ -37,4 +37,4 @@ const ShareWithPartnerWidget: FC<Props> = (props) => {
   )
 }
 
-export default ShareWithPartnerWidget
+export default ShareWithPartnerBlock

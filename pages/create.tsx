@@ -2,11 +2,11 @@ import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
+import ShareWithPartnerBlock from '../components/blocks/ShareWithPartnerBlock'
 import ConnectButton from '../components/controls/ConnectButton'
-import CreateAgreementForm from '../components/CreateAgreementForm'
+import CreateAgreementForm from '../components/forms/CreateAgreementForm'
 import { useAppContext } from '../components/hooks/useAppContext'
 import MainLayout from '../components/layouts/MainLayout'
-import ShareWithPartnerWidget from '../components/ShareWithPartnerWidget'
 import { EAgreementState } from '../types/EAgreementState'
 
 const WizardPage: NextPage = () => {
@@ -50,7 +50,7 @@ const WizardPage: NextPage = () => {
           {userAgreement &&
             userAgreement.state == EAgreementState.Created &&
             userAgreement.alice === address && (
-              <ShareWithPartnerWidget agreement={userAgreement} />
+              <ShareWithPartnerBlock agreement={userAgreement} />
             )}
         </div>
       </div>
