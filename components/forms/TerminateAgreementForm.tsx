@@ -3,7 +3,6 @@ import { FC, MouseEvent } from 'react'
 import { terminateAgreement } from '../../lib/contract/agreement'
 import { handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
-import Button from '../controls/Button'
 import { useAppContext } from '../hooks/useAppContext'
 
 type Props = {
@@ -36,12 +35,18 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-6 mt-6 border rounded-sm">
+    <div className="flex flex-col items-center justify-center w-full p-6 mt-6 rounded-sm border1">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <div className="flex flex-col justify-between">
-          <Button color="secondary" onClick={handleTerminateAgreement}>
+          <button
+            className="text-primary hover:underline"
+            onClick={handleTerminateAgreement}
+          >
+            What if I changed my mind?
+          </button>
+          {/* <Button color="secondary" onClick={handleTerminateAgreement}>
             Terminate
-          </Button>
+          </Button> */}
         </div>
       </form>
     </div>

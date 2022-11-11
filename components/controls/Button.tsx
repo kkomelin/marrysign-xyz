@@ -1,3 +1,4 @@
+import c from 'clsx'
 import { FC, MouseEvent, PropsWithChildren } from 'react'
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
   onClick: (e: MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
+  className?: string
 }
 const Button: FC<PropsWithChildren<Props>> = (props) => {
   const {
@@ -15,12 +17,13 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
     name,
     type = 'button',
     color = 'primary',
+    className,
   } = props
 
-  let className =
+  let classNameBase =
     'block px-3 py-2 mt-2 text-white border rounded-lg bg-primary disabled:bg-gray-200'
   if (color == 'secondary') {
-    className =
+    classNameBase =
       'block px-3 py-2 mt-2 text-white border rounded-lg bg-secondary disabled:bg-gray-200'
   }
 
@@ -29,7 +32,7 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
       type={type}
       name={name}
       disabled={disabled}
-      className={className}
+      className={c(classNameBase, className)}
       onClick={onClick}
     >
       {children}

@@ -17,7 +17,7 @@ const Header: FC<Props> = () => {
       </h1>
 
       <h2 className="mt-4 mb-4 text-xl font-light leading-8 text-center text-gray-500 md:mt-6 sm:text-2xl">
-        {APP_DESCRIPTION}
+      We empower any couple to register* marriage online
       </h2>
 
       {/* <p className="text-lg text-pink-400">{APP_SLOGAN}</p> */}
