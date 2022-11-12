@@ -16,7 +16,7 @@ import { ICustomContractError } from '../types/ICustomContractError'
 const Home: NextPage = () => {
   const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
   const { userAgreement } = useAppContext()
-  const { isConnected, isDisconnected } = useAccount()
+  const { isDisconnected } = useAccount()
 
   const loadAgreements = async () => {
     try {
@@ -35,7 +35,7 @@ const Home: NextPage = () => {
 
   return (
     <FrontpageLayout>
-      <div className="flex flex-col items-center justify-center p-6 mx-auto mb-20 bg-opacity-90">
+      <div className="flex flex-col items-center justify-center p-6 mx-auto mb-16 bg-opacity-90">
         <h2 className="py-8 mt-4 text-3xl font-light leading-8 text-center text-secondary sm:text-4xl">
           {APP_DESCRIPTION}
         </h2>
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
           </ol>
         </div>
 
-        <div className="flex flex-row justify-center py-4">
+        <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink href="/create">Let's get started</ButtonLink>
           ) : (

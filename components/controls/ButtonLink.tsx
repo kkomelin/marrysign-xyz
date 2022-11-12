@@ -11,10 +11,10 @@ const ButtonLink: FC<PropsWithChildren<Props>> = (props) => {
   const { href, children, color = 'primary', className } = props
 
   let classNameBase =
-    'block px-3 py-2 mt-2 text-white border rounded-lg bg-primary disabled:bg-gray-200 hover:no-underline'
+    'block px-4 py-2 mt-2 text-white border rounded-lg bg-primary disabled:bg-gray-200 hover:no-underline'
   if (color == 'secondary') {
     classNameBase =
-      'block px-3 py-2 mt-2 text-white border rounded-lg bg-secondary disabled:bg-gray-200 hover:no-underline'
+      'block px-4 py-2 mt-2 text-white border rounded-lg bg-secondary disabled:bg-gray-200 hover:no-underline'
   }
 
   return (

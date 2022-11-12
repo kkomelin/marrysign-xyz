@@ -23,10 +23,10 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
   } = props
 
   let classNameBase =
-    'block px-3 py-2 mt-2 text-white border-transparent rounded-lg bg-primary disabled:bg-gray-200'
+    'block px-4 py-2 mt-2 text-white border-transparent rounded-lg bg-primary disabled:bg-gray-200'
   if (color == 'secondary') {
     classNameBase =
-      'block px-3 py-2 mt-2 text-white border border-transparent rounded-lg bg-secondary disabled:bg-gray-200'
+      'block px-4 py-2 mt-2 text-white border border-transparent rounded-lg bg-secondary disabled:bg-gray-200'
   }
 
   return (

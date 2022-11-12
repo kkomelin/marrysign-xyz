@@ -28,7 +28,7 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
 
   const loadAgreementByAddress = async (address: string) => {
     try {
-      showAppLoading('Adapting the app for you...')
+      showAppLoading('Embrace the moment...')
       const agreement = await getAgreementByAddress(address)
       const converted = contractStructToObject(agreement)
       setUserAgreement(converted as MarrySign.AgreementStruct)
