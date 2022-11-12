@@ -10,7 +10,7 @@ const Disclaimer: FC = () => {
         </p>
 
         <p>
-          ** This project have been developed for the{' '}
+          ** This project have been developed for {' '}
           <a href="https://hack.chain.link">Chainlink Hackathon Fall 2022</a>.
         </p>
         <p>

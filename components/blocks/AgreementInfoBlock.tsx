@@ -34,7 +34,7 @@ const AgreementInfoBlock: FC<Props> = (props) => {
   const date = formatContractDate(agreement.updatedAt as BigNumberish)
 
   return (
-    <div className="w-full max-w-lg px-6 py-2 text-lg text-center md:py-4">
+    <div className="w-full max-w-2xl px-6 py-2 text-lg text-center md:py-4">
       {agreement.state === EAgreementState.Accepted && (
         <div className="py-3 text-gray-500">On {date}</div>
       )}
