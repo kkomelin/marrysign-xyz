@@ -7,6 +7,7 @@ import ButtonLink from '../components/controls/ButtonLink'
 import ConnectButton from '../components/controls/ConnectButton'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
+import { APP_SLOGAN } from '../lib/config'
 import { getAcceptedAgreements } from '../lib/contract/agreement'
 import { contractStructToObject } from '../lib/contract/contractStructs'
 import { agreementPath, handleContractError } from '../lib/helpers'
@@ -35,6 +36,14 @@ const Home: NextPage = () => {
 
   return (
     <FrontpageLayout>
+      <div>
+        <h2 className="mt-4 mb-4 text-xl font-light leading-8 text-center text-gray-500 md:mt-6 sm:text-2xl">
+          We empower any couple to register* marriage online
+        </h2>
+
+        <p className="text-lg text-pink-400">{APP_SLOGAN}</p>
+      </div>
+
       {isConnected && userAgreement == null && (
         <ButtonLink href="/create">Let's get started</ButtonLink>
       )}

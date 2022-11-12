@@ -1,5 +1,6 @@
 import { FC, PropsWithChildren } from 'react'
 import Meta from '../misc/Meta'
+import Footer from './Footer'
 import Header from './Header'
 
 type Props = {
@@ -8,13 +9,13 @@ type Props = {
 
 const MainLayout: FC<PropsWithChildren<Props>> = ({ children, meta }) => {
   return (
-    <div className="py-6">
+    <div className="">
       <Meta>{meta}</Meta>
       <Header />
       <main className="flex flex-col items-center justify-between mx-auto flex-grow-1 bg-j-primary">
         {children}
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }

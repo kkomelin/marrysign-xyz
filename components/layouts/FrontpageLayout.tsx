@@ -9,10 +9,10 @@ type Props = {
 
 const FrontpageLayout: FC<PropsWithChildren<Props>> = ({ children, meta }) => {
   return (
-    <div className="flex flex-col items-center justify-center h-screen pt-6">
+    <div className="flex flex-col items-center justify-center h-screen">
       <Meta>{meta}</Meta>
       <Header />
-      <main className="flex flex-col items-center justify-center w-full px-8 py-12 text-center grow">
+      <main className="w-full px-8 py-12 grow">
         {children}
       </main>
       <Footer />
