@@ -8,6 +8,7 @@ type Props = {
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
   className?: string
+  description?: string
 }
 const Button: FC<PropsWithChildren<Props>> = (props) => {
   const {
@@ -18,6 +19,7 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
     type = 'button',
     color = 'primary',
     className,
+    description,
   } = props
 
   let classNameBase =
@@ -28,15 +30,22 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
   }
 
   return (
-    <button
-      type={type}
-      name={name}
-      disabled={disabled}
-      className={c(classNameBase, className)}
-      onClick={onClick}
-    >
-      {children}
-    </button>
+    <div className="my-2">
+      <button
+        type={type}
+        name={name}
+        disabled={disabled}
+        className={c(classNameBase, className)}
+        onClick={onClick}
+      >
+        {children}
+      </button>
+      {description && (
+        <div className="block mt-1 text-xs text-center text-gray-500 text-thin">
+          {description}
+        </div>
+      )}
+    </div>
   )
 }
 

@@ -1,6 +1,10 @@
 import { BigNumberish, BytesLike } from 'ethers'
 import { FC } from 'react'
-import { agreementStateToShortString } from '../../lib/contract/helpers'
+import { useAccount } from 'wagmi'
+import {
+  agreementStateToLongString,
+  formatContractDate,
+} from '../../lib/contract/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { IAgreementContent } from '../../types/IAgreementContent'
@@ -16,61 +20,73 @@ type Props = {
 const AgreementInfoBlock: FC<Props> = (props) => {
   const { agreement, agreementContent } = props
 
+  const { address } = useAccount()
+
   if (!agreement || !agreementContent) {
     return <></>
   }
 
-  let state = agreementStateToShortString(agreement.state as BigNumberish)
+  let state = agreementStateToLongString(
+    agreement.state as BigNumberish,
+    agreementContent
+  )
 
-  // Adapt the state language because it's Cancelled for Alice and Refused for Bob.
-  if (agreement.state === EAgreementState.Refused) {
-    state = state + '/Cancelled'
-  }
+  const date = formatContractDate(agreement.updatedAt as BigNumberish)
 
   return (
-    <div className="w-full max-w-md text-center">
-      <div className="py-1">
-        <b className="text-2xl text-secondary">
+    <div className="w-full max-w-lg px-6 py-4 text-lg text-center">
+      {agreement.state === EAgreementState.Accepted && (
+        <div className="py-3">On {date}</div>
+      )}
+      <div className="py-3">
+        <span className="text-5xl text-secondary font-cursive">
           {agreementContent.partner2.name}
-        </b>{' '}
-        &{' '}
-        <b className="text-2xl text-secondary">
+        </span>{' '}
+        <span className="px-4 text-2xl">&</span>{' '}
+        <span className="text-5xl text-secondary font-cursive">
           {agreementContent.partner1.name}
-        </b>
+        </span>
       </div>
-      <div className="py-1">
-        promissed to each other the following:
-        <br />
-        <br />
-        <b className="text-lg leading-6 text-primary text-semibold">
-          {agreementContent.vow}
-        </b>
+      <div className="py-3">
+        {agreement.state === EAgreementState.Accepted
+          ? 'promised the following to each other:'
+          : 'vow:'}
       </div>
-      <div className="flex flex-col items-center justify-start py-3 my-3">
-        <AgreementStateVisualization
-          state={agreement.state as EAgreementState}
-          className="w-[200px]"
-        />
-        <div className="text-secondary">{state}</div>
+      <div className="py-3 text-5xl leading-10 text-primary font-cursive">
+        {agreementContent.vow}
       </div>
 
-      <AccordionItem title="Share" open={false}>
-        <div className="w-full max-w-xs p-6 m-6">
-          {/* <div className="py-1 break-all">
-            ID: <br /> {agreement.id.toString()}
-          </div> */}
-          <div className="flex flex-col items-center justify-center">
-            <AgreementQRCode id={agreement.id as BytesLike} />
+      <div className="flex flex-col items-center justify-start py-3 mt-5 mb-8">
+        <AgreementStateVisualization
+          state={agreement.state as EAgreementState}
+          className="w-[180px]"
+        />
+        <div className="max-w-sm mt-2 text-gray-500 text-md">{state}</div>
+      </div>
+
+      {agreement && agreement.state !== EAgreementState.Refused && (
+        <AccordionItem
+          title={
+            agreement &&
+            agreement.alice === address &&
+            agreement.state === EAgreementState.Created
+              ? 'Invite your partner'
+              : 'Spread the word'
+          }
+          open={false}
+          className="mt-6"
+        >
+          <div className="w-full max-w-xs p-6 m-6">
+            <div className="flex flex-col items-center justify-center">
+              <AgreementQRCode id={agreement.id as BytesLike} />
+            </div>
+            <div className="flex flex-col items-center justify-center w-full">
+              <CopyToClipboardButton agreementId={agreement.id as BytesLike} />
+              {/* <ShareButton agreement={agreement} /> */}
+            </div>
           </div>
-          <div className="flex flex-col items-center justify-center w-full">
-            <CopyToClipboardButton
-              className="w-full"
-              agreementId={agreement.id as BytesLike}
-            />
-            {/* <ShareButton agreement={agreement} /> */}
-          </div>
-        </div>
-      </AccordionItem>
+        </AccordionItem>
+      )}
     </div>
   )
 }

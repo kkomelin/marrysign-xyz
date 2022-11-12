@@ -14,7 +14,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const [userAgreement, setUserAgreement] =
     useState<MarrySign.AgreementStruct | null>(null)
   const [appLoading, setAppLoading] = useState<boolean>(false)
-  const [appLoadingMessage, setAppLoadingMessage] = useState<string | undefined>(undefined)
+  const [appLoadingMessage, setAppLoadingMessage] = useState<
+    string | undefined
+  >(undefined)
   const [isForceLoadUserAgreementEnabled, setIsForceLoadUserAgreementEnabled] =
     useState<boolean>(false)
 
@@ -43,7 +45,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     appLoading,
     appLoadingMessage,
     showAppLoading,
-    hideAppLoading
+    hideAppLoading,
   }
 
   return (

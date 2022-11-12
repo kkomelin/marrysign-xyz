@@ -66,3 +66,11 @@ export const agreementPath = (agreementId: BytesLike): string => {
 export const absoluteAgreementUrl = (agreementId: BytesLike): string => {
   return toAbsolute(agreementPath(agreementId))
 }
+
+export const placeholderText = (
+  placeholder?: string,
+  label?: string,
+  required?: boolean
+) => {
+  return (placeholder ? placeholder : label) + (required ? ' *' : '')
+}

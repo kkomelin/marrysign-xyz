@@ -17,7 +17,7 @@ const Header: FC<Props> = () => {
   const { userAgreement } = useAppContext()
 
   return (
-    <header className="flex flex-row items-center justify-between w-full p-3">
+    <header className="flex flex-row items-center justify-between w-full p-3 mb-10">
       <h1>
         <Link
           href="/"

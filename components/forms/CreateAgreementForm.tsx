@@ -28,6 +28,13 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
+    if (partner1Name.length === 0 || partner2Name.length === 0 || partner2Address.length === 0 || vow.length === 0 || terminationCost === 0) {
+      toast.warn(
+        "Please make sure you fill in all required fields."
+      )
+      return;
+    }
+
     if (partner2Address === address) {
       toast.warn(
         "It seems like you accidentally entered your own Ethereum address. Please enter your partner's address instead."

@@ -49,7 +49,11 @@ const CancelAgreementForm: FC<Props> = (props) => {
     <div className="flex flex-col items-center justify-center w-full p-6 mt-6 border rounded-sm">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <div className="flex flex-col justify-between">
-          <Button color="secondary" onClick={handleCancelAgreement}>
+          <Button
+            color="secondary"
+            onClick={handleCancelAgreement}
+            description="No termination cost required"
+          >
             Cancel
           </Button>
         </div>

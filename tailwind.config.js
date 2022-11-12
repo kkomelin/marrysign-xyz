@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
@@ -6,6 +9,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Open Sans', ...fontFamily.sans],
+        cursive: ['Rouge Script', 'cursive'],
+      },
       colors: {
         primary: 'var(--ms-color-primary)',
         secondary: 'var(--ms-color-secondary)',

@@ -82,7 +82,11 @@ const AcceptAgreementForm: FC<Props> = (props) => {
 
         <div className="flex flex-col justify-between">
           <Button onClick={handleAcceptAgreement}>Accept</Button>
-          <Button color="secondary" onClick={handleRefuseAgreement}>
+          <Button
+            color="secondary"
+            onClick={handleRefuseAgreement}
+            description="No termination cost required"
+          >
             Refuse
           </Button>
         </div>

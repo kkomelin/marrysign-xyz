@@ -132,8 +132,6 @@ const AgreementPage: NextPage = () => {
   return (
     <MainLayout>
       <div className="flex flex-col items-center justify-center">
-        {isDisconnected && <ConnectButton />}
-
         {agreement && agreementContent && (
           <AgreementInfoBlock
             agreement={agreement}
