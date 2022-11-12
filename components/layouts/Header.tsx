@@ -17,8 +17,8 @@ const Header: FC<Props> = () => {
   const { userAgreement } = useAppContext()
 
   return (
-    <header className="flex flex-row items-center justify-between w-full p-3 mb-10">
-      <h1>
+    <header className="flex flex-row flex-wrap items-center justify-between w-full gap-3 p-3 mb-10">
+      <h1 className="order-1">
         <Link
           href="/"
           className="text-3xl font-extrabold text-transparent sm:text-4xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
@@ -27,17 +27,7 @@ const Header: FC<Props> = () => {
         </Link>
       </h1>
 
-      <div className="flex flex-row items-center gap-3">
-        <nav className="flex flex-row">
-          <ul>
-            <li>
-              <a className="text-lg" href="#how-it-works">
-                How it Works
-              </a>
-            </li>
-          </ul>
-        </nav>
-
+      <div className='order-2 md:order-3'>
         {isDisconnected && <ConnectButton />}
         {isConnected && (
           <ButtonLink
@@ -60,6 +50,16 @@ const Header: FC<Props> = () => {
           </ButtonLink>
         )}
       </div>
+
+      <nav className="flex flex-row order-3 md:order-2">
+        <ul>
+          <li>
+            <a className="text-lg" href="#how-it-works">
+              How it Works
+            </a>
+          </li>
+        </ul>
+      </nav>
     </header>
   )
 }

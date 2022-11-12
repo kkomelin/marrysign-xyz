@@ -36,21 +36,21 @@ const AgreementInfoBlock: FC<Props> = (props) => {
   return (
     <div className="w-full max-w-lg px-6 py-4 text-lg text-center">
       {agreement.state === EAgreementState.Accepted && (
-        <div className="py-3">On {date}</div>
+        <div className="py-3 text-gray-500">On {date}</div>
       )}
       <div className="py-3">
         <span className="text-5xl text-secondary font-cursive">
           {agreementContent.partner2.name}
         </span>{' '}
-        <span className="px-4 text-2xl">&</span>{' '}
+        <span className="px-4 text-2xl text-gray-500">&</span>{' '}
         <span className="text-5xl text-secondary font-cursive">
           {agreementContent.partner1.name}
         </span>
       </div>
-      <div className="py-3">
+      <div className="py-3 text-gray-500 text-md">
         {agreement.state === EAgreementState.Accepted
-          ? 'promised the following to each other:'
-          : 'vow:'}
+          ? 'promised the following to each other'
+          : 'vow'}
       </div>
       <div className="py-3 text-5xl leading-10 text-primary font-cursive">
         {agreementContent.vow}
