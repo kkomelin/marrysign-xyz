@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import AgreementInfoBlock from '../../components/blocks/AgreementInfoBlock'
-import ConnectButton from '../../components/controls/ConnectButton'
 import AcceptAgreementForm from '../../components/forms/AcceptAgreementForm'
 import CancelAgreementForm from '../../components/forms/CancelAgreementByTheOwnerForm'
 import TerminateAgreementForm from '../../components/forms/TerminateAgreementForm'
@@ -13,7 +12,7 @@ import { useAppContext } from '../../components/hooks/useAppContext'
 import MainLayout from '../../components/layouts/MainLayout'
 import { parseAgreementContent } from '../../lib/content'
 import { getAgreementById } from '../../lib/contract/agreement'
-import { contractStructToObject } from '../../lib/contract/contractStructs'
+import { contractStructToObject } from '../../lib/contract/helpers'
 import { handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
@@ -21,7 +20,6 @@ import { ECustomContractError } from '../../types/ECustomContractError'
 import { ICustomContractError } from '../../types/ICustomContractError'
 
 const AgreementPage: NextPage = () => {
-  const { isDisconnected } = useAccount()
   const [agreement, setAgreement] = useState<MarrySign.AgreementStruct>()
   const {
     userAgreement,

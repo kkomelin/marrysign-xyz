@@ -27,7 +27,7 @@ const Header: FC<Props> = () => {
         </Link>
       </h1>
 
-      <div className='order-2 sm:order-3'>
+      <div className="order-2 sm:order-3">
         {isDisconnected && <ConnectButton />}
         {isConnected && (
           <ButtonLink
@@ -54,9 +54,9 @@ const Header: FC<Props> = () => {
       <nav className="flex flex-row justify-start order-3 w-full sm:justify-end sm:order-2 grow sm:w-0">
         <ul>
           <li>
-            <a className="py-1 text-lg" href="/#how-it-works">
+            <Link className="py-1 text-lg" href="/#how-it-works">
               How it Works
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
