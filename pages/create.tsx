@@ -27,7 +27,7 @@ const WizardPage: NextPage = () => {
   return (
     <MainLayout>
       <div className="flex flex-col">
-        <h2 className="mb-4 text-2xl font-bold">
+        <h2 className="mt-10 mb-4 text-2xl font-bold">
           Create your agreement in 3 simple steps
         </h2>
 

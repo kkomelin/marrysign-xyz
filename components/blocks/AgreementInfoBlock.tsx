@@ -34,20 +34,20 @@ const AgreementInfoBlock: FC<Props> = (props) => {
   const date = formatContractDate(agreement.updatedAt as BigNumberish)
 
   return (
-    <div className="w-full max-w-lg px-6 py-4 text-lg text-center">
+    <div className="w-full max-w-lg px-6 py-2 text-lg text-center md:py-4">
       {agreement.state === EAgreementState.Accepted && (
         <div className="py-3 text-gray-500">On {date}</div>
       )}
       <div className="py-3">
-        <span className="text-5xl text-secondary font-cursive">
+        <span className="text-5xl text-secondary font-cursive ">
           {agreementContent.partner2.name}
         </span>{' '}
-        <span className="px-4 text-2xl text-gray-500">&</span>{' '}
-        <span className="text-5xl text-secondary font-cursive">
+        <span className="block p-4 text-2xl text-gray-500 md:inline">&</span>{' '}
+        <span className="text-5xl text-secondary font-cursive ">
           {agreementContent.partner1.name}
         </span>
       </div>
-      <div className="py-3 text-gray-500 text-md">
+      <div className="p-4 text-gray-500 text-md">
         {agreement.state === EAgreementState.Accepted
           ? 'promised the following to each other'
           : 'vow'}

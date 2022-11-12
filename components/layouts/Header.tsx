@@ -17,7 +17,7 @@ const Header: FC<Props> = () => {
   const { userAgreement } = useAppContext()
 
   return (
-    <header className="flex flex-row flex-wrap items-center justify-between w-full gap-3 p-3 mb-10">
+    <header className="flex flex-row flex-wrap items-center justify-between w-full gap-5 p-4 mb-4">
       <h1 className="order-1">
         <Link
           href="/"
@@ -27,7 +27,7 @@ const Header: FC<Props> = () => {
         </Link>
       </h1>
 
-      <div className='order-2 md:order-3'>
+      <div className='order-2 sm:order-3'>
         {isDisconnected && <ConnectButton />}
         {isConnected && (
           <ButtonLink
@@ -51,10 +51,10 @@ const Header: FC<Props> = () => {
         )}
       </div>
 
-      <nav className="flex flex-row order-3 md:order-2">
+      <nav className="flex flex-row justify-start order-3 w-full sm:justify-end sm:order-2 grow sm:w-0">
         <ul>
           <li>
-            <a className="text-lg" href="#how-it-works">
+            <a className="py-1 text-lg" href="#how-it-works">
               How it Works
             </a>
           </li>

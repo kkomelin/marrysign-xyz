@@ -1,9 +1,11 @@
 import { BigNumberish, BytesLike } from 'ethers'
-import { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, useState } from 'react'
+import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { terminateAgreement } from '../../lib/contract/agreement'
 import { handleContractError } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import { useAppContext } from '../hooks/useAppContext'
+import ConfirmDialog from '../misc/ConfigmDialog'
 
 type Props = {
   agreement: MarrySign.AgreementStruct
@@ -13,8 +15,17 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   const { onAgreementTerminated, agreement } = props
   const { showAppLoading, hideAppLoading } = useAppContext()
 
-  const handleTerminateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false)
+
+  const openConfirmDialog = () => {
+    setConfirmDialogOpen(true)
+  }
+
+  const closeConfirmDialog = () => {
+    setConfirmDialogOpen(false)
+  }
+
+  const handleTerminateAgreement = async () => {
     try {
       showAppLoading('Terminating the agreement...')
       const successful = await terminateAgreement(
@@ -40,7 +51,10 @@ const TerminateAgreementForm: FC<Props> = (props) => {
         <div className="flex flex-col justify-between">
           <button
             className="text-primary hover:underline"
-            onClick={handleTerminateAgreement}
+            onClick={(e: MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault()
+              openConfirmDialog()
+            }}
           >
             What if I changed my mind?
           </button>
@@ -49,6 +63,17 @@ const TerminateAgreementForm: FC<Props> = (props) => {
           </Button> */}
         </div>
       </form>
+      <ConfirmDialog
+        open={confirmDialogOpen}
+        title="Are you sure you want to terminate your agreement?"
+        description={
+          ` You will be charged the equivalent of $${agreement.terminationCost} in Ether.` +
+          ` Most of it will be transferred to your ex, except for our ${SERVICE_FEE_PERCENT}% service fee.`
+        }
+        confirmButtonLabel="Terminate & pay the fees"
+        onConfirm={handleTerminateAgreement}
+        onClose={closeConfirmDialog}
+      />
     </div>
   )
 }

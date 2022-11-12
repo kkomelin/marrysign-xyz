@@ -165,7 +165,7 @@ const AgreementPage: NextPage = () => {
         {userAgreement &&
           agreement &&
           userAgreement.id === agreement.id &&
-          address !== userAgreement.alice && (
+          userAgreement.state === EAgreementState.Accepted && (
             <TerminateAgreementForm
               agreement={agreement}
               onAgreementTerminated={handleAgreementTerminated}

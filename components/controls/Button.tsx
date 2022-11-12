@@ -3,7 +3,7 @@ import { FC, MouseEvent, PropsWithChildren } from 'react'
 
 type Props = {
   name?: string
-  color?: 'primary' | 'secondary'
+  color?: 'primary' | 'secondary' | 'tertiary'
   onClick: (e: MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
