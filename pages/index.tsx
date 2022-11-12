@@ -53,6 +53,12 @@ const Home: NextPage = () => {
         than <span className="text-secondary">Las Vegas</span>
       </div>
 
+      <div className="w-full my-10">
+        <h2 id="how-it-works" className="px-4 py-10 text-4xl text-center">
+          How it works
+        </h2>
+      </div>
+
       {agreements.length > 0 && (
         <div className="w-full my-10">
           <h2 className="px-4 py-10 text-4xl text-center">
