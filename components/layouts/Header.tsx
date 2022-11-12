@@ -17,7 +17,7 @@ const Header: FC<Props> = () => {
   const { userAgreement } = useAppContext()
 
   return (
-    <header className="flex flex-row flex-wrap items-center justify-between w-full gap-5 p-4">
+    <header className="flex flex-row flex-wrap items-center justify-between w-full gap-5 px-6 py-6">
       <h1 className="order-1">
         <Link
           href="/"

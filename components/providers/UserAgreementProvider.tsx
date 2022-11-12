@@ -38,6 +38,14 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
       ) {
         return router.push(agreementPath(agreement.id as BytesLike))
       }
+
+      // If the user already has an accepted agreement, redirect them to the agreement page.
+      if (
+        router.asPath === '/create' &&
+        agreement.state === EAgreementState.Accepted
+      ) {
+        return router.push(agreementPath(agreement.id as BytesLike))
+      }
     } catch (e: ICustomContractError) {
       if (e.errorName === ECustomContractError.AgreementNotFound) {
         setUserAgreement(null)

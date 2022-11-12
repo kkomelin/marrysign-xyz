@@ -6,6 +6,7 @@ import AgreementList from '../components/AgreementList'
 import ButtonLink from '../components/controls/ButtonLink'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
+import { APP_DESCRIPTION } from '../lib/config'
 import { getAcceptedAgreements } from '../lib/contract/agreement'
 import { contractStructToObject } from '../lib/contract/contractStructs'
 import { agreementPath, handleContractError } from '../lib/helpers'
@@ -34,19 +35,12 @@ const Home: NextPage = () => {
 
   return (
     <FrontpageLayout>
-      <div className="flex flex-col items-center justify-center my-10">
-        {/* <Image
-          src="/images/backgrounds/frontpage/first-screen.jpg"
-          alt="First screen background"
-          className='z-0 object-cover'
-          fill={true}
-        /> */}
-
-        <h2 className="mt-4 mb-4 text-xl font-light leading-8 text-center text-gray-500 md:mt-6 sm:text-2xl">
-          We empower any couple to register marriage online
+      <div className="flex flex-col items-center justify-center p-6 mx-auto mb-20 bg-opacity-90">
+        <h2 className="py-8 mt-4 text-3xl font-light leading-8 text-center text-secondary sm:text-4xl">
+          {APP_DESCRIPTION}
         </h2>
 
-        <div className="p-8 mt-10 bg-purple-500 rounded-lg shadow-sm bg-opacity-10">
+        <div className="p-8 mt-4 bg-purple-500 rounded-lg shadow-sm bg-opacity-10">
           <ol>
             <li className="mb-3 text-xl last:mb-0">
               No <span className="text-secondary">age</span> restrictions
@@ -63,7 +57,7 @@ const Home: NextPage = () => {
           </ol>
         </div>
 
-        <div className="flex flex-row justify-center py-10">
+        <div className="flex flex-row justify-center py-4">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink href="/create">Let's get started</ButtonLink>
           ) : (
@@ -86,7 +80,7 @@ const Home: NextPage = () => {
       </div>
 
       {agreements.length > 0 && (
-        <div className="w-full py-10">
+        <div className="w-full py-10 bg-white">
           <h2 className="px-4 py-10 text-4xl text-center">
             Happily married with us
           </h2>

@@ -65,7 +65,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
       </form>
       <ConfirmDialog
         open={confirmDialogOpen}
-        title="Are you sure you want to terminate your agreement?"
+        title="You can terminate your agreement but..."
         description={
           ` You will be charged the equivalent of $${agreement.terminationCost} in Ether.` +
           ` Most of it will be transferred to your ex, except for our ${SERVICE_FEE_PERCENT}% service fee.`
