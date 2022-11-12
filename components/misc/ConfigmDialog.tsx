@@ -30,7 +30,7 @@ const ConfirmDialog: FC<Props> = (props) => {
       className="fixed inset-0 z-10 overflow-y-auto"
     >
       <div className="min-h-screen px-4 text-center">
-        <Dialog.Overlay className="fixed inset-0 bg-opacity-90 bg-gray-50" />
+        <Dialog.Overlay className="fixed inset-0 bg-opacity-90 bg-pink-50" />
 
         {/* This element is to trick the browser into centering the modal contents. */}
         <span className="inline-block h-screen align-middle" aria-hidden="true">
