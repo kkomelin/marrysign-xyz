@@ -12,12 +12,13 @@ const AgreementQRCode: FC<Props> = ({ id }) => {
       value={absoluteAgreementUrl(id)}
       size={200}
       fgColor="#c084fc"
-      // logoImage="/images/states/accepted.svg"
-      // logoWidth={80}
-      // logoHeight={80}
-      // logoOpacity={0.6}
-      // removeQrCodeBehindLogo={true}
+      logoImage="/images/states/accepted.svg"
+      logoWidth={40}
+      logoHeight={40}
+      logoOpacity={0.6}
+      removeQrCodeBehindLogo={true}
       eyeRadius={[5,5,5,5]}
+      qrStyle = 'dots'
     />
   )
 }

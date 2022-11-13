@@ -12,7 +12,7 @@ export const getAgreementCount = async () => {
 export const getAcceptedAgreements = async () => {
   _checkPrerequisites()
 
-  return await(await _getContract()).getAcceptedAgreements()
+  return await(await _getContractAnonymously()).getAcceptedAgreements()
 }
 
 export const getAgreementByAddress = async (partnerAddress: string) => {
@@ -24,7 +24,7 @@ export const getAgreementByAddress = async (partnerAddress: string) => {
 export const getAgreementById = async (id: string) => {
   _checkPrerequisites()
 
-  return await (await _getContract()).getAgreement(id)
+  return await(await _getContractAnonymously()).getAgreement(id)
 }
 
 export const createAgreement = async (
@@ -141,6 +141,31 @@ export const terminateAgreement = async (
   return result.status === 1
 }
 
+/**
+ * Get contract but not ask user to connect.
+ * @returns 
+ */
+const _getContractAnonymously = async () => {
+  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
+
+  const provider = new ethers.providers.Web3Provider(
+    window.ethereum as ethers.providers.ExternalProvider
+  )
+
+  const contract = new ethers.Contract(
+    contractAddress,
+    MarrySign__factory.abi,
+    provider
+  )
+
+  return contract
+}
+
+/**
+ * Get contract and ask user to connect.
+ * 
+ * @returns 
+ */
 const _getContract = async () => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
 

@@ -6,19 +6,31 @@ type Props = {
   href: string
   color?: 'primary' | 'secondary'
   className?: string
+  size?: 'normal' | 'large'
 }
 const ButtonLink: FC<PropsWithChildren<Props>> = (props) => {
-  const { href, children, color = 'primary', className } = props
+  const {
+    href,
+    children,
+    color = 'primary',
+    className,
+    size = 'normal',
+  } = props
 
   let classNameBase =
-    'block px-4 py-2 mt-2 text-white border rounded-lg bg-primary disabled:bg-gray-200 hover:no-underline'
+    'block mt-2 text-white border rounded-lg bg-primary disabled:bg-gray-200 hover:no-underline font-semibold'
   if (color == 'secondary') {
     classNameBase =
-      'block px-4 py-2 mt-2 text-white border rounded-lg bg-secondary disabled:bg-gray-200 hover:no-underline'
+      'block mt-2 text-white border rounded-lg bg-secondary disabled:bg-gray-200 hover:no-underline font-semibold'
+  }
+
+  let sizeClasses = 'px-4 py-2 text-base'
+  if (size === 'large') {
+    sizeClasses = 'px-8 py-4 text-lg uppercase'
   }
 
   return (
-    <Link href={href} className={c(classNameBase, className)}>
+    <Link href={href} className={c(classNameBase, sizeClasses, className)}>
       {children}
     </Link>
   )

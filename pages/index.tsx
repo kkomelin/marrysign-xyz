@@ -9,7 +9,7 @@ import FrontpageLayout from '../components/layouts/FrontpageLayout'
 import { APP_DESCRIPTION } from '../lib/config'
 import { getAcceptedAgreements } from '../lib/contract/agreement'
 import { contractStructToObject } from '../lib/contract/helpers'
-import { agreementPath, handleContractError } from '../lib/helpers'
+import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { MarrySign } from '../typechain'
 import { ICustomContractError } from '../types/ICustomContractError'
 
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         agreements.map((agreement: any[]) => contractStructToObject(agreement))
       )
     } catch (e: ICustomContractError) {
-      handleContractError(e)
+      handleContractErrorSilently(e)
     }
   }
 
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
   return (
     <FrontpageLayout>
       <div className="flex flex-col items-center justify-center p-6 mx-auto mb-16 bg-opacity-90">
-        <h2 className="py-8 mt-4 text-3xl font-light leading-8 text-center text-secondary sm:text-4xl">
+        <h2 className="py-8 mt-4 text-3xl font-light leading-8 text-center text-secondary sm:text-5xl">
           {APP_DESCRIPTION}
         </h2>
 
@@ -59,9 +59,15 @@ const Home: NextPage = () => {
 
         <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
-            <ButtonLink href="/create">Let's get started</ButtonLink>
+            <ButtonLink href="/create" size="large" color="secondary">
+              Let's get started
+            </ButtonLink>
           ) : (
-            <ButtonLink href={agreementPath(userAgreement.id as BytesLike)}>
+            <ButtonLink
+              href={agreementPath(userAgreement.id as BytesLike)}
+              size="large"
+              color="secondary"
+            >
               My agreement
             </ButtonLink>
           )}

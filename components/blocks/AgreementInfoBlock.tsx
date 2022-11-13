@@ -49,8 +49,8 @@ const AgreementInfoBlock: FC<Props> = (props) => {
       </div>
       <div className="p-4 text-gray-500 text-md">
         {agreement.state === EAgreementState.Accepted
-          ? 'promised the following to each other'
-          : 'vow'}
+          ? 'vowed to each other'
+          : 'are going to vow to each other'}
       </div>
       <div className="py-3 text-5xl leading-10 text-primary font-cursive">
         {agreementContent.vow}

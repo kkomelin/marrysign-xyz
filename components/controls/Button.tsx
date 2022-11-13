@@ -9,6 +9,7 @@ type Props = {
   type?: 'button' | 'submit' | 'reset'
   className?: string
   description?: string
+  size?: 'normal' | 'large'
 }
 const Button: FC<PropsWithChildren<Props>> = (props) => {
   const {
@@ -20,13 +21,19 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
     color = 'primary',
     className,
     description,
+    size = 'normal',
   } = props
 
   let classNameBase =
-    'block px-4 py-2 mt-2 text-white border-transparent rounded-lg bg-primary disabled:bg-gray-200'
+    'block mt-2 text-white border-transparent rounded-lg bg-primary disabled:bg-gray-200 font-semibold'
   if (color == 'secondary') {
     classNameBase =
-      'block px-4 py-2 mt-2 text-white border border-transparent rounded-lg bg-secondary disabled:bg-gray-200'
+      'block mt-2 text-white border border-transparent rounded-lg bg-secondary disabled:bg-gray-200 font-semibold'
+  }
+
+  let sizeClasses = 'px-4 py-2 text-base'
+  if (size === 'large') {
+    sizeClasses = 'px-8 py-4 text-lg uppercase'
   }
 
   return (
@@ -35,7 +42,7 @@ const Button: FC<PropsWithChildren<Props>> = (props) => {
         type={type}
         name={name}
         disabled={disabled}
-        className={c(classNameBase, className)}
+        className={c(classNameBase, sizeClasses, className)}
         onClick={onClick}
       >
         {children}

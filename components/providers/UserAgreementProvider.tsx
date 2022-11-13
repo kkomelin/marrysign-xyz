@@ -14,11 +14,10 @@ import { useAppContext } from '../hooks/useAppContext'
 
 type Props = {}
 const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
-  const { isDisconnected, address, isConnected } = useAccount()
+  const { isDisconnected, address } = useAccount()
   const {
     setUserAgreement,
     userAgreement,
-    appLoading,
     showAppLoading,
     hideAppLoading,
     isForceLoadUserAgreementEnabled,
@@ -26,30 +25,30 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
   } = useAppContext()
   const router = useRouter()
 
+  const redirectToAgreement = (agreementId: BytesLike) => {
+    return router.push(agreementPath(agreementId as BytesLike))
+  }
+
   const loadAgreementByAddress = async (address: string) => {
     try {
       showAppLoading('Embrace the moment...')
       const agreement = await getAgreementByAddress(address)
       const converted = contractStructToObject(agreement)
       setUserAgreement(converted as MarrySign.AgreementStruct)
-      if (
-        agreement.state === EAgreementState.Created &&
-        agreement.bob === address
-      ) {
-        return router.push(agreementPath(agreement.id as BytesLike))
-      }
 
-      // If the user already has an accepted agreement, redirect them to the agreement page.
       if (
-        router.asPath === '/create' &&
-        agreement.state === EAgreementState.Accepted
+        // We redirect Bob to the agreeemnt page if they have a Created agreeemnt
+        (agreement.state === EAgreementState.Created &&
+          agreement.bob === address) ||
+        // We redirect anyone, who tries to access /create and has an Accepted agreement, to the agreement page.
+        (router.asPath === '/create' &&
+          agreement.state === EAgreementState.Accepted)
       ) {
-        return router.push(agreementPath(agreement.id as BytesLike))
+        return redirectToAgreement(agreement.id as BytesLike)
       }
     } catch (e: ICustomContractError) {
       if (e.errorName === ECustomContractError.AgreementNotFound) {
         setUserAgreement(null)
-        // return router.push('/create')
       } else {
         handleContractError(e)
       }
@@ -75,10 +74,6 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
 
     loadAgreementByAddress(address)
   }, [isDisconnected, address, userAgreement, isForceLoadUserAgreementEnabled])
-
-  // if (isConnected && appLoading) {
-  //   return <>Loading...</>
-  // }
 
   return <>{children}</>
 }

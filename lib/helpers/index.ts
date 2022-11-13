@@ -28,6 +28,11 @@ export const randomNum = (maxNum: number): number => {
   return Math.floor(Math.random() * maxNum)
 }
 
+export const handleContractErrorSilently = (e: ICustomContractError) => {
+  console.error(e)
+  console.error(e.errorName)
+}
+
 export const handleContractError = (e: ICustomContractError) => {
   let errorMessage = USER_FRIENDLY_ERROR_MESSAGE
 
