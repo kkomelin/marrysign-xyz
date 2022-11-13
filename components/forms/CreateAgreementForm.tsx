@@ -2,6 +2,7 @@ import { BytesLike } from 'ethers'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
+import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { DEFAULT_VOW } from '../../lib/config/strings'
 import { createAgreement } from '../../lib/contract/agreement'
 import { handleContractError } from '../../lib/helpers'
@@ -67,7 +68,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-6 mt-6 border rounded-sm">
+    <div className="flex flex-col items-center justify-center w-full p-6">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <TextField
           label="Your full name"
@@ -103,7 +104,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <TextField
           label="Termination cost (USD)"
-          description="A terminating partner pays the equivalent of this amount in Ether (ETH). 90% goes to the opposite partner as a compensation, 10% goes to MarrySign as a service fee."
+          description={`A terminating partner pays the equivalent of this amount in Ether (ETH). ${100 - SERVICE_FEE_PERCENT}% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
           type="number"
           value={terminationCost}
           required={true}

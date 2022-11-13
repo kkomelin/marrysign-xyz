@@ -39,8 +39,14 @@ const Header: FC<Props> = () => {
             className="mt-0"
           >
             <span className="flex flex-row gap-2">
-              <span className=" whitespace-nowrap">
-                {userAgreement ? 'My agreement' : 'Create agreement'}
+              <span className="whitespace-nowrap">
+                {userAgreement ? (
+                  'My agreement'
+                ) : (
+                  <>
+                    Create <span className="hidden sm:inline">agreement</span>
+                  </>
+                )}
               </span>
               <AgreementStateVisualization
                 state={userAgreement?.state as EAgreementState}

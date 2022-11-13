@@ -11,7 +11,7 @@ const Footer: FC<Props> = () => {
   }
 
   return (
-    <footer className="flex flex-col items-center justify-center w-full py-6 text-gray-400 bg-purple-100">
+    <footer className="flex flex-col items-center justify-center w-full py-6 text-gray-500 bg-purple-100">
       <Follow twitterUrl={twitterUrl} />
       <Disclaimer />
     </footer>

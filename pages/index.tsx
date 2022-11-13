@@ -35,12 +35,12 @@ const Home: NextPage = () => {
 
   return (
     <FrontpageLayout>
-      <div className="flex flex-col items-center justify-center p-6 mx-auto mb-10 sm:mb-12">
+      <div className="flex flex-col items-center justify-center p-5 mx-auto mb-10 sm:mb-10">
         <h2 className="pb-8 text-3xl font-light leading-10 text-center sm:pt-4 sm:mt-4 text-secondary sm:text-5xl">
           {APP_DESCRIPTION}
         </h2>
 
-        <div className="py-10 mt-4 bg-purple-400 rounded-lg shadow-sm px-14 bg-opacity-20">
+        <div className="px-12 py-8 mt-4 bg-purple-400 rounded-lg shadow-sm sm:py-10 sm:px-14 bg-opacity-20">
           <ol>
             <li className="mb-4 text-lg sm:text-xl last:mb-0">
               No <span className="text-secondary">age</span> restrictions
