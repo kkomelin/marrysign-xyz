@@ -35,23 +35,23 @@ const Home: NextPage = () => {
 
   return (
     <FrontpageLayout>
-      <div className="flex flex-col items-center justify-center p-6 mx-auto mb-16 bg-opacity-90">
-        <h2 className="py-8 mt-4 text-3xl font-light leading-8 text-center text-secondary sm:text-5xl">
+      <div className="flex flex-col items-center justify-center p-6 mx-auto mb-10 sm:mb-12">
+        <h2 className="pb-8 text-3xl font-light leading-10 text-center sm:pt-4 sm:mt-4 text-secondary sm:text-5xl">
           {APP_DESCRIPTION}
         </h2>
 
-        <div className="p-8 mt-4 bg-purple-500 rounded-lg shadow-sm bg-opacity-10">
+        <div className="py-10 mt-4 bg-purple-400 rounded-lg shadow-sm px-14 bg-opacity-20">
           <ol>
-            <li className="mb-3 text-xl last:mb-0">
+            <li className="mb-4 text-lg sm:text-xl last:mb-0">
               No <span className="text-secondary">age</span> restrictions
             </li>
-            <li className="mb-3 text-xl last:mb-0">
+            <li className="mb-4 text-lg sm:text-xl last:mb-0">
               No <span className="text-secondary">location</span> restrictions
             </li>
-            <li className="mb-3 text-xl last:mb-0">
+            <li className="mb-4 text-lg sm:text-xl last:mb-0">
               No <span className="text-secondary">culture</span> restrictions
             </li>
-            <li className="mb-3 text-xl last:mb-0">
+            <li className="mb-4 text-lg sm:text-xl last:mb-0">
               No <span className="text-secondary">gender</span> restrictions
             </li>
           </ol>
