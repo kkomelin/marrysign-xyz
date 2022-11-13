@@ -21,9 +21,9 @@ export const agreementStateToLongString = (
     case EAgreementState.Created:
       return `Waiting for ${agreementContent.partner2.name} to accept the agreement`
     case EAgreementState.Accepted:
-      return 'Agreement signed'
+      return 'Signed'
     case EAgreementState.Refused:
-      return 'Agreement cancelled/refused'
+      return 'Cancelled/refused'
     default:
       return ''
   }

@@ -51,7 +51,7 @@ const AgreementInfoBlock: FC<Props> = (props) => {
         <span className="text-5xl text-secondary font-cursive ">
           {agreementContent.partner2.name}
         </span>{' '}
-        <span className="block p-4 text-2xl text-gray-500 md:inline">&</span>{' '}
+        <span className="block p-4 text-gray-500 md:inline">&</span>{' '}
         <span className="text-5xl text-secondary font-cursive ">
           {agreementContent.partner1.name}
         </span>
