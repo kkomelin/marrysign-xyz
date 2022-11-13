@@ -10,9 +10,9 @@ export const getAgreementCount = async () => {
 }
 
 export const getAcceptedAgreements = async () => {
-  _checkPrerequisites()
+  _checkPrerequisitesContractAddress()
 
-  return await(await _getContractAnonymously()).getAcceptedAgreements()
+  return await (await _getContractAnonymously()).getAcceptedAgreements()
 }
 
 export const getAgreementByAddress = async (partnerAddress: string) => {
@@ -22,9 +22,9 @@ export const getAgreementByAddress = async (partnerAddress: string) => {
 }
 
 export const getAgreementById = async (id: string) => {
-  _checkPrerequisites()
+  _checkPrerequisitesContractAddress()
 
-  return await(await _getContractAnonymously()).getAgreement(id)
+  return await (await _getContractAnonymously()).getAgreement(id)
 }
 
 export const createAgreement = async (
@@ -185,12 +185,19 @@ const _getContract = async () => {
   return contract
 }
 
-const _checkPrerequisites = () => {
+const _checkPrerequisitesWalletConnected = () => {
   if (!hasEthereum()) {
     throw new Error('Please sign in with your wallet first.')
   }
+}
 
+const _checkPrerequisitesContractAddress = () => {
   if (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS == null) {
     throw new Error('Please set contract address in your env config.')
   }
+}
+
+const _checkPrerequisites = () => {
+  _checkPrerequisitesWalletConnected()
+  _checkPrerequisitesContractAddress()
 }
