@@ -5,7 +5,7 @@ export const APP_URL: string =
     : 'http://localhost:3000'
 // export const APP_DESCRIPTION: string =
 //   'We empower any couple to register marriage online'
-export const APP_DESCRIPTION: string = 'Crypto Marriages With No Limits'
+export const APP_DESCRIPTION: string = 'Crypto Marriages Without Limits'
 export const APP_SLOGAN: string =
   'Closer than Copenhagen & quicker than Las Vegas'
 // No @ in Twitter handle, please.
