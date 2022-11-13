@@ -56,10 +56,10 @@ const CreateAgreementForm: FC<Props> = (props) => {
           return onAgreementCreated(agreementId)
         }
       )
-
-      // if (successful) {
-      //   onAgreementCreated()
-      // }
+      if (!successful) {
+        hideAppLoading()
+        handleContractError('Transaction failed for some reason.')
+      }
     } catch (e) {
       hideAppLoading()
       handleContractError(e)

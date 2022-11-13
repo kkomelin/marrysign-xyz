@@ -36,9 +36,10 @@ const CancelAgreementForm: FC<Props> = (props) => {
           return onAgreementCanceled(agreementId)
         }
       )
-      // if (successful) {
-      //   // onAgreementCanceled()
-      // }
+      if (!successful) {
+        hideAppLoading()
+        handleContractError('Transaction failed for some reason.')
+      }
     } catch (e) {
       hideAppLoading()
       handleContractError(e)

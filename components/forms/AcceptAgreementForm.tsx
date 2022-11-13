@@ -29,9 +29,10 @@ const AcceptAgreementForm: FC<Props> = (props) => {
           return onAgreementAccepted(agreementId)
         }
       )
-      // if (successful) {
-      //   // onAgreementAccepted()
-      // }
+      if (!successful) {
+        hideAppLoading()
+        handleContractError('Transaction failed for some reason.')
+      }
     } catch (e) {
       hideAppLoading()
       handleContractError(e)
@@ -49,9 +50,10 @@ const AcceptAgreementForm: FC<Props> = (props) => {
           return onAgreementRefused(agreementId)
         }
       )
-      // if (successful) {
-      //   // onAgreementRefused()
-      // }
+      if (!successful) {
+        hideAppLoading()
+        handleContractError('Transaction failed for some reason.')
+      }
     } catch (e) {
       hideAppLoading()
       handleContractError(e)

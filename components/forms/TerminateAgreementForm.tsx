@@ -36,9 +36,10 @@ const TerminateAgreementForm: FC<Props> = (props) => {
           return onAgreementTerminated(agreementId)
         }
       )
-      // if (successful) {
-      //   // onAgreementTerminated()
-      // }
+      if (!successful) {
+        hideAppLoading()
+        handleContractError('Transaction failed for some reason.')
+      }
     } catch (e) {
       hideAppLoading()
       handleContractError(e)
@@ -70,9 +71,10 @@ const TerminateAgreementForm: FC<Props> = (props) => {
           ` You will be charged the equivalent of $${agreement.terminationCost} USD in Ether.` +
           ` Most of it will be transferred to your ex, except for our ${SERVICE_FEE_PERCENT}% service fee.`
         }
-        confirmButtonLabel="Terminate & pay the fees"
+        confirmButtonLabel="Terminate & pay fees"
         onConfirm={handleTerminateAgreement}
         onClose={closeConfirmDialog}
+        onCancel={closeConfirmDialog}
       />
     </div>
   )

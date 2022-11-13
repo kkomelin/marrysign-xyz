@@ -1,5 +1,5 @@
-import { BigNumberish, BytesLike } from 'ethers'
-import { FC } from 'react'
+import { BigNumberish } from 'ethers'
+import { FC, useState } from 'react'
 import { useAccount } from 'wagmi'
 import {
   agreementStateToLongString,
@@ -8,10 +8,10 @@ import {
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { IAgreementContent } from '../../types/IAgreementContent'
-import CopyToClipboardButton from '../controls/CopyToClipboardButton'
-import AccordionItem from '../misc/AccordionItem'
-import AgreementQRCode from '../misc/AgreementQRCode'
+import Button from '../controls/Button'
 import AgreementStateVisualization from '../misc/AgreementStateVisualization'
+import ConfirmDialog from '../misc/ConfigmDialog'
+import ShareBlock from './ShareBlock'
 
 type Props = {
   agreement: MarrySign.AgreementStruct | null
@@ -19,6 +19,8 @@ type Props = {
 }
 const AgreementInfoBlock: FC<Props> = (props) => {
   const { agreement, agreementContent } = props
+
+  const [shareDialogOpen, setShareDialogOpen] = useState<boolean>(false)
 
   const { address } = useAccount()
 
@@ -32,6 +34,13 @@ const AgreementInfoBlock: FC<Props> = (props) => {
   )
 
   const date = formatContractDate(agreement.updatedAt as BigNumberish)
+
+  const shareButtonLabel =
+    agreement &&
+    agreement.alice === address &&
+    agreement.state === EAgreementState.Created
+      ? 'Invite your partner'
+      : 'Spread the word'
 
   return (
     <div className="w-full max-w-2xl px-6 py-2 text-lg text-center md:py-4">
@@ -65,28 +74,20 @@ const AgreementInfoBlock: FC<Props> = (props) => {
       </div>
 
       {agreement && agreement.state !== EAgreementState.Refused && (
-        <AccordionItem
-          title={
-            agreement &&
-            agreement.alice === address &&
-            agreement.state === EAgreementState.Created
-              ? 'Invite your partner'
-              : 'Spread the word'
-          }
-          open={false}
-          className="mt-6"
-        >
-          <div className="w-full max-w-xs p-6 m-6">
-            <div className="flex flex-col items-center justify-center">
-              <AgreementQRCode id={agreement.id as BytesLike} />
-            </div>
-            <div className="flex flex-col items-center justify-center w-full">
-              <CopyToClipboardButton agreementId={agreement.id as BytesLike} />
-              {/* <ShareButton agreement={agreement} /> */}
-            </div>
-          </div>
-        </AccordionItem>
+        <div className="flex flex-col items-center justify-center py-3 my-5">
+          <Button onClick={() => setShareDialogOpen(true)} size="large">
+            {shareButtonLabel}
+          </Button>
+        </div>
       )}
+
+      <ConfirmDialog
+        open={shareDialogOpen}
+        title={shareButtonLabel}
+        description={<ShareBlock agreement={agreement} />}
+        confirmButtonLabel="Terminate & pay the fees"
+        onClose={() => setShareDialogOpen(false)}
+      />
     </div>
   )
 }
