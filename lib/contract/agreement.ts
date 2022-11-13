@@ -148,9 +148,8 @@ export const terminateAgreement = async (
 const _getContractAnonymously = async () => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
 
-  const provider = new ethers.providers.Web3Provider(
-    window.ethereum as ethers.providers.ExternalProvider
-  )
+  // @todo: It's probably necesary to pass network url to the constructor when on a real chain.
+  const provider = new ethers.providers.JsonRpcProvider()
 
   const contract = new ethers.Contract(
     contractAddress,
