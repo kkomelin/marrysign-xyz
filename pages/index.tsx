@@ -36,31 +36,34 @@ const Home: NextPage = () => {
   return (
     <FrontpageLayout>
       <div className="flex flex-col items-center justify-center p-5 mx-auto mb-10 sm:mb-10">
-        <h2 className="pb-8 text-3xl font-light leading-10 text-center sm:pt-4 sm:mt-4 text-secondary sm:text-5xl">
+        <h2 className="pt-2 pb-6 text-3xl font-light leading-10 text-center sm:pb-8 sm:pt-4 sm:mt-4 text-secondary sm:text-5xl">
           {APP_DESCRIPTION}
         </h2>
 
         <div className="px-12 py-8 mt-4 bg-purple-400 rounded-lg shadow-sm sm:py-10 sm:px-14 bg-opacity-20">
           <ol>
-            <li className="mb-4 text-lg sm:text-xl last:mb-0">
+            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               No <span className="text-secondary">age</span> restrictions
             </li>
-            <li className="mb-4 text-lg sm:text-xl last:mb-0">
+            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               No <span className="text-secondary">location</span> restrictions
             </li>
-            <li className="mb-4 text-lg sm:text-xl last:mb-0">
+            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               No <span className="text-secondary">culture</span> restrictions
             </li>
-            <li className="mb-4 text-lg sm:text-xl last:mb-0">
+            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               No <span className="text-secondary">gender</span> restrictions
             </li>
+            {/* <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
+              Absolutely no <span className="text-secondary">bs</span>
+            </li> */}
           </ol>
         </div>
 
         <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink href="/create" size="large" color="secondary">
-              Let's get started
+              Get crypto-married
             </ButtonLink>
           ) : (
             <ButtonLink
@@ -83,6 +86,16 @@ const Home: NextPage = () => {
         <h2 id="how-it-works" className="px-4 py-10 text-4xl text-center">
           How it works
         </h2>
+        <div>
+          <br />
+          - You login with your Ethereum wallet, e.g. Metamask
+          <br />
+          - You create an agreement where you enter your and your partner
+          details <br />- You invite your partner to accept the agreement
+          <br />
+          - Partner login and accept the agreement you created
+          <br />- From that moment, you're crypto-married.
+        </div>
       </div>
 
       {agreements.length > 0 && (

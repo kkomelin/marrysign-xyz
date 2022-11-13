@@ -11,7 +11,6 @@ import { useAppContext } from '../hooks/useAppContext'
 import AgreementStateVisualization from '../misc/AgreementStateVisualization'
 
 type Props = {}
-
 const Header: FC<Props> = () => {
   const { isDisconnected, isConnected } = useAccount()
   const { userAgreement } = useAppContext()
