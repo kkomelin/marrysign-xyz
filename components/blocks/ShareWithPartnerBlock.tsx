@@ -20,7 +20,7 @@ const ShareWithPartnerBlock: FC<Props> = (props) => {
       <div className="py-2 text-center">
         Your agreement is created.
         <br />
-        Next step is to share it with your loved one!
+        Time to invite your loved one!
       </div>
 
       <ShareBlock agreement={agreement} />

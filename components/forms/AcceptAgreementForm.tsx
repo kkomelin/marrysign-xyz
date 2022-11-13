@@ -89,7 +89,7 @@ const AcceptAgreementForm: FC<Props> = (props) => {
           <Button
             color="secondary"
             onClick={handleRefuseAgreement}
-            description="No termination cost required"
+            description="No termination cost charged"
             className="w-full"
           >
             Refuse

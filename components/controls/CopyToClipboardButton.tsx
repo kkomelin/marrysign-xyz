@@ -38,7 +38,6 @@ const CopyToClipboardButton: FC<Props> = ({ agreementId, className }) => {
           className="px-3 py-2 text-sm break-all hover:underline"
           href={sharedUrl}
           target="_blank"
-          rel="noopener noreferrer"
         >
           {sharedUrl}
         </a>

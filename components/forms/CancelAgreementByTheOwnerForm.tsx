@@ -53,7 +53,7 @@ const CancelAgreementForm: FC<Props> = (props) => {
           <Button
             color="secondary"
             onClick={handleCancelAgreement}
-            description="No termination cost required"
+            description="No termination cost charged"
             className='w-full'
           >
             Cancel

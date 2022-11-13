@@ -12,6 +12,9 @@ body {
   @apply text-gray-600;
   @apply font-sans;
 }
+body {
+  @apply bg-pink-50 bg-opacity-60;
+}
 
 a {
   @apply text-indigo-400 hover:underline;

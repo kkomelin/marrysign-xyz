@@ -26,23 +26,27 @@ const WizardPage: NextPage = () => {
 
   return (
     <MainLayout>
-      <div className="flex flex-col">
-        <h2 className="mt-10 mb-4 text-2xl font-bold">
-          Create your agreement in 3 simple steps
+      <div className="flex flex-col w-full">
+        <h2 className="mt-2 mb-10 text-3xl font-light leading-10 text-center text-secondary">
+          Just 3 simple steps
         </h2>
 
         <AccordionItem
-          title={`1. Connect with your wallet ${isConnected ? '(done)' : ''}`}
-          open={!isConnected}
+          title="1. Login with your wallet"
+          defaultOpen={!isConnected}
+          completed={isConnected}
         >
-          {isDisconnected && <ConnectButton />}
+          {isDisconnected && (
+            <div className="my-6">
+              <ConnectButton />
+            </div>
+          )}
         </AccordionItem>
 
         <AccordionItem
-          title={`2. Create your agreement ${
-            isConnected && userAgreement ? '(done)' : ''
-          }`}
-          open={!Boolean(isConnected && userAgreement)}
+          title="2. Create your agreement"
+          defaultOpen={isConnected && userAgreement == null}
+          completed={isConnected && userAgreement != null}
         >
           {isConnected && userAgreement == null && (
             <CreateAgreementForm onAgreementCreated={handleAgreementCreated} />
@@ -51,15 +55,14 @@ const WizardPage: NextPage = () => {
 
         <AccordionItem
           title="3. Share with your partner"
-          open={
-            !Boolean(
-              userAgreement &&
-                userAgreement.state == EAgreementState.Created &&
-                userAgreement.alice === address
-            )
+          defaultOpen={
+            userAgreement != null &&
+            userAgreement.state == EAgreementState.Created &&
+            userAgreement.alice === address
           }
+          completed={false}
         >
-          {userAgreement &&
+          {userAgreement != null &&
             userAgreement.state == EAgreementState.Created &&
             userAgreement.alice === address && (
               <ShareWithPartnerBlock agreement={userAgreement} />
