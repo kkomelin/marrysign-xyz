@@ -1,3 +1,4 @@
+import { HeartIcon } from '@heroicons/react/20/solid'
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
@@ -42,17 +43,29 @@ const Home: NextPage = () => {
 
         <div className="px-12 py-8 mt-4 bg-purple-400 rounded-lg shadow-sm sm:py-10 sm:px-14 bg-opacity-20">
           <ol>
-            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
-              No <span className="text-secondary">age</span> restrictions
+            <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
+              <HeartIcon className="w-4 mr-3 text-secondary" />
+              <span>
+                No <span className="text-secondary">age</span> restrictions
+              </span>
             </li>
-            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
-              No <span className="text-secondary">location</span> restrictions
+            <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
+              <HeartIcon className="w-4 mr-3 text-secondary" />
+              <span>
+                No <span className="text-secondary">location</span> restrictions
+              </span>
             </li>
-            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
-              No <span className="text-secondary">culture</span> restrictions
+            <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
+              <HeartIcon className="w-4 mr-3 text-secondary" />
+              <span>
+                No <span className="text-secondary">culture</span> restrictions
+              </span>
             </li>
-            <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
-              No <span className="text-secondary">gender</span> restrictions
+            <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
+              <HeartIcon className="w-4 mr-3 text-secondary" />
+              <span>
+                No <span className="text-secondary">gender</span> restrictions
+              </span>
             </li>
             {/* <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               Absolutely no <span className="text-secondary">bs</span>
