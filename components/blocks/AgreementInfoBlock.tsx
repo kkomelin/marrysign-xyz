@@ -34,11 +34,11 @@ const AgreementInfoBlock: FC<Props> = (props) => {
       )}
       <div className="py-3">
         <span className="text-5xl text-secondary font-cursive ">
-          {agreementContent.partner2.name}
+          {agreementContent.partner1.name}
         </span>{' '}
         <span className="block p-4 text-gray-500 md:inline">&</span>{' '}
         <span className="text-5xl text-secondary font-cursive ">
-          {agreementContent.partner1.name}
+          {agreementContent.partner2.name}
         </span>
       </div>
       <div className="p-4 text-gray-500 text-md">
