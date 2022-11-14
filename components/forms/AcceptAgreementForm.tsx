@@ -3,8 +3,8 @@ import { FC, MouseEvent } from 'react'
 import { useAccount } from 'wagmi'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { parseAgreementContent } from '../../lib/content'
-import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
 import { handleContractError } from '../../lib/helpers'
+import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import Button from '../controls/Button'
@@ -95,13 +95,13 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                   </p>
 
                   <p className="mt-2">
-                    Your partner suggested{' '}
-                    <b>${agreement.terminationCost.toString()} USD</b>{' '}
-                    termination cost which will be paid by a terminating partner
-                    to another partner in case of divorce . ${100 - SERVICE_FEE_PERCENT}% of it
-                    will go to the opposite partner as a compensation, and $
-                    {SERVICE_FEE_PERCENT}% will go to MarrySign as a service
-                    fee.
+                    Your partner suggested the equivalent of
+                    <b>${agreement.terminationCost.toString()} USD</b> in Ether
+                    (ETH) as a termination cost which will be paid by a
+                    terminating partner to another partner in case of a divorce.
+                    ${100 - SERVICE_FEE_PERCENT}% of it will go to the opposite
+                    partner as a compensation, and ${SERVICE_FEE_PERCENT}% will
+                    go to MarrySign as a service fee.
                   </p>
                 </div>
               </div>
