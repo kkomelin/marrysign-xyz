@@ -4,8 +4,9 @@ import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { DEFAULT_VOW } from '../../lib/config/strings'
-import { handleContractError } from '../../lib/helpers'
+import { handleContractError, validateCurrency } from '../../lib/helpers'
 import { createAgreement } from '../../lib/services/agreement'
+import { convertUSDToETH } from '../../lib/services/chainlink'
 import Button from '../controls/Button'
 import TextArea from '../controls/TextArea'
 import TextField from '../controls/TextField'
@@ -20,6 +21,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const [partner1Name, setPartner1Name] = useState<string>('Alice Smith')
   const [partner2Name, setPartner2Name] = useState<string>('Bob Johnson')
   const [terminationCost, setTerminationCost] = useState<number>(10)
+  const [terminationCostInETH, setTerminationCostInETH] = useState<number>(0)
   const [partner2Address, setPartner2Address] = useState<string>(
     '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'
   )
@@ -29,11 +31,15 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    if (partner1Name.length === 0 || partner2Name.length === 0 || partner2Address.length === 0 || vow.length === 0 || terminationCost === 0) {
-      toast.warn(
-        "Please make sure you fill in all required fields."
-      )
-      return;
+    if (
+      partner1Name.length === 0 ||
+      partner2Name.length === 0 ||
+      partner2Address.length === 0 ||
+      vow.length === 0 ||
+      terminationCost === 0
+    ) {
+      toast.warn('Please make sure you fill in all required fields.')
+      return
     }
 
     if (partner2Address === address) {
@@ -41,6 +47,13 @@ const CreateAgreementForm: FC<Props> = (props) => {
         "It seems like you accidentally entered your own Ethereum address. Please enter your partner's address instead."
       )
       setPartner2Address('')
+      return
+    }
+
+    if (!validateCurrency(terminationCost.toString().trim())) {
+      toast.warn(
+        'Please check the termination cost value. It should be in the US Dollars, e.g. 100.50'
+      )
       return
     }
 
@@ -66,6 +79,16 @@ const CreateAgreementForm: FC<Props> = (props) => {
       handleContractError(e)
     }
   }
+
+  const requestAmountInETH = async () => {
+    if (terminationCost === 0) {
+      return 0
+    }
+    const amountInETH = await convertUSDToETH(terminationCost)
+    setTerminationCostInETH(amountInETH)
+  }
+
+  // @todo: Improve the form validation by using Formik + Yup.
 
   return (
     <div className="flex flex-col items-center justify-center w-full p-5 bg-white border rounded-lg">
@@ -104,13 +127,21 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <TextField
           label="Termination cost (USD)"
-          description={`A terminating partner pays the equivalent of this amount in Ether (ETH). ${100 - SERVICE_FEE_PERCENT}% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
+          description={
+            (terminationCostInETH ? `${terminationCostInETH} ETH apx. ` : '') +
+            `A terminating partner pays the equivalent of this amount in Ether (ETH). ${
+              100 - SERVICE_FEE_PERCENT
+            }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`
+          }
           type="number"
           value={terminationCost}
           required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setTerminationCost(Number(e.target.value))
           }
+          onBlur={async () => {
+            await requestAmountInETH()
+          }}
         />
         {/* Validate the termination cost number */}
         <Button onClick={handleCreateAgreement}>Create agreement</Button>

@@ -9,16 +9,18 @@ import { aggregatorV3InterfaceABI } from './abi'
 const CHAINLINK_NODE_URL = 'https://api.avax-test.network/ext/bc/C/rpc'
 const CHAINLINK_CONTRACT_ADDRESS = '0x86d67c3D38D2bCeE722E601025C25a575021c6EA'
 
-function validateUSD(val: number) {
-  const regex = /^\d*\.?\d{0,2}$/
-  return regex.test(val.toString())
-}
+export const convertUSDToETH = async (amountInUSD: number) => {
+  try {
+    const priceOfOneETH = await getETHPrice()
+    if (priceOfOneETH == null || priceOfOneETH == 0) {
+      return 0
+    }
 
-export const convertUSDToETH = async (priceInUSD: number) => {
-  let ETH = await getETHPrice()
-  const currentETHPriceInUSD = priceInUSD / ETH
-
-  const isValidCurrency = validateUSD(currentETHPriceInUSD)
+    return amountInUSD / priceOfOneETH
+  } catch (e) {
+    console.log(e)
+    return 0
+  }
 }
 
 export async function getETHPrice() {

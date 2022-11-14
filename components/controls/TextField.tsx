@@ -31,7 +31,7 @@ const TextField: FC<Props> = (props) => {
 
   return (
     <div className={c('my-2 field', { required: required })}>
-      {value && label && <Label inputId={id}>{label}</Label>}
+      {value != null && label && <Label inputId={id}>{label}</Label>}
       <input
         id={id}
         name={id}
