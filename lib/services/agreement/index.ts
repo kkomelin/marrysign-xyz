@@ -1,6 +1,6 @@
 import { BigNumberish, BytesLike, ethers } from 'ethers'
-import { MarrySign__factory } from '../../typechain'
-import { hasEthereum, nowTimestamp, stringToHex } from '../helpers'
+import { MarrySign__factory } from '../../../typechain'
+import { hasEthereum, nowTimestamp, stringToHex } from '../../helpers'
 
 export const getAgreementCount = async () => {
   _checkPrerequisites()
@@ -115,7 +115,6 @@ export const refuseAgreement = async (
   return result.status === 1
 }
 
-
 export const terminateAgreement = async (
   id: string,
   terminationCost: BigNumberish,
@@ -143,7 +142,7 @@ export const terminateAgreement = async (
 
 /**
  * Get contract but not ask user to connect.
- * @returns 
+ * @returns
  */
 const _getContractAnonymously = async () => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
@@ -162,8 +161,8 @@ const _getContractAnonymously = async () => {
 
 /**
  * Get contract and ask user to connect.
- * 
- * @returns 
+ *
+ * @returns
  */
 const _getContract = async () => {
   const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''

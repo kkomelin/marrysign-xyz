@@ -1,11 +1,11 @@
 import { format } from 'date-fns'
 import { BigNumberish, BytesLike } from 'ethers'
-import { MarrySign } from '../../typechain'
-import { EAgreementState } from '../../types/EAgreementState'
-import { IAgreementContent } from '../../types/IAgreementContent'
-import { IExtractPropsFromArray } from '../../types/IExtractPropsFromArray'
-import { APP_NAME } from '../config'
-import { absoluteAgreementUrl } from '../helpers'
+import { MarrySign } from '../../../typechain'
+import { EAgreementState } from '../../../types/EAgreementState'
+import { IAgreementContent } from '../../../types/IAgreementContent'
+import { IExtractPropsFromArray } from '../../../types/IExtractPropsFromArray'
+import { APP_NAME } from '../../config'
+import { absoluteAgreementUrl } from '../../helpers'
 
 export const agreementStateToShortString = (
   state: string | number | BigNumberish

@@ -1,7 +1,7 @@
 import { BytesLike } from 'ethers'
 import { FC, MouseEvent } from 'react'
-import { refuseAgreement } from '../../lib/contract/agreement'
 import { handleContractError } from '../../lib/helpers'
+import { refuseAgreement } from '../../lib/services/agreement'
 import { MarrySign } from '../../typechain'
 import Button from '../controls/Button'
 import { useAppContext } from '../hooks/useAppContext'

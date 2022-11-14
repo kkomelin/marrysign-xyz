@@ -1,10 +1,9 @@
 import { BigNumberish } from 'ethers'
 import { FC } from 'react'
-import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import {
   agreementStateToLongString,
   formatContractDate,
-} from '../../lib/contract/helpers'
+} from '../../lib/services/agreement/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { IAgreementContent } from '../../types/IAgreementContent'
