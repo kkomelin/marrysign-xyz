@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import { APP_TWITTER_HANDLE } from '../../lib/config'
-import Disclaimer from '../misc/Disclaimer'
 
 type Props = {}
 
@@ -11,7 +10,7 @@ const Footer: FC<Props> = () => {
   }
 
   return (
-    <footer className="flex flex-col items-center justify-center w-full py-6 text-gray-500 bg-purple-100">
+    <footer className="flex flex-col items-center justify-center w-full text-gray-500 bg-purple-100 ">
       <Follow twitterUrl={twitterUrl} />
       <Disclaimer />
     </footer>
@@ -23,7 +22,7 @@ type FollowProps = {
 }
 const Follow: FC<FollowProps> = ({ twitterUrl }) => {
   return (
-    <div className="flex flex-row items-center justify-center w-full">
+    <div className="flex flex-row items-center justify-center w-full px-4 py-8 bg-pink-50 ">
       <span>For updates, follow</span>
       <a
         href={twitterUrl}
@@ -33,6 +32,25 @@ const Follow: FC<FollowProps> = ({ twitterUrl }) => {
       >
         @{APP_TWITTER_HANDLE}
       </a>
+    </div>
+  )
+}
+
+const Disclaimer: FC = () => {
+  return (
+    <div className="flex flex-row justify-center w-full px-4 py-4 text-sm text-gray-500">
+      <div className="max-w-xl text-left">
+        <p>
+          * Please note MarrySign agreements don't have legal power, at least
+          not yet.
+        </p>
+
+        <p>
+          ** This project have been developed for{' '}
+          <a href="https://hack.chain.link">Chainlink Hackathon Fall 2022</a>.
+        </p>
+        <p>*** The app is still under development, so use it with caution.</p>
+      </div>
     </div>
   )
 }

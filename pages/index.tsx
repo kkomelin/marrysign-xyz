@@ -112,7 +112,7 @@ const Home: NextPage = () => {
       </div>
 
       {agreements.length > 0 && (
-        <div className="w-full py-10 bg-white">
+        <div className="w-full py-16 bg-white">
           <h2 className="px-4 py-10 text-4xl text-center">
             Happily married with us
           </h2>
