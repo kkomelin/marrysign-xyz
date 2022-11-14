@@ -1,7 +1,8 @@
 import { HeartIcon } from '@heroicons/react/20/solid'
+import c from 'clsx'
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import AgreementList from '../components/AgreementList'
 import ButtonLink from '../components/controls/ButtonLink'
@@ -95,26 +96,42 @@ const Home: NextPage = () => {
         than <span className="text-secondary">Las Vegas</span>
       </div>
 
-      <div className="w-full py-20 bg-white">
-        <h2 id="how-it-works" className="px-4 pb-10 text-4xl text-center">
+      <div className="w-full py-20 bg-pink-50">
+        <h2 id="how-it-works" className="px-4 pb-10 text-4xl text-center uppercase">
           How it works
         </h2>
-        <div className="flex flex-row flex-wrap gap-0">
-          <div className="w-1/3 p-5 border border-primary">
-            You login with your Ethereum wallet, e.g. Metamask.
+        <div className="grid grid-cols-1 gap-10 px-6 sm:grid-cols-2 md:grid-cols-3">
+          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-primary min-h-[150px]">
+            <StepNumber step={1} className="bg-primary" />
+            Login with your Ethereum wallet, e.g.{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              href="https://metamask.io/"
+            >
+              Metamask
+            </a>
           </div>
-          <div className="w-1/3 p-5 border border-primary">
-            You create an agreement where you enter your and your partner
-            details.
+          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-primary min-h-[150px]">
+            <StepNumber step={2} className="bg-primary" />
+            Create an agreement with your couple details
           </div>
-          <div className="w-1/3 p-5 border border-primary">
-            You invite your partner to review and accept the agreement.
+          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-primary min-h-[150px]">
+            <StepNumber step={3} className="bg-primary" />
+            Invite your partner to accept the agreement
           </div>
-          <div className="w-1/3 p-5 border border-secondary">
-            Partner login and accept the agreement you created.
+          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-secondary min-h-[150px]">
+            <StepNumber step={4} className="bg-secondary" />
+            Your partner logins and accepts the agreement
           </div>
-          <div className="w-1/3 p-5 border border-secondary">
-            From that moment, you're crypto-married.
+          <div className="flex flex-col justify-center p-0.5 text-center bg-white rounded-lg bg-gradient-to-r from-purple-400 to-pink-600 min-h-[150px]">
+            <div className="flex flex-col justify-center w-full h-full p-5 bg-white rounded-lg">
+              <StepNumber
+                step={5}
+                className="bg-gradient-to-r from-purple-400 to-pink-600"
+              />
+              Celebrate your cripto-marriage together!
+            </div>
           </div>
         </div>
       </div>
@@ -122,7 +139,7 @@ const Home: NextPage = () => {
       {agreements.length > 0 && (
         <div className="w-full py-16 bg-white">
           <h2 className="px-4 py-10 text-4xl text-center">
-            Happily married with us
+            Crypto-couples
           </h2>
           <AgreementList
             agreements={agreements}
@@ -135,3 +152,20 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+type StepNumberProps = {
+  step: number
+  className?: string
+}
+const StepNumber: FC<StepNumberProps> = ({ step, className }) => {
+  return (
+    <div
+      className={c(
+        'flex flex-col items-center justify-center w-10 h-10 mx-auto mb-4 text-lg font-bold text-white rounded-full',
+        className
+      )}
+    >
+      {step}
+    </div>
+  )
+}
