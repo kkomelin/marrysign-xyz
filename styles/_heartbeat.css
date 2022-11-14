@@ -1,0 +1,35 @@
+/* 
+Heartbeat css animation. #css #animations
+Borrowed from https://gist.github.com/ivo-ivanov/bf7257e06f2a4767b62ec184ff7f459b 
+Credits to https://github.com/ivo-ivanov
+*/
+
+.heartbeat {
+    animation: heartbeat 3s infinite;
+}
+
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.1);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1.1);
+    }
+
+    80% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

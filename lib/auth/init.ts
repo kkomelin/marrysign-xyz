@@ -11,10 +11,9 @@ import { publicProvider } from 'wagmi/providers/public'
 import { APP_NAME } from '../config'
 import { isProd } from '../helpers'
 
-let networkds = [chain.mainnet]
-
-if (!isProd()) {
-  networkds = [chain.goerli, chain.hardhat, chain.localhost]
+let networkds = [/*chain.goerli,*/ chain.hardhat /* chain.localhost */]
+if (isProd()) {
+  networkds = [chain.mainnet]
 }
 
 const { chains, provider } = configureChains(networkds, [publicProvider()])
@@ -23,23 +22,23 @@ const connectors = connectorsForWallets([
   {
     groupName: 'Popular',
     wallets: [
+      injectedWallet({
+        chains,
+        shimDisconnect: true,
+      }),
       metaMaskWallet({ chains }),
+      walletConnectWallet({ chains }),
       coinbaseWallet({
         chains,
         appName: APP_NAME,
       }),
       trustWallet({ chains }),
-      walletConnectWallet({ chains }),
-      injectedWallet({
-        chains,
-        shimDisconnect: true,
-      }),
     ],
   },
 ])
 
 const wagmiClient = createClient({
-  autoConnect: true,
+  autoConnect: false,
   connectors,
   provider,
 })

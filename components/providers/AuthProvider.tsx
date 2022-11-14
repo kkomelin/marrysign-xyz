@@ -2,9 +2,9 @@ import { lightTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { FC, PropsWithChildren } from 'react'
 import { WagmiConfig } from 'wagmi'
-import auth from '../lib/auth/init'
-import { APP_NAME, APP_URL } from '../lib/config'
-import CustomAvatar from './CustomAvatar'
+import auth from '../../lib/auth/init'
+import { APP_NAME, APP_URL } from '../../lib/config'
+import CustomAvatar from '../misc/CustomAvatar'
 
 type Props = {}
 const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
