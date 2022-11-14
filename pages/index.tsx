@@ -95,19 +95,27 @@ const Home: NextPage = () => {
         than <span className="text-secondary">Las Vegas</span>
       </div>
 
-      <div className="w-full py-10 bg-white">
-        <h2 id="how-it-works" className="px-4 py-10 text-4xl text-center">
+      <div className="w-full py-20 bg-white">
+        <h2 id="how-it-works" className="px-4 pb-10 text-4xl text-center">
           How it works
         </h2>
-        <div>
-          <br />
-          - You login with your Ethereum wallet, e.g. Metamask
-          <br />
-          - You create an agreement where you enter your and your partner
-          details <br />- You invite your partner to accept the agreement
-          <br />
-          - Partner login and accept the agreement you created
-          <br />- From that moment, you're crypto-married.
+        <div className="flex flex-row flex-wrap gap-0">
+          <div className="w-1/3 p-5 border border-primary">
+            You login with your Ethereum wallet, e.g. Metamask.
+          </div>
+          <div className="w-1/3 p-5 border border-primary">
+            You create an agreement where you enter your and your partner
+            details.
+          </div>
+          <div className="w-1/3 p-5 border border-primary">
+            You invite your partner to review and accept the agreement.
+          </div>
+          <div className="w-1/3 p-5 border border-secondary">
+            Partner login and accept the agreement you created.
+          </div>
+          <div className="w-1/3 p-5 border border-secondary">
+            From that moment, you're crypto-married.
+          </div>
         </div>
       </div>
 
