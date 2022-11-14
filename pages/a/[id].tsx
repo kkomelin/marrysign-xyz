@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import AgreementInfoBlock from '../../components/blocks/AgreementInfoBlock'
+import AgreementSharePopup from '../../components/blocks/AgreementSharePopup'
 import AcceptAgreementForm from '../../components/forms/AcceptAgreementForm'
 import CancelAgreementForm from '../../components/forms/CancelAgreementByTheOwnerForm'
 import TerminateAgreementForm from '../../components/forms/TerminateAgreementForm'
@@ -114,6 +115,7 @@ const AgreementPage: NextPage = () => {
   }
 
   useEffect(() => {
+    // @todo: It's better to add this check and load the agreement server-side in case we're not planning to host it statically.
     if (router.query.id == null) {
       return
     }
@@ -148,6 +150,8 @@ const AgreementPage: NextPage = () => {
               onAgreementRefused={handleAgreementRefused}
             />
           )}
+
+        {agreement && <AgreementSharePopup agreement={agreement} />}
 
         {address &&
           userAgreement &&

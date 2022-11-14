@@ -1,7 +1,7 @@
 import c from 'clsx'
 import { BytesLike } from 'ethers'
 import Link from 'next/link'
-import { FC, useEffect } from 'react'
+import { FC } from 'react'
 import { parseAgreementContent } from '../lib/content'
 import { agreementPath } from '../lib/helpers'
 import { MarrySign } from '../typechain'
@@ -14,18 +14,6 @@ type Props = {
 }
 const AgreementList: FC<Props> = (props) => {
   const { agreements, userAgreementId } = props
-
-  // @fixme: Remove this section before release.
-  useEffect(() => {
-    if (agreements.length === 0) {
-      return
-    }
-
-    agreements.push(agreements[0])
-    agreements.push(agreements[0])
-    agreements.push(agreements[0])
-
-  }, [agreements])
 
   return (
     <div className="w-full mt-6">

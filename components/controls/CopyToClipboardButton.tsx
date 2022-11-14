@@ -11,6 +11,8 @@ type Props = {
 const CopyToClipboardButton: FC<Props> = ({ agreementId, className }) => {
   const [isClicked, setIsClicked] = useState<boolean>(false)
 
+  // @todo: Pass url as a property to make the component agreement-independent.
+  
   const sharedUrl = absoluteAgreementUrl(agreementId as BytesLike)
 
   return (
@@ -23,7 +25,7 @@ const CopyToClipboardButton: FC<Props> = ({ agreementId, className }) => {
           try {
             await navigator.clipboard.writeText(sharedUrl)
             setIsClicked(true)
-            toast('Copied to clipboard')
+            toast('The link copied to clipboard.')
           } catch (err) {
             toast.error('An error has occurred. Please try again.')
             console.log(err)

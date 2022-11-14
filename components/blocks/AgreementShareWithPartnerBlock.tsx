@@ -3,12 +3,12 @@ import { FC } from 'react'
 import { agreementPath } from '../../lib/helpers'
 import { MarrySign } from '../../typechain'
 import ButtonLink from '../controls/ButtonLink'
-import ShareBlock from './ShareBlock'
+import AgreementShareBlock from './AgreementShareBlock'
 
 type Props = {
   agreement: MarrySign.AgreementStruct | null
 }
-const ShareWithPartnerBlock: FC<Props> = (props) => {
+const AgreementShareWithPartnerBlock: FC<Props> = (props) => {
   const { agreement } = props
 
   if (!agreement) {
@@ -23,7 +23,7 @@ const ShareWithPartnerBlock: FC<Props> = (props) => {
         Time to invite your loved one!
       </div>
 
-      <ShareBlock agreement={agreement} />
+      <AgreementShareBlock agreement={agreement} />
 
       <ButtonLink href={agreementPath(agreement.id as BytesLike)}>
         Done
@@ -32,4 +32,4 @@ const ShareWithPartnerBlock: FC<Props> = (props) => {
   )
 }
 
-export default ShareWithPartnerBlock
+export default AgreementShareWithPartnerBlock

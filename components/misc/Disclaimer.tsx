@@ -14,7 +14,7 @@ const Disclaimer: FC = () => {
           <a href="https://hack.chain.link">Chainlink Hackathon Fall 2022</a>.
         </p>
         <p>
-          *** The app is still under development, so use it at your own peril.
+          *** The app is still under development, so use it with caution.
         </p>
       </div>
     </div>

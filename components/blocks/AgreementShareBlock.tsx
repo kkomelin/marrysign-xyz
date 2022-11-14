@@ -7,7 +7,7 @@ import AgreementQRCode from '../misc/AgreementQRCode'
 type Props = {
   agreement: MarrySign.AgreementStruct | null
 }
-const ShareBlock: FC<Props> = (props) => {
+const AgreementShareBlock: FC<Props> = (props) => {
   const { agreement } = props
 
   if (!agreement) {
@@ -29,4 +29,4 @@ const ShareBlock: FC<Props> = (props) => {
   )
 }
 
-export default ShareBlock
+export default AgreementShareBlock

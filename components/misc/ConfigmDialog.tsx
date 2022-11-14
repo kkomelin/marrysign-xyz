@@ -7,7 +7,7 @@ type Props = {
   onClose: () => void
   title: string
   description?: string | ReactNode
-  confirmButtonLabel: string
+  confirmButtonLabel?: string
   onConfirm?: () => void
   onCancel?: () => void
 }
@@ -17,7 +17,7 @@ const ConfirmDialog: FC<Props> = (props) => {
     onClose,
     onConfirm,
     onCancel,
-    confirmButtonLabel,
+    confirmButtonLabel = 'Confirm',
     title,
     description,
   } = props

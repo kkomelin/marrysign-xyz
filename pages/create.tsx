@@ -2,7 +2,7 @@ import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
-import ShareWithPartnerBlock from '../components/blocks/ShareWithPartnerBlock'
+import AgreementShareWithPartnerBlock from '../components/blocks/AgreementShareWithPartnerBlock'
 import ConnectButton from '../components/controls/ConnectButton'
 import CreateAgreementForm from '../components/forms/CreateAgreementForm'
 import { useAppContext } from '../components/hooks/useAppContext'
@@ -28,7 +28,7 @@ const WizardPage: NextPage = () => {
     <MainLayout>
       <div className="flex flex-col w-full">
         <h2 className="mt-2 mb-10 text-3xl font-light leading-10 text-center text-secondary">
-          Just 3 simple steps
+          Create your marital agreement in three simple steps
         </h2>
 
         <AccordionItem
@@ -54,7 +54,7 @@ const WizardPage: NextPage = () => {
         </AccordionItem>
 
         <AccordionItem
-          title="3. Share with your partner"
+          title="3. Invite your partner"
           defaultOpen={
             userAgreement != null &&
             userAgreement.state == EAgreementState.Created &&
@@ -65,7 +65,7 @@ const WizardPage: NextPage = () => {
           {userAgreement != null &&
             userAgreement.state == EAgreementState.Created &&
             userAgreement.alice === address && (
-              <ShareWithPartnerBlock agreement={userAgreement} />
+              <AgreementShareWithPartnerBlock agreement={userAgreement} />
             )}
         </AccordionItem>
       </div>
