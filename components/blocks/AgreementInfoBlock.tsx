@@ -1,5 +1,6 @@
 import { BigNumberish } from 'ethers'
 import { FC } from 'react'
+import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import {
   agreementStateToLongString,
   formatContractDate,
@@ -28,7 +29,7 @@ const AgreementInfoBlock: FC<Props> = (props) => {
   const date = formatContractDate(agreement.updatedAt as BigNumberish)
 
   return (
-    <div className="w-full max-w-2xl px-6 py-2 text-lg text-center md:py-4">
+    <div className="w-full max-w-2xl px-6 py-2 text-lg text-center">
       {agreement.state === EAgreementState.Accepted && (
         <div className="py-3 text-gray-500">On {date}</div>
       )}
@@ -50,7 +51,7 @@ const AgreementInfoBlock: FC<Props> = (props) => {
         {agreementContent.vow}
       </div>
 
-      <div className="flex flex-col items-center justify-start py-3 mt-5 mb-8">
+      <div className="flex flex-col items-center justify-start py-3 mt-5">
         <AgreementStateVisualization
           state={agreement.state as EAgreementState}
           className="w-[180px]"

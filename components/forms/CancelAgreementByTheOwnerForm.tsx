@@ -47,7 +47,7 @@ const CancelAgreementForm: FC<Props> = (props) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-6 mt-6 border rounded-sm">
+    <div className="flex flex-col items-center justify-center w-full p-5 mt-6 bg-white border rounded-lg">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <div className="flex flex-col justify-between">
           <Button

@@ -68,7 +68,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-6">
+    <div className="flex flex-col items-center justify-center w-full p-5 bg-white border rounded-lg">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <TextField
           label="Your full name"
