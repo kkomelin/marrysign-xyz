@@ -101,7 +101,7 @@ const Home: NextPage = () => {
           How it works
         </h2>
         <div className="grid grid-cols-1 gap-10 px-6 sm:grid-cols-2 md:grid-cols-3">
-          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-primary min-h-[150px]">
+          <div className="flex flex-col justify-center p-5 text-center bg-white border rounded-lg border-primary min-h-[150px]">
             <StepNumber step={1} className="bg-primary" />
             Login with your Ethereum wallet, e.g.{' '}
             <a
@@ -112,19 +112,19 @@ const Home: NextPage = () => {
               Metamask
             </a>
           </div>
-          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-primary min-h-[150px]">
+          <div className="flex flex-col justify-center p-5 text-center bg-white border rounded-lg border-primary min-h-[150px]">
             <StepNumber step={2} className="bg-primary" />
             Create an agreement with your couple details
           </div>
-          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-primary min-h-[150px]">
+          <div className="flex flex-col justify-center p-5 text-center bg-white border rounded-lg border-primary min-h-[150px]">
             <StepNumber step={3} className="bg-primary" />
             Invite your partner to accept the agreement
           </div>
-          <div className="flex flex-col justify-center p-5 text-center bg-white border-2 rounded-lg border-secondary min-h-[150px]">
+          <div className="flex flex-col justify-center p-5 text-center bg-white border rounded-lg border-secondary min-h-[150px]">
             <StepNumber step={4} className="bg-secondary" />
             Your partner logins and accepts the agreement
           </div>
-          <div className="flex flex-col justify-center p-0.5 text-center bg-white rounded-lg bg-gradient-to-r from-purple-400 to-pink-600 min-h-[150px]">
+          <div className="flex flex-col justify-center p-px text-center bg-white rounded-lg bg-gradient-to-r from-purple-400 to-pink-600 min-h-[150px]">
             <div className="flex flex-col justify-center w-full h-full p-5 bg-white rounded-lg">
               <StepNumber
                 step={5}

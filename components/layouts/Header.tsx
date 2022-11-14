@@ -17,13 +17,15 @@ const Header: FC<Props> = () => {
 
   return (
     <header className="flex flex-row flex-wrap items-center justify-between w-full gap-5 px-6 py-6">
-      <h1 className="order-1">
+      <h1 className="relative order-1 ">
         <Link
           href="/"
           className="text-3xl font-extrabold text-transparent sm:text-4xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
         >
           {APP_NAME}
+          
         </Link>
+        <div className="absolute text-sm font-thin -right-3 -top-2">beta</div>
       </h1>
 
       <div className="order-2 sm:order-3">
