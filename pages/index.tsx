@@ -97,7 +97,10 @@ const Home: NextPage = () => {
       </div>
 
       <div className="w-full py-20 bg-pink-50">
-        <h2 id="how-it-works" className="px-4 pb-10 text-4xl text-center uppercase">
+        <h2
+          id="how-it-works"
+          className="px-4 pb-10 text-4xl text-center uppercase"
+        >
           How it works
         </h2>
         <div className="grid grid-cols-1 gap-10 px-6 sm:grid-cols-2 md:grid-cols-3">
@@ -133,14 +136,17 @@ const Home: NextPage = () => {
               Celebrate your cripto-marriage together!
             </div>
           </div>
+          <div className="flex flex-col justify-center p-5 text-center min-h-[150px] items-center">
+            <ButtonLink size="large" href="/create" color="secondary">
+              Let's get started
+            </ButtonLink>
+          </div>
         </div>
       </div>
 
       {agreements.length > 0 && (
         <div className="w-full py-16 bg-white">
-          <h2 className="px-4 py-10 text-4xl text-center">
-            Crypto-couples
-          </h2>
+          <h2 className="px-4 py-10 text-4xl text-center">Crypto-couples</h2>
           <AgreementList
             agreements={agreements}
             userAgreementId={userAgreement?.id as BytesLike}
