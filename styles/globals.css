@@ -5,23 +5,32 @@
 @import '_variables';
 @import '_heartbeat';
 
-html,
-body {
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  @apply text-gray-600;
-  @apply font-sans;
-}
-body {
-  @apply bg-pink-50 bg-opacity-60;
+@layer base {
+  html,
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    @apply text-gray-600;
+    @apply font-sans;
+  }
+  body {
+    @apply bg-pink-50 bg-opacity-60;
+  }
+
+  a {
+    @apply text-indigo-400 hover:underline;
+  }
+
+  .field.required label:after {
+    content:"*";
+    margin-left:5px;
+    @apply text-red-500;
+  }
+
+  input[type="number"].currency-input::-webkit-inner-spin-button,
+  input[type="number"].currenty-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
-a {
-  @apply text-indigo-400 hover:underline;
-}
-
-.field.required label:after {
-  content:"*";
-  margin-left:5px;
-  @apply text-red-500;
-}

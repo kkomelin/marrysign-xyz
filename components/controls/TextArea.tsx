@@ -27,8 +27,6 @@ const TextArea: FC<Props> = (props) => {
     ...rest
   } = props
 
-  
-
   return (
     <div className={c('my-2 field', { required: required })}>
       {value && label && <Label inputId={id}>{label}</Label>}
@@ -37,7 +35,7 @@ const TextArea: FC<Props> = (props) => {
         name={id}
         placeholder={placeholderText(placeholder, label, required)}
         disabled={disabled}
-        className="block w-full h-32 px-3 py-2 border rounded shadow-sm disabled:bg-secondary border-accent focus:outline-none focus:ring-light-blue-500 focus:border-light-blue-500 sm:text-sm"
+        className="block w-full h-32 px-3 py-2 border rounded shadow-sm disabled:bg-secondary border-accent focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
         onChange={onChange}
         value={value}
         {...rest}

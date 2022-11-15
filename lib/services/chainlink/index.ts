@@ -11,6 +11,8 @@ const CHAINLINK_CONTRACT_ADDRESS = '0x86d67c3D38D2bCeE722E601025C25a575021c6EA'
 
 export const convertUSDToETH = async (amountInUSD: number) => {
   try {
+    console.log('CL DataFeed requested')
+    
     const priceOfOneETH = await getETHPrice()
     if (priceOfOneETH == null || priceOfOneETH == 0) {
       return 0
