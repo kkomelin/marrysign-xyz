@@ -1,4 +1,4 @@
-import { ArrowPathIcon } from '@heroicons/react/20/solid'
+import { ArrowPathIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import c from 'clsx'
 import {
   ChangeEvent,
@@ -67,6 +67,7 @@ const CurrencyField: FC<Props> = (props) => {
     setLoading(true)
     if (value === undefined || value == null || value === 0) {
       setValueInETH(0)
+      setLoading(false)
       return
     }
 
@@ -117,12 +118,14 @@ const CurrencyField: FC<Props> = (props) => {
           <button
             onClick={handleETHInputClick}
             className={c(
-              'flex flex-row items-center justify-center order-2 px-3 py-3 text-xs font-semibold border-l border-gray-200'
+              'flex flex-row items-center justify-center order-2 px-3 py-3 text-xs font-semibold border-l border-gray-200 cursor-pointer'
             )}
           >
             ETH
-            {loading && (
+            {loading ? (
               <ArrowPathIcon className="ml-1 w-[12px] text-blue-600 animate-spin" />
+            ) : (
+              <ChevronRightIcon className="ml-1 w-[12px] text-blue-600" />
             )}
           </button>
           <input
