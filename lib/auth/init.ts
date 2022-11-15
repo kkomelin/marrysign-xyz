@@ -13,7 +13,7 @@ import { isProd } from '../helpers'
 
 let networkds = [chain.goerli, chain.hardhat /* chain.localhost */]
 if (isProd()) {
-  networkds = [chain.goerli, chain.mainnet]
+  networkds = [chain.goerli /*, chain.mainnet */]
 }
 
 const { chains, provider } = configureChains(networkds, [publicProvider()])
