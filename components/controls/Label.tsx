@@ -9,7 +9,7 @@ const Label: FC<PropsWithChildren<Props>> = (props) => {
   return (
     <label
       htmlFor={inputId}
-      className="block text-sm text-left text-gray-700 text-thin"
+      className="block mb-1 text-sm text-left text-gray-800"
     >
       {children}
     </label>

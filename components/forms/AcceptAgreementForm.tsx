@@ -1,10 +1,11 @@
 import { BytesLike } from 'ethers'
-import { FC, MouseEvent } from 'react'
+import { FC, MouseEvent, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
 import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
+import { convertUSDToETH } from '../../lib/services/chainlink'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import Button from '../controls/Button'
@@ -19,6 +20,7 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const { onAgreementAccepted, agreement, onAgreementRefused } = props
   const { address } = useAccount()
   const { showAppLoading, hideAppLoading } = useAppContext()
+  const [valueInETH, setValueInETH] = useState<number | undefined>(undefined)
 
   const handleAcceptAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -64,6 +66,18 @@ const AcceptAgreementForm: FC<Props> = (props) => {
 
   const agreementContent = parseAgreementContent(agreement.content as BytesLike)
 
+  useEffect(() => {
+    if (agreement != null) {
+      convertUSDToETH(Number(agreement.terminationCost)).then(
+        (amountInETH: number) => {
+          if (amountInETH) {
+            setValueInETH(amountInETH)
+          }
+        }
+      )
+    }
+  }, [agreement])
+
   return (
     <div className="flex flex-col items-center justify-center w-full p-5 mt-6 bg-white border rounded-lg">
       <form className="flex flex-col justify-center w-full max-w-sm py-5">
@@ -85,23 +99,20 @@ const AcceptAgreementForm: FC<Props> = (props) => {
             {agreement && agreement.state === EAgreementState.Created && (
               <div className="py-3 my1-5">
                 <div className="mb-2 font-semibold text-red-600">
-                  Termination cost
+                  By pressing Accept, you also agree with the termination cost:
                 </div>
 
                 <div>
-                  <p>
-                    No one wants to think about a divorce when getting married
-                    but it's an important matter.
-                  </p>
-
                   <p className="mt-2">
-                    Your partner suggested the equivalent of
-                    <b>${agreement.terminationCost.toString()} USD</b> in Ether
-                    (ETH) as a termination cost which will be paid by a
-                    terminating partner to another partner in case of a divorce.
-                    ${100 - SERVICE_FEE_PERCENT}% of it will go to the opposite
-                    partner as a compensation, and ${SERVICE_FEE_PERCENT}% will
-                    go to MarrySign as a service fee.
+                    Your partner suggested{' '}
+                    <b>${agreement.terminationCost.toString()} USD</b>{' '}
+                    {valueInETH ? <b>(currently {valueInETH} ETH)</b> : ''} as a
+                    termination cost which a
+                    terminating partner will be required to pay in ETH in case of divorce.{' '}
+                    <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will go to the
+                    opposite partner as a compensation, and{' '}
+                    <b>{SERVICE_FEE_PERCENT}%</b> will go to MarrySign as a
+                    service fee.
                   </p>
                 </div>
               </div>

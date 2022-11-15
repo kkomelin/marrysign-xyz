@@ -6,8 +6,8 @@ import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { DEFAULT_VOW } from '../../lib/config/strings'
 import { handleContractError, validateCurrency } from '../../lib/helpers'
 import { createAgreement } from '../../lib/services/agreement'
-import { convertUSDToETH } from '../../lib/services/chainlink'
 import Button from '../controls/Button'
+import CurrencyField from '../controls/CurrencyField'
 import TextArea from '../controls/TextArea'
 import TextField from '../controls/TextField'
 import { useAppContext } from '../hooks/useAppContext'
@@ -21,7 +21,6 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const [partner1Name, setPartner1Name] = useState<string>('Alice Smith')
   const [partner2Name, setPartner2Name] = useState<string>('Bob Johnson')
   const [terminationCost, setTerminationCost] = useState<number>(10)
-  const [terminationCostInETH, setTerminationCostInETH] = useState<number>(0)
   const [partner2Address, setPartner2Address] = useState<string>(
     '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'
   )
@@ -80,14 +79,6 @@ const CreateAgreementForm: FC<Props> = (props) => {
     }
   }
 
-  const requestAmountInETH = async () => {
-    if (terminationCost === 0) {
-      return 0
-    }
-    const amountInETH = await convertUSDToETH(terminationCost)
-    setTerminationCostInETH(amountInETH)
-  }
-
   // @todo: Improve the form validation by using Formik + Yup.
 
   return (
@@ -125,22 +116,16 @@ const CreateAgreementForm: FC<Props> = (props) => {
             setVow(e.target.value)
           }
         />
-        <TextField
-          label="Termination cost (USD)"
-          description={
-            (terminationCostInETH ? `${terminationCostInETH} ETH apx. ` : '') +
-            `A terminating partner pays the equivalent of this amount in Ether (ETH). ${
-              100 - SERVICE_FEE_PERCENT
-            }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`
-          }
-          type="number"
+        <CurrencyField
+          label="Termination cost"
+          description={`A terminating partner pays the equivalent of this USD amount in ETH in case of the divorce. ${
+            100 - SERVICE_FEE_PERCENT
+          }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
           value={terminationCost}
           required={true}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>{
+            console.log(Number(e.target.value))
             setTerminationCost(Number(e.target.value))
-          }
-          onBlur={async () => {
-            await requestAmountInETH()
           }}
         />
         {/* Validate the termination cost number */}
