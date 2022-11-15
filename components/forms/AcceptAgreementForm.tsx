@@ -99,21 +99,16 @@ const AcceptAgreementForm: FC<Props> = (props) => {
             {agreement && agreement.state === EAgreementState.Created && (
               <div className="py-3 my1-5">
                 <div className="mb-2 font-semibold text-red-600">
-                  Termination cost
+                  By pressing Accept, you also agree with the termination cost:
                 </div>
 
                 <div>
-                  <p>
-                    No one wants to think about a divorce when getting married
-                    but it's an important matter.
-                  </p>
-
                   <p className="mt-2">
                     Your partner suggested{' '}
                     <b>${agreement.terminationCost.toString()} USD</b>{' '}
                     {valueInETH ? <b>(currently {valueInETH} ETH)</b> : ''} as a
-                    termination cost which will be required to pay in ETH by a
-                    terminating partner in case of a divorce.{' '}
+                    termination cost which a
+                    terminating partner will be required to pay in ETH in case of divorce.{' '}
                     <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will go to the
                     opposite partner as a compensation, and{' '}
                     <b>{SERVICE_FEE_PERCENT}%</b> will go to MarrySign as a
