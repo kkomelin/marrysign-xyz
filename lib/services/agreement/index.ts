@@ -145,7 +145,8 @@ export const terminateAgreement = async (
  * @returns
  */
 const _getContractAnonymously = async () => {
-  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
+  const contractAddress =
+    process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS || ''
 
   // @todo: It's probably necesary to pass network url to the constructor when on a real chain.
   const provider = new ethers.providers.JsonRpcProvider()
@@ -165,7 +166,8 @@ const _getContractAnonymously = async () => {
  * @returns
  */
 const _getContract = async () => {
-  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
+  const contractAddress =
+    process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS || ''
 
   const provider = new ethers.providers.Web3Provider(
     window.ethereum as ethers.providers.ExternalProvider
@@ -191,7 +193,7 @@ const _checkPrerequisitesWalletConnected = () => {
 }
 
 const _checkPrerequisitesContractAddress = () => {
-  if (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS == null) {
+  if (process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS == null) {
     throw new Error('Please set contract address in your env config.')
   }
 }

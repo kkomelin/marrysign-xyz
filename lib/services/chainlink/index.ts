@@ -5,9 +5,12 @@
 import { ethers } from 'ethers'
 import { aggregatorV3InterfaceABI } from './abi'
 
-// @todo: Move to .env.
-const CHAINLINK_NODE_URL = 'https://api.avax-test.network/ext/bc/C/rpc'
-const CHAINLINK_CONTRACT_ADDRESS = '0x86d67c3D38D2bCeE722E601025C25a575021c6EA'
+const CHAINLINK_NODE_URL =
+  process.env.NEXT_PUBLIC_CHAINLINK_RPC_URL ||
+  'https://api.avax-test.network/ext/bc/C/rpc'
+const CHAINLINK_CONTRACT_ADDRESS =
+  process.env.NEXT_PUBLIC_CHAINLINK_CONTRACT_ADDRESS ||
+  '0x86d67c3D38D2bCeE722E601025C25a575021c6EA'
 
 export const convertUSDToETH = async (amountInUSD: number) => {
   try {
