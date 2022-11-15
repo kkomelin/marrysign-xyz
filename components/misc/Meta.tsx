@@ -1,15 +1,12 @@
 import Head from 'next/head'
 import { FC, PropsWithChildren } from 'react'
-import {
-  APP_DESCRIPTION,
-  APP_NAME,
-  APP_TWITTER_HANDLE,
-  APP_URL,
-} from '../../lib/config'
+import { APP_NAME, APP_TWITTER_HANDLE, APP_URL } from '../../lib/config'
 import { toAbsolute } from '../../lib/helpers'
 
 type MetaProps = {}
 const Meta: FC<PropsWithChildren<MetaProps>> = ({ children }) => {
+  const description =
+    'Digital marriages powered by Blockchain without restrictions on age, location, culture, gender or anything else.'
   return (
     <>
       <Head>
@@ -48,13 +45,13 @@ const Meta: FC<PropsWithChildren<MetaProps>> = ({ children }) => {
         {/* <link rel="alternate" type="application/rss+xml" href="/feed.xml" /> */}
 
         <title key="title">{APP_NAME}</title>
-        <meta name="description" content={APP_DESCRIPTION} key="description" />
+        <meta name="description" content={description} key="description" />
 
         <meta property="og:type" content="website" key="og:type" />
         <meta property="og:title" content={APP_NAME} key="og:title" />
         <meta
           property="og:description"
-          content={APP_DESCRIPTION}
+          content={description}
           key="og:description"
         />
         <meta property="og:locale" content="en_US" key="og:locale" />
@@ -62,7 +59,7 @@ const Meta: FC<PropsWithChildren<MetaProps>> = ({ children }) => {
         <meta property="og:url" content={APP_URL} key="og:url" />
         <meta
           property="og:image"
-          content={toAbsolute('/assets/slogan.png')}
+          content={toAbsolute('/images/ogimage.jpg')}
           key="og:image"
         />
 
