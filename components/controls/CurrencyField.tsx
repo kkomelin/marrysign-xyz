@@ -123,14 +123,14 @@ const CurrencyField: FC<Props> = (props) => {
           >
             ETH
             {loading ? (
-              <ArrowPathIcon className="ml-1 w-[12px] text-blue-600 animate-spin" />
+              <ArrowPathIcon className="ml-1 w-[12px] text-primary animate-spin" />
             ) : (
-              <ChevronRightIcon className="ml-1 w-[12px] text-blue-600" />
+              <ChevronRightIcon className="ml-1 w-[12px] text-primary" />
             )}
           </button>
           <input
             disabled={true}
-            className="order-1 block w-full px-3 py-3 placeholder-input focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="order-1 block w-full px-3 py-3 placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
             type="text"
             {...valueETHProp}
           />
