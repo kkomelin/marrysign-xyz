@@ -106,7 +106,7 @@ const Home: NextPage = () => {
         >
           How it works
         </h2>
-        <div className="grid grid-cols-1 gap-10 px-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid max-w-6xl grid-cols-1 gap-10 px-6 mx-auto sm:grid-cols-2 md:grid-cols-3">
           <div className="flex flex-col justify-center p-5 text-center bg-white border rounded-lg border-primary min-h-[150px]">
             <StepNumber step={1} className="bg-primary" />
             Login with your Ethereum wallet, e.g.{' '}
