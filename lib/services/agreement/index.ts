@@ -143,7 +143,7 @@ export const terminateAgreement = async (
 }
 
 const _getNetworkRpcUrl = () => {
-  const network = process.env.NEXT_PUBLIC_DEFAULT_NETWORK || 'local'
+  const network = process.env.NEXT_PUBLIC_DEFAULT_NETWORK || ENetwork.Local
 
   switch (network) {
     case ENetwork.Goerly:
