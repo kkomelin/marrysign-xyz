@@ -8,11 +8,10 @@ import { AggregatorV3Interface__factory } from '../../../typechain/factories/@ch
 import { isProd } from '../../helpers'
 
 const CHAINLINK_NODE_URL =
-  process.env.NEXT_PUBLIC_CHAINLINK_RPC_URL ||
-  'https://api.avax-test.network/ext/bc/C/rpc'
+  process.env.NEXT_PUBLIC_CHAINLINK_PRICE_FEED_WEB2_RPC_URL || undefined
 const CHAINLINK_CONTRACT_ADDRESS =
-  process.env.NEXT_PUBLIC_CHAINLINK_CONTRACT_ADDRESS ||
-  '0x86d67c3D38D2bCeE722E601025C25a575021c6EA'
+  process.env.NEXT_PUBLIC_CHAINLINK_PRICE_FEED_WEB2_CONTRACT_ADDRESS ||
+  undefined
 
 // When we deploy a CL Datafeed mock for local development, we hardcode the ETH price.
 const DEVELOPMENT_ETH_PRICE = 2000
@@ -42,7 +41,7 @@ export const convertUSDToETH = async (amountInUSD: number) => {
 
 export async function getETHPriceInUSD() {
   if (CHAINLINK_NODE_URL == null || CHAINLINK_CONTRACT_ADDRESS == null) {
-    throw new Error('Please set Chainlink details through your .env.')
+    throw new Error('Please set Chainlink details through your .env file.')
   }
 
   var provider = new ethers.providers.JsonRpcProvider(CHAINLINK_NODE_URL)
