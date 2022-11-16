@@ -1,4 +1,4 @@
-import { BigNumberish, BytesLike } from 'ethers'
+import { BytesLike } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
@@ -34,9 +34,20 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   const handleTerminateAgreement = async () => {
     try {
       showAppLoading('Terminating the agreement...')
+
+      // @fixme: We totally rely on CL service here. A fallback is very necessary here to wider this bottleneck!
+      if (valueInETH === 0) {
+        toast.error(
+          'Cannot terminate your agreement at the moment. Please contact the app developer.'
+        )
+        hideAppLoading()
+        return
+      }
+
+      const terminationCostInWei = valueInETH * Math.pow(10, 18)
       const successful = await terminateAgreement(
         agreement.id.toString(),
-        agreement.terminationCost as BigNumberish,
+        terminationCostInWei,
         (agreementId: BytesLike) => {
           hideAppLoading()
           return onAgreementTerminated(agreementId)
@@ -81,6 +92,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
     }
 
     const amountInETH = await convertUSDToETH(value)
+
     setValueInETH(amountInETH)
     setLoading(false)
   }
