@@ -18,21 +18,17 @@ type Props = {
 const CreateAgreementForm: FC<Props> = (props) => {
   const { onAgreementCreated } = props
   const { address } = useAccount()
-  const [partner1Name, setPartner1Name] = useState<string>('Alice Smith')
-  const [partner2Name, setPartner2Name] = useState<string>('Bob Johnson')
+  const [partner1Name, setPartner1Name] = useState<string>('') // Alice Smith
+  const [partner2Name, setPartner2Name] = useState<string>('') // Bob Johnson
   const [terminationCost, setTerminationCost] = useState<number>(10)
-  const [partner2Address, setPartner2Address] = useState<string>(
-    '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199'
-  )
+  const [partner2Address, setPartner2Address] = useState<string>('')
   const [vow, setVow] = useState<string>(DEFAULT_VOW)
   const { showAppLoading, hideAppLoading } = useAppContext()
 
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    if (
-      terminationCost === 0
-    ) {
+    if (terminationCost === 0) {
       toast.warn('The termination cost should be greater than 0.')
       return
     }
@@ -41,10 +37,9 @@ const CreateAgreementForm: FC<Props> = (props) => {
       partner1Name.length === 0 ||
       partner2Name.length === 0 ||
       partner2Address.length === 0 ||
-      vow.length === 0 ||
-      terminationCost === 0
+      vow.length === 0
     ) {
-      toast.warn('Please make sure you fill in all required fields.')
+      toast.warn('Please make sure you filled in all required fields.')
       return
     }
 
@@ -130,7 +125,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
           }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
           value={terminationCost}
           required={true}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>{
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
             console.log(Number(e.target.value))
             setTerminationCost(Number(e.target.value))
           }}
