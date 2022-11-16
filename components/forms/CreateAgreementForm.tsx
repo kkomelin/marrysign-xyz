@@ -21,7 +21,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const [partner1Name, setPartner1Name] = useState<string>('') // Alice Smith
   const [partner2Name, setPartner2Name] = useState<string>('') // Bob Johnson
   const [terminationCost, setTerminationCost] = useState<number>(10)
-  const [partner2Address, setPartner2Address] = useState<string>('')
+  const [partner2Address, setPartner2Address] = useState<string>('') // 0x098F4f427732984e6f205AFe66e1f9015B5A45c7
   const [vow, setVow] = useState<string>(DEFAULT_VOW)
   const { showAppLoading, hideAppLoading } = useAppContext()
 
@@ -126,7 +126,6 @@ const CreateAgreementForm: FC<Props> = (props) => {
           value={terminationCost}
           required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            console.log(Number(e.target.value))
             setTerminationCost(Number(e.target.value))
           }}
         />
