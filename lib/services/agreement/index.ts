@@ -143,10 +143,10 @@ export const terminateAgreement = async (
 }
 
 const _getNetworkRpcUrl = () => {
-  const network = process.env.NEXT_PUBLIC_DEFAULT_NETWORK || ENetwork.Local
+  const network = process.env.NEXT_PUBLIC_CURRENT_NETWORK || ENetwork.Local
 
   switch (network) {
-    case ENetwork.Goerly:
+    case ENetwork.Goerli:
       return (
         process.env.NEXT_PUBLIC_GOERLI_RPC_URL ||
         'https://eth-goerli.alchemyapi.io/v2/your-api-key'
