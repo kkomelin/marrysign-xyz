@@ -81,6 +81,6 @@ export const placeholderText = (
 }
 
 export const validateCurrency = (amount: string) => {
-  const regex = /^\d*\.?\d{0,2}$/
+  const regex = /^\d+$/
   return regex.test(amount)
 }

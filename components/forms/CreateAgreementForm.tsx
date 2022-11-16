@@ -31,6 +31,13 @@ const CreateAgreementForm: FC<Props> = (props) => {
     e.preventDefault()
 
     if (
+      terminationCost === 0
+    ) {
+      toast.warn('The termination cost should be greater than 0.')
+      return
+    }
+
+    if (
       partner1Name.length === 0 ||
       partner2Name.length === 0 ||
       partner2Address.length === 0 ||
@@ -51,7 +58,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
 
     if (!validateCurrency(terminationCost.toString().trim())) {
       toast.warn(
-        'Please check the termination cost value. It should be in the US Dollars, e.g. 100.50'
+        'Please check the termination cost value. It should be in the US Dollars without cents, e.g. 100'
       )
       return
     }

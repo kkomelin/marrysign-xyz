@@ -1,5 +1,6 @@
 import { BigNumberish, BytesLike, ethers } from 'ethers'
 import { MarrySign__factory } from '../../../typechain'
+import { ENetwork } from '../../../types/ENetwork'
 import { hasEthereum, nowTimestamp, stringToHex } from '../../helpers'
 
 export const getAgreementCount = async () => {
@@ -133,6 +134,7 @@ export const terminateAgreement = async (
 
   const receipt = await contract.terminateAgreement(id, {
     value: terminationCost,
+    gasLimit: 3000000, // Have to set it here to prevent error.
   })
 
   const result = await receipt.wait(1)
@@ -140,15 +142,32 @@ export const terminateAgreement = async (
   return result.status === 1
 }
 
+const _getNetworkRpcUrl = () => {
+  const network = process.env.NEXT_PUBLIC_DEFAULT_NETWORK || 'local'
+
+  switch (network) {
+    case ENetwork.Goerly:
+      return (
+        process.env.NEXT_PUBLIC_GOERLI_RPC_URL ||
+        'https://eth-goerli.alchemyapi.io/v2/your-api-key'
+      )
+    case ENetwork.Local:
+    default:
+      return undefined
+  }
+}
+
 /**
  * Get contract but not ask user to connect.
  * @returns
  */
 const _getContractAnonymously = async () => {
-  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
+  const contractAddress =
+    process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS || ''
 
-  // @todo: It's probably necesary to pass network url to the constructor when on a real chain.
-  const provider = new ethers.providers.JsonRpcProvider()
+  const rpcUrl = _getNetworkRpcUrl()
+
+  const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
 
   const contract = new ethers.Contract(
     contractAddress,
@@ -165,7 +184,8 @@ const _getContractAnonymously = async () => {
  * @returns
  */
 const _getContract = async () => {
-  const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || ''
+  const contractAddress =
+    process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS || ''
 
   const provider = new ethers.providers.Web3Provider(
     window.ethereum as ethers.providers.ExternalProvider
@@ -191,7 +211,7 @@ const _checkPrerequisitesWalletConnected = () => {
 }
 
 const _checkPrerequisitesContractAddress = () => {
-  if (process.env.NEXT_PUBLIC_CONTRACT_ADDRESS == null) {
+  if (process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS == null) {
     throw new Error('Please set contract address in your env config.')
   }
 }
