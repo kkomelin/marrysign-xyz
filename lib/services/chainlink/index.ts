@@ -3,6 +3,7 @@
  * which is authored by https://github.com/rgottleber
  */
 import { ethers } from 'ethers'
+import { isProd } from '../../helpers'
 import { aggregatorV3InterfaceABI } from './abi'
 
 const CHAINLINK_NODE_URL =
@@ -12,10 +13,20 @@ const CHAINLINK_CONTRACT_ADDRESS =
   process.env.NEXT_PUBLIC_CHAINLINK_CONTRACT_ADDRESS ||
   '0x86d67c3D38D2bCeE722E601025C25a575021c6EA'
 
+// When we deploy a CL Datafeed mock for local development, we hardcode the ETH price.
+const DEVELOPMENT_ETH_PRICE = 2000
+
 export const convertUSDToETH = async (amountInUSD: number) => {
   try {
+    if (!isProd()) {
+      console.log(
+        `[development] CL DataFeed fallback used. Assuming that ETH price = ${DEVELOPMENT_ETH_PRICE}`
+      )
+      return amountInUSD / DEVELOPMENT_ETH_PRICE
+    }
+
     console.log('CL DataFeed requested')
-    
+
     const priceOfOneETH = await getETHPriceInUSD()
     if (priceOfOneETH == null || priceOfOneETH == 0) {
       return 0
