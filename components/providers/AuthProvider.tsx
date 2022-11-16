@@ -17,7 +17,7 @@ const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
         }}
         chains={auth.chains}
         theme={lightTheme({
-          accentColor: 'var(--ms-color-primary)', //'#c084fc', // primary color, see _variables.css.
+          accentColor: 'var(--ms-color-primary)', // primary color, see _variables.css.
           accentColorForeground: 'white',
           borderRadius: 'medium',
           fontStack: 'system',

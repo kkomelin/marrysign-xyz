@@ -1,5 +1,6 @@
 import { BigNumberish, BytesLike, ethers } from 'ethers'
 import { MarrySign__factory } from '../../../typechain'
+import { ENetwork } from '../../../types/ENetwork'
 import { hasEthereum, nowTimestamp, stringToHex } from '../../helpers'
 
 export const getAgreementCount = async () => {
@@ -140,6 +141,21 @@ export const terminateAgreement = async (
   return result.status === 1
 }
 
+const _getNetworkRpcUrl = () => {
+  const network = process.env.NEXT_PUBLIC_DEFAULT_NETWORK || 'local'
+
+  switch (network) {
+    case ENetwork.Goerly:
+      return (
+        process.env.NEXT_PUBLIC_GOERLI_RPC_URL ||
+        'https://eth-goerli.alchemyapi.io/v2/your-api-key'
+      )
+    case ENetwork.Local:
+    default:
+      return undefined
+  }
+}
+
 /**
  * Get contract but not ask user to connect.
  * @returns
@@ -148,8 +164,9 @@ const _getContractAnonymously = async () => {
   const contractAddress =
     process.env.NEXT_PUBLIC_MARRYSIGN_CONTRACT_ADDRESS || ''
 
-  // @todo: It's probably necesary to pass network url to the constructor when on a real chain.
-  const provider = new ethers.providers.JsonRpcProvider()
+  const rpcUrl = _getNetworkRpcUrl()
+
+  const provider = new ethers.providers.JsonRpcProvider(rpcUrl)
 
   const contract = new ethers.Contract(
     contractAddress,

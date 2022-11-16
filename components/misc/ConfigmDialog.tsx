@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react'
-import { FC, MouseEvent, ReactNode } from 'react'
+import { FC, MouseEvent, ReactNode, useEffect } from 'react'
 import Button from '../controls/Button'
 
 type Props = {
@@ -44,47 +44,46 @@ const ConfirmDialog: FC<Props> = (props) => {
           >
             {title}
           </Dialog.Title>
-          <Dialog.Description as="div" className="flex flex-col items-center justify-center mx-2 mt-1">
+          <Dialog.Description
+            as="div"
+            className="flex flex-col items-center justify-center mx-2 mt-1"
+          >
             {description}
           </Dialog.Description>
 
           {(onCancel || onConfirm) && (
             <div className="flex flex-row justify-between w-full px-2 mt-3">
-              {
-                onCancel && (
-                  <Button
-                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                      e.preventDefault()
-                      if (onCancel) {
-                        onCancel()
-                      }
-                      if (onClose) {
-                        onClose()
-                      }
-                    }}
-                  >
-                    Cancel
-                  </Button>
-                )
-              }
-              {
-                onConfirm && (
-                  <Button
-                    color="secondary"
-                    onClick={(e: MouseEvent<HTMLButtonElement>) => {
-                      e.preventDefault()
-                      if (onConfirm) {
-                        onConfirm()
-                      }
-                      if (onClose) {
-                        onClose()
-                      }
-                    }}
-                  >
-                    {confirmButtonLabel}
-                  </Button>
-                )
-              }
+              {onCancel && (
+                <Button
+                  onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault()
+                    if (onCancel) {
+                      onCancel()
+                    }
+                    if (onClose) {
+                      onClose()
+                    }
+                  }}
+                >
+                  Cancel
+                </Button>
+              )}
+              {onConfirm && (
+                <Button
+                  color="secondary"
+                  onClick={(e: MouseEvent<HTMLButtonElement>) => {
+                    e.preventDefault()
+                    if (onConfirm) {
+                      onConfirm()
+                    }
+                    if (onClose) {
+                      onClose()
+                    }
+                  }}
+                >
+                  {confirmButtonLabel}
+                </Button>
+              )}
             </div>
           )}
         </div>

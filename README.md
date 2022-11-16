@@ -1,14 +1,10 @@
-# MarrySign.com
+# MarrySign (Frontend)
+MarrySign app allows any couple to get married online.
 
+## Demo
 
+[MarrySign.com](https://marrysign.com/) **(Goerli network only atm)**
 
-## Getting Started
-
-```bash
-npm run dev
-# or
-yarn dev
-```
 
 ## Chainlink Services Used
 
@@ -17,3 +13,12 @@ To display ETH equivalent to the USD amount on the Agreement Create and Agrement
 we use Chainlink DataFeeds in Web2 way. See [/lib/services/chainlink/index.ts](/lib/services/chainlink/index.ts)
 
 TBC
+
+
+## Development
+
+```bash
+npm run dev
+# or
+yarn dev
+```

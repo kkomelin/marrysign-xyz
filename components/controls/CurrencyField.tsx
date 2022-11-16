@@ -4,6 +4,7 @@ import {
   ChangeEvent,
   FC,
   FocusEvent,
+  KeyboardEvent,
   MouseEvent,
   useEffect,
   useState,
@@ -64,6 +65,11 @@ const CurrencyField: FC<Props> = (props) => {
   }
 
   const updateETH = async (value: number | undefined) => {
+    // Don't send one more request if we're waiting for a response already.
+    if (loading) {
+      return
+    }
+
     setLoading(true)
     if (value === undefined || value == null || value === 0) {
       setValueInETH(0)
@@ -106,7 +112,13 @@ const CurrencyField: FC<Props> = (props) => {
             disabled={disabled}
             className="block w-full px-3 py-3 border border-transparent currency-input placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
             type="number"
-            step="any"
+            min="1"
+            step="1"
+            onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === '.' || e.key === 'e') {
+                e.preventDefault()
+              }
+            }}
             onChange={handleUSDInputChange}
             onBlur={handleUSDInputBlur}
             {...valueUSDProp}
