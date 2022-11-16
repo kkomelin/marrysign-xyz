@@ -1,10 +1,11 @@
 /**
- * Some chainlink-related code has been borrowed from https://github.com/smartcontractkit/chainlink-in-web2-fh22/blob/main/src/utils/getETHPrice.js
+ * Some chainlink-related code has been borrowed from 
+ * https://github.com/smartcontractkit/chainlink-in-web2-fh22/blob/main/src/utils/getETHPrice.js
  * which is authored by https://github.com/rgottleber
  */
 import { ethers } from 'ethers'
+import { AggregatorV3Interface__factory } from '../../../typechain/factories/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface__factory'
 import { isProd } from '../../helpers'
-import { aggregatorV3InterfaceABI } from './abi'
 
 const CHAINLINK_NODE_URL =
   process.env.NEXT_PUBLIC_CHAINLINK_RPC_URL ||
@@ -48,7 +49,7 @@ export async function getETHPriceInUSD() {
 
   const priceFeed = new ethers.Contract(
     CHAINLINK_CONTRACT_ADDRESS,
-    aggregatorV3InterfaceABI,
+    AggregatorV3Interface__factory.abi,
     provider
   )
   let roundData = await priceFeed.latestRoundData()
