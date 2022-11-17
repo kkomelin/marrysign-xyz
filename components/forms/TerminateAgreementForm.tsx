@@ -1,4 +1,4 @@
-import { BytesLike } from 'ethers'
+import { BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
@@ -44,7 +44,9 @@ const TerminateAgreementForm: FC<Props> = (props) => {
         return
       }
 
-      const terminationCostInWei = valueInETH * Math.pow(10, 18)
+      const terminationCostInWei = ethers.utils.parseEther(
+        valueInETH.toString()
+      )
       const successful = await terminateAgreement(
         agreement.id.toString(),
         terminationCostInWei,
@@ -104,7 +106,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   }, [agreement])
 
   return (
-    <div className="flex flex-col items-center justify-center w-full p-6 mt-6 bg-white border rounded-lg">
+    <div className="flex flex-col items-center justify-center w-full p-6 mt-6">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <div className="flex flex-col justify-between">
           <button
