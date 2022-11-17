@@ -8,7 +8,7 @@ import AgreementList from '../components/AgreementList'
 import ButtonLink from '../components/controls/ButtonLink'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
-import { APP_DESCRIPTION } from '../lib/config'
+import { APP_SLOGAN } from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { getAcceptedAgreements } from '../lib/services/agreement'
 import { contractStructToObject } from '../lib/services/agreement/helpers'
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
     <FrontpageLayout>
       <div className="flex flex-col items-center justify-center p-5 mx-auto mb-10 sm:mb-10">
         <h2 className="pt-2 pb-6 text-3xl font-light leading-10 text-center sm:pb-8 sm:pt-4 sm:mt-4 text-secondary sm:text-5xl">
-          {APP_DESCRIPTION}
+          {APP_SLOGAN}
         </h2>
 
         <div className="px-12 py-8 mt-4 bg-purple-400 rounded-lg shadow-sm sm:py-10 sm:px-14 bg-opacity-20">
@@ -149,7 +149,9 @@ const Home: NextPage = () => {
 
       {agreements.length > 0 && (
         <div className="w-full py-16 bg-white">
-          <h2 className="px-4 pb-10 text-4xl text-center uppercase">Happily Crypto-Married</h2>
+          <h2 className="px-4 pb-10 text-4xl text-center uppercase">
+            Happily Crypto-Married
+          </h2>
           <AgreementList
             agreements={agreements}
             userAgreementId={userAgreement?.id as BytesLike}

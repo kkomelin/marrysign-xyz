@@ -1,57 +1,59 @@
 import Head from 'next/head'
 import { FC, PropsWithChildren } from 'react'
-import { APP_NAME, APP_TWITTER_HANDLE, APP_URL } from '../../lib/config'
+import {
+  APP_DESCRIPTION,
+  APP_NAME,
+  APP_SLOGAN,
+  APP_TWITTER_HANDLE,
+  APP_URL,
+} from '../../lib/config'
 import { toAbsolute } from '../../lib/helpers'
 
 type MetaProps = {}
 const Meta: FC<PropsWithChildren<MetaProps>> = ({ children }) => {
-  const description =
-    'Digital marriages powered by Blockchain without restrictions on age, location, culture, gender or anything else.'
+
   return (
     <>
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* <link rel="icon" href="/favicon/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
+          href="/images/apple-touch-icon.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/favicon/favicon-32x32.png"
+          href="/images/favicon-32x32.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/favicon/favicon-16x16.png"
+          href="/images/favicon-16x16.png"
         />
-        <link rel="manifest" href="/favicon/site.webmanifest" /> */}
-        {/* <link
+        <link rel="manifest" href="/site.webmanifest" />
+        <link
           rel="mask-icon"
-          href="/favicon/safari-pinned-tab.svg"
-          color="#5bbad5"
-        /> */}
-        <meta name="msapplication-TileColor" content="#85baa1" />
-        <meta
-          name="msapplication-config"
-          content="/favicon/favicon/browserconfig.xml"
+          href="/images/safari-pinned-tab.svg"
+          color="#db2777"
         />
+        <meta name="msapplication-TileColor" content="#db2777" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="theme-color" content="#ffffff" />
         {/* <link rel="alternate" type="application/rss+xml" href="/feed.xml" /> */}
 
-        <title key="title">{APP_NAME}</title>
-        <meta name="description" content={description} key="description" />
+        <title key="title">{APP_NAME + ' - ' + APP_SLOGAN}</title>
+        <meta name="description" content={APP_DESCRIPTION} key="description" />
 
         <meta property="og:type" content="website" key="og:type" />
         <meta property="og:title" content={APP_NAME} key="og:title" />
         <meta
           property="og:description"
-          content={description}
+          content={APP_DESCRIPTION}
           key="og:description"
         />
         <meta property="og:locale" content="en_US" key="og:locale" />
