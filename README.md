@@ -1,7 +1,7 @@
 # MarrySign (Frontend)
 MarrySign app allows any couple to get married online.
 
-This repository contains the front-end part of the project which is currently hosted on [Vercel](https://vercel.com/).
+This repository contains the front-end part of the project which is developed with Typescript, Next.js, React and TailwindCSS, and currently hosted on Vercel.
 
 _The project is developed during [Chainlink Hackathon Fall 2022](https://hack.chain.link/) (Oct 14 - Nov 18, 2022)._
 
