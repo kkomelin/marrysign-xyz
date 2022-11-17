@@ -32,6 +32,8 @@ yarn install || npm install
 
 See [kkomelin/marrysign-com/.example.env](https://github.com/kkomelin/marrysign-com/blob/main/.example.env) for reference.
 
+Copy `.example.env` to `.env` and update the variables with your values.
+
 ## Development
 
 ```bash
