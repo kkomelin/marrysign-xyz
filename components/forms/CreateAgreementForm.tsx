@@ -87,7 +87,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
     <div className="flex flex-col items-center justify-center w-full p-5 bg-white border rounded-lg">
       <form className="flex flex-col justify-center w-full max-w-sm">
         <TextField
-          label="Your full name"
+          label="Your name"
           value={partner1Name}
           required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -95,7 +95,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
           }
         />
         <TextField
-          label="Your partner's full name"
+          label="Your partner's name"
           value={partner2Name}
           required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -103,7 +103,8 @@ const CreateAgreementForm: FC<Props> = (props) => {
           }
         />
         <TextField
-          label="Your partner's ETH address (e.g. 0xf3...2266)"
+          label="Your partner's ETH address"
+          placeholder='0xf3...2266'
           value={partner2Address}
           required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>

@@ -1,5 +1,6 @@
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
+import { createRef } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import AgreementShareWithPartnerBlock from '../components/blocks/AgreementShareWithPartnerBlock'

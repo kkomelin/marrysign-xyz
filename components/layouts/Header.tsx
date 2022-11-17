@@ -23,7 +23,6 @@ const Header: FC<Props> = () => {
           className="text-3xl font-extrabold text-transparent sm:text-4xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
         >
           {APP_NAME}
-          
         </Link>
         <div className="absolute text-sm font-thin -right-3 -top-2">beta</div>
       </h1>
@@ -39,10 +38,12 @@ const Header: FC<Props> = () => {
             }
             className="mt-0"
           >
-            <span className="flex flex-row gap-2">
-              <span className="whitespace-nowrap">
+            <span className="flex flex-row items-center gap-2">
+              <span className="text-sm sm:text-md whitespace-nowrap">
                 {userAgreement ? (
-                  'My agreement'
+                  <>
+                    My <span className="hidden sm:inline">agreement</span>
+                  </>
                 ) : (
                   <>
                     Create <span className="hidden sm:inline">agreement</span>
