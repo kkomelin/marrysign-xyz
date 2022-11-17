@@ -16,7 +16,7 @@ const AgreementList: FC<Props> = (props) => {
   const { agreements, userAgreementId } = props
 
   return (
-    <div className="w-full mt-6">
+    <div className="w-full mt-4">
       {agreements.length === 0 && <p>There are no accepted agreements yet</p>}
 
       {agreements.length > 0 && (
