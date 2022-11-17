@@ -7,7 +7,7 @@ _The project is developed during [Chainlink Hackathon Fall 2022](https://hack.ch
 
 ## Demo
 
-[MarrySign.com](https://marrysign.com/) **(Goerli network only atm)**
+[MarrySign.com](https://marrysign.com/) (Goerli network)
 
 ## Chainlink Services Used
 
@@ -26,7 +26,7 @@ yarn install || npm install
 
 ## Configuration
 
-See [kkomelin/marrysign.com/.example.env](https://github.com/kkomelin/marrysign.com/.example.env) for reference.
+See [kkomelin/marrysign.com/.example.env](https://github.com/kkomelin/marrysign.com/blob/main/.example.env) for reference.
 
 TBC
 
@@ -37,4 +37,4 @@ yarn dev || npm run dev
 ```
 ## Bugs, typos and suggestions
 
-You're very welcome with your bug reports and suggestions here in the [issue queue](https://github.com/kkomelin/marrysign.com/issues), or just drop Konstantin a line on Twitter [@kkomelin](https://twitter.com/kkomelin).
+You're very welcome with your bug reports and suggestions here in the [issue queue](https://github.com/kkomelin/marrysign.com/issues), or just drop [Konstantin](https://github.com/kkomelin) a line on Twitter [@kkomelin](https://twitter.com/kkomelin).
