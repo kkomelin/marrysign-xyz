@@ -39,6 +39,11 @@ Copy `.example.env` to `.env` and update the variables with your values.
 ```bash
 yarn dev || npm run dev
 ```
+
+## Known Issues
+
+- [Create agreement page: step-by-step accordion items are not open when expected](https://github.com/kkomelin/marrysign-com/issues/1)
+
 ## Bugs, Typos and Suggestions
 
 You're very welcome with your bug reports and suggestions here in the [issue queue](https://github.com/kkomelin/marrysign-com/issues/new), or just drop [Konstantin](https://github.com/kkomelin) a line on Twitter [@kkomelin](https://twitter.com/kkomelin).
