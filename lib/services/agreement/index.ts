@@ -134,7 +134,8 @@ export const terminateAgreement = async (
 
   const receipt = await contract.terminateAgreement(id, {
     value: terminationCost,
-    gasLimit: 500000 // 3000000, // Have to explicitly set it here to prevent error.
+    // It's a heavy call, so I have to explicitly set a gas limit here to prevent error.
+    gasLimit: 400000, // 3000000,
   })
 
   const result = await receipt.wait(1)
