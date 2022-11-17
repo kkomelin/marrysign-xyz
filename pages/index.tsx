@@ -80,7 +80,7 @@ const Home: NextPage = () => {
         <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink href="/create" size="large" color="secondary">
-              Get crypto-married
+              Get crypto married
             </ButtonLink>
           ) : (
             <ButtonLink
