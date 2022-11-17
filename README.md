@@ -42,7 +42,7 @@ yarn dev || npm run dev
 
 ## Known Issues
 
-- [Create agreement page: step-by-step accordion items are not open when expected](https://github.com/kkomelin/marrysign-com/issues/1)
+- [Create agreement page: step-by-step accordion items are not open when expected #1](https://github.com/kkomelin/marrysign-com/issues/1)
 
 ## Bugs, Typos and Suggestions
 
