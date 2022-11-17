@@ -1,5 +1,5 @@
 # MarrySign (Frontend)
-MarrySign app allows any couple to get married online.
+MarrySign app allows any couple regardless of time, age, location, culture or gender to get married online. Our marital agreements are stored on Blockchain, which makes them indestructible and verifiable.
 
 This repository contains the front-end part of the project which is developed with Typescript, Next.js, React and TailwindCSS, and currently hosted on Vercel.
 
