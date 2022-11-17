@@ -15,7 +15,7 @@ We receive agreement termination cost from user in USD and store it on chain in 
 
 A special [kkomelin/marrysign/contracts/CurrencyConverter.sol](https://github.com/kkomelin/marrysign/blob/main/contracts/CurrencyConverter.sol) library is developed to encapsulate currency conversion logic and communication with the Chainlink service.
 
-On the front-end level, we display ETH equivalent of the USD amount on the Create Agreement, Accept Agreement and Terminate Agreement forms, which is obtained from Chainlink Price Feed in Web2 way. See [kkomelin/marrysign.com/lib/services/chainlink/index.ts](https://github.com/kkomelin/marrysign.com/blob/main/lib/services/chainlink/index.ts)
+On the front-end level, we display ETH equivalent of the USD amount on the Create Agreement, Accept Agreement and Terminate Agreement forms, which is obtained from Chainlink Price Feed in Web2 way. See [kkomelin/marrysign-com/lib/services/chainlink/index.ts](https://github.com/kkomelin/marrysign-com/blob/main/lib/services/chainlink/index.ts)
 
 
 ## Installation
@@ -26,9 +26,7 @@ yarn install || npm install
 
 ## Configuration
 
-See [kkomelin/marrysign.com/.example.env](https://github.com/kkomelin/marrysign.com/blob/main/.example.env) for reference.
-
-TBC
+See [kkomelin/marrysign-com/.example.env](https://github.com/kkomelin/marrysign-com/blob/main/.example.env) for reference.
 
 ## Development
 
@@ -37,4 +35,4 @@ yarn dev || npm run dev
 ```
 ## Bugs, typos and suggestions
 
-You're very welcome with your bug reports and suggestions here in the [issue queue](https://github.com/kkomelin/marrysign.com/issues), or just drop [Konstantin](https://github.com/kkomelin) a line on Twitter [@kkomelin](https://twitter.com/kkomelin).
+You're very welcome with your bug reports and suggestions here in the [issue queue](https://github.com/kkomelin/marrysign-com/issues/new), or just drop [Konstantin](https://github.com/kkomelin) a line on Twitter [@kkomelin](https://twitter.com/kkomelin).
