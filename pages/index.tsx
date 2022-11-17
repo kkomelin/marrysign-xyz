@@ -136,7 +136,7 @@ const Home: NextPage = () => {
                 step={5}
                 className="bg-gradient-to-r from-purple-400 to-pink-600"
               />
-              Celebrate your cripto-marriage together!
+              Celebrate your crypto marriage together!
             </div>
           </div>
           <div className="flex flex-col justify-center p-5 text-center min-h-[150px] items-center">
