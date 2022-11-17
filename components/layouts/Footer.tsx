@@ -44,12 +44,22 @@ const Disclaimer: FC = () => {
           * Please note MarrySign agreements don't have legal power, at least
           not yet.
         </p>
-
         <p>
-          ** This project has been developed for{' '}
-          <a href="https://hack.chain.link">Chainlink Hackathon Fall 2022</a>.
+          ** We store agreement data on Blockchain, which is a public storage by
+          its nature, so user data privacy can not be ensured nor guaranteed.
         </p>
-        <p>*** The app is still under development, so use it with caution.</p>
+        <p>
+          *** This app has been developed for{' '}
+          <a
+            href="https://hack.chain.link?utm_source=marrysign"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Chainlink Hackathon Fall 2022
+          </a>
+          .
+        </p>
+        <p>**** The app is still under development, so use it with caution.</p>
       </div>
     </div>
   )
