@@ -125,7 +125,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
       </form>
       <ConfirmDialog
         open={confirmDialogOpen}
-        title="You can terminate your agreement (divorce) but..."
+        title="You can terminate your agreement but..."
         description={
           <div>
             You will be charged the equivalent of{' '}

@@ -121,7 +121,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <CurrencyField
           label="Termination cost"
-          description={`A terminating partner pays the equivalent of this USD amount in ETH in case of the divorce. ${
+          description={`A terminating partner pays the equivalent of this USD amount in ETH in the event of termination. ${
             100 - SERVICE_FEE_PERCENT
           }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
           value={terminationCost}

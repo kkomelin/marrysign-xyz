@@ -108,7 +108,7 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                     <b>${agreement.terminationCost.toString()} USD</b>{' '}
                     {valueInETH ? <b>(currently {valueInETH} ETH)</b> : ''} as a
                     termination cost which a
-                    terminating partner will be required to pay in ETH in case of divorce.{' '}
+                    terminating partner will be required to pay in ETH in the event of termination.{' '}
                     <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will go to the
                     opposite partner as a compensation, and{' '}
                     <b>{SERVICE_FEE_PERCENT}%</b> will go to MarrySign as a

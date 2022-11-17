@@ -35,3 +35,6 @@ TBC
 ```bash
 yarn dev || npm run dev
 ```
+## Bugs, typos and suggestions
+
+You're very welcome with your bug reports and suggestions here in the [issue queue](https://github.com/kkomelin/marrysign.com/issues), or just drop Konstantin a line on Twitter [@kkomelin](https://twitter.com/kkomelin).
