@@ -14,3 +14,5 @@ export const APP_SLOGAN: string = 'Unrestricted Crypto Marriages'
 export const APP_TWITTER_HANDLE: string = 'kkomelin'
 
 export const SERVICE_FEE_PERCENT = 10
+
+export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']

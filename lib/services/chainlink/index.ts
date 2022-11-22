@@ -5,20 +5,23 @@
  */
 import { ethers } from 'ethers'
 import { AggregatorV3Interface__factory } from '../../../typechain/factories/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface__factory'
-import { isProd } from '../../helpers'
+import { ENetwork } from '../../../types/ENetwork'
+import { LOCAL_NETWORKS } from '../../config'
 
 const CHAINLINK_NODE_URL =
   process.env.NEXT_PUBLIC_CHAINLINK_PRICE_FEED_WEB2_RPC_URL || undefined
 const CHAINLINK_CONTRACT_ADDRESS =
   process.env.NEXT_PUBLIC_CHAINLINK_PRICE_FEED_WEB2_CONTRACT_ADDRESS ||
   undefined
+const CURRENT_NETWORK =
+  process.env.NEXT_PUBLIC_CURRENT_NETWORK || ENetwork.Local
 
 // When we deploy a CL Datafeed mock for local development, we hardcode the ETH price.
 const DEVELOPMENT_ETH_PRICE = 2000
 
 export const convertUSDToETH = async (amountInUSD: number) => {
   try {
-    if (!isProd()) {
+    if (LOCAL_NETWORKS.includes(CURRENT_NETWORK)) {
       console.log(
         `[development] CL DataFeed fallback used. Assuming that ETH price = ${DEVELOPMENT_ETH_PRICE}`
       )
