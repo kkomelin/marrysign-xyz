@@ -15,7 +15,7 @@ const AgreementShareBlock: FC<Props> = (props) => {
   }
 
   return (
-    <div className="w-full max-w-xs p-6 m-1">
+    <div className="w-full max-w-xs p-2 my-3">
       <div className="flex flex-col items-center justify-center">
         <AgreementQRCode id={agreement.id as BytesLike} />
       </div>

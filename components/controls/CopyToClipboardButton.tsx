@@ -3,6 +3,8 @@ import { FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { absoluteAgreementUrl } from '../../lib/helpers'
 import Button from './Button'
+import c from 'clsx'
+import { ClipboardDocumentIcon } from '@heroicons/react/20/solid'
 
 type Props = {
   agreementId: BytesLike
@@ -18,7 +20,7 @@ const CopyToClipboardButton: FC<Props> = ({ agreementId, className }) => {
   return (
     <>
       <Button
-        className={className}
+        className={c('rounded-full !p-3 shadow-md !bg-white !text-primary hover:shadow', className)}
         onClick={async (e: MouseEvent<HTMLButtonElement>) => {
           e.preventDefault()
 
@@ -32,7 +34,8 @@ const CopyToClipboardButton: FC<Props> = ({ agreementId, className }) => {
           }
         }}
       >
-        Copy link
+        <ClipboardDocumentIcon className="w-10 h-10" />
+        <span className='sr-only'>Copy link</span>
       </Button>
 
       {isClicked && (

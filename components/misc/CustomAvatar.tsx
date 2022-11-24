@@ -1,9 +1,16 @@
 import { AvatarComponent } from '@rainbow-me/rainbowkit'
 import Avatar from 'boring-avatars'
+import Image from 'next/image'
 
 const CustomAvatar: AvatarComponent = ({ address, ensImage, size }) => {
   return ensImage ? (
-    <img src={ensImage} width={size} height={size} className="rounded-full" />
+    <Image
+      src={ensImage}
+      width={size}
+      height={size}
+      className="rounded-full"
+      alt="Address avatar"
+    />
   ) : (
     <Avatar
       size={size}
