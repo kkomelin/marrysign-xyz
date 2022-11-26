@@ -1,4 +1,5 @@
 import { BytesLike, ethers } from 'ethers'
+import JSConfetti from 'js-confetti'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -71,6 +72,10 @@ const AgreementPage: NextPage = () => {
     setUserAgreement(updatedAgreement)
 
     enableForceLoadUserAgreement()
+
+    // Decorate screen with confetti.
+    const jsConfetti = new JSConfetti()
+    jsConfetti.addConfetti()
   }
   const handleAgreementRefused = (agreementId: BytesLike) => {
     toast(
