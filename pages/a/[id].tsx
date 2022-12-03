@@ -38,6 +38,20 @@ const AgreementPage: NextPage = () => {
     return router.push('/')
   }
 
+  const fireConfetti = () => {
+    const jsConfetti = new JSConfetti()
+    jsConfetti.addConfetti({ confettiNumber: 150 })
+    let count = 1
+    const interval = setInterval(() => {
+      if (count >= 3) {
+        clearTimeout(interval)
+        return
+      }
+      jsConfetti.addConfetti({ confettiNumber: 300 * count })
+      count++
+    }, 800)
+  }
+
   const loadAgreement = async (id: string) => {
     try {
       showAppLoading('Loading the agreement...')
@@ -74,8 +88,7 @@ const AgreementPage: NextPage = () => {
     enableForceLoadUserAgreement()
 
     // Decorate screen with confetti.
-    const jsConfetti = new JSConfetti()
-    jsConfetti.addConfetti()
+    fireConfetti()
   }
   const handleAgreementRefused = (agreementId: BytesLike) => {
     toast(
