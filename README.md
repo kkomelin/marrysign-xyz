@@ -1,25 +1,11 @@
 # MarrySign (Frontend)
 MarrySign app allows any couple regardless of time, age, location, culture or gender to get married online. Our marital agreements are stored on Blockchain, which makes them indestructible and verifiable.
 
-This repository contains the front-end part of the project which is developed with Typescript, Next.js, React and TailwindCSS, and currently hosted on Vercel.
-
-_The project is developed during [Chainlink Hackathon Fall 2022](https://hack.chain.link/?utm_source=marrysign) (Oct 14 - Nov 18, 2022)._
-
-## Demo
-
-[MarrySign.com](https://marrysign.com/) (Goerli network)
+_The first version of the project has been developed during [Chainlink Hackathon Fall 2022](https://devpost.com/software/marrysign) (Oct 14 - Nov 18, 2022)._
 
 ## Backend Part
 
 [kkomelin/marrysign](https://github.com/kkomelin/marrysign)
-
-## Chainlink Services Used
-
-We receive agreement termination cost from user in USD and store it on chain in USD (see `Agreement.terminationCost` in [kkomelin/marrysign/contracts/MarrySign.sol](https://github.com/kkomelin/marrysign/blob/main/contracts/MarrySign.sol) ), so Chainlink Price Feed is used to convert the termination cost to ETH on agreement termination in the `MarrySign.terminateAgreement()` function of the contract as well as at the front-end level.
-
-A special [kkomelin/marrysign/contracts/CurrencyConverter.sol](https://github.com/kkomelin/marrysign/blob/main/contracts/CurrencyConverter.sol) library is developed to encapsulate currency conversion logic and communication with the Chainlink service.
-
-At the front-end level, we display ETH equivalent of the USD amount on the Create Agreement, Accept Agreement and Terminate Agreement forms, which is obtained from Chainlink Price Feed in Web2 way. See [kkomelin/marrysign-com/lib/services/chainlink/index.ts](https://github.com/kkomelin/marrysign-com/blob/main/lib/services/chainlink/index.ts)
 
 ## Configuration
 
