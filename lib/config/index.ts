@@ -16,3 +16,7 @@ export const APP_TWITTER_HANDLE: string = 'kkomelin'
 export const SERVICE_FEE_PERCENT = 10
 
 export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']
+
+// false until the launch.
+export const LOGIN_ENABLED = false
+export const SUBSCRIBE_TO_NEWS_PATH = 'https://news.marrysign.com/'
