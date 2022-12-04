@@ -1,7 +1,8 @@
 {
-  "name": "marrysign.com",
+  "private": true,
+  "name": "marrysign-com",
   "version": "0.1.0",
-  "license": "MIT",
+  "license": "Unlicensed",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
