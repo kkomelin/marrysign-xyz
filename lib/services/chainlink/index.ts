@@ -3,7 +3,7 @@
  * https://github.com/smartcontractkit/chainlink-in-web2-fh22/blob/main/src/utils/getETHPrice.js
  * which is authored by https://github.com/rgottleber
  */
-import { BigNumber, ethers } from 'ethers'
+import { ethers } from 'ethers'
 import { ENetwork } from '../../../types/ENetwork'
 import { LOCAL_NETWORKS } from '../../config'
 import { aggregatorV3InterfaceABI } from './abi'
@@ -19,26 +19,30 @@ const CURRENT_NETWORK =
 // When we deploy a CL Datafeed mock for local development, we hardcode the ETH price.
 const DEVELOPMENT_ETH_PRICE = 2000
 
-export const convertETHToUSD = async (amountInETH: BigNumber) => {
+export const convertETHToUSD = async (value: string) => {
   try {
     if (LOCAL_NETWORKS.includes(CURRENT_NETWORK)) {
       console.log(
         `[development] CL DataFeed fallback used. Assuming that ETH price = ${DEVELOPMENT_ETH_PRICE}`
       )
-      return amountInETH.mul(DEVELOPMENT_ETH_PRICE)
+      return ethers.utils.formatEther(
+        ethers.utils.parseEther(value).mul(DEVELOPMENT_ETH_PRICE)
+      )
     }
 
     // @todo: Provide a fallback for Chainlink data feed in case if it's not available.
 
     const priceOfOneETH = await getETHPriceInUSD()
     if (priceOfOneETH == null || priceOfOneETH == 0) {
-      return 0
+      return '0'
     }
 
-    return amountInETH.mul(priceOfOneETH)
+    return ethers.utils.formatEther(
+      ethers.utils.parseEther(value).mul(priceOfOneETH)
+    )
   } catch (e) {
     console.log(e)
-    return 0
+    return '0'
   }
 }
 

@@ -1,158 +1,134 @@
-import { ArrowPathIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import c from 'clsx'
-import {
-  ChangeEvent,
-  FC,
-  FocusEvent,
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useState,
-} from 'react'
+import { BigNumber } from 'ethers'
+import { ChangeEvent, FC, FocusEvent, useEffect, useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
+import { validateCurrency } from '../../lib/helpers'
 import { convertETHToUSD } from '../../lib/services/chainlink'
 import Label from './Label'
 
 type Props = {
   id?: string
   label?: string
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
-  disabled?: boolean
+  onChange: (value: string) => void
   placeholder?: string
-  value?: string | number
+  value?: string | BigNumber
   description?: string
   required?: boolean
+  defaultETHValue?: string
   [key: string]: any
 }
 const CurrencyField: FC<Props> = (props) => {
   const {
     id,
     onChange,
-    disabled = false,
-    placeholder,
-    value,
     label,
     description,
     required = false,
+    defaultETHValue,
     ...rest
   } = props
 
-  const [valueInUSD, setValueInUSD] = useState<number | undefined>(
-    Number(value)
+  const [valueInUSD, setValueInUSD] = useState<string | undefined>(undefined)
+  const [inputValueInETH, setInputValueInETH] = useState<string>(
+    defaultETHValue ? defaultETHValue : '0'
   )
-  const [valueInETH, setValueInETH] = useState<number>(0)
+
   const [loading, setLoading] = useState<boolean>(false)
 
-  const handleUSDInputBlur = async (e: FocusEvent<HTMLInputElement>) => {
+  // Debounce callback
+  const debouncedChangeHandler = useDebouncedCallback((value: string) => {
+    console.log('value changed physically', value)
+    onChange(value)
+  }, 500)
+
+  const handleETHInputBlur = async (e: FocusEvent<HTMLInputElement>) => {
     e.preventDefault()
     if (e.target.value == null) {
-      setValueInETH(0)
+      setInputValueInETH('0')
       return
     }
-    const value = Number(e.target.value)
-    await updateETH(value)
+
+    await updateUSD(e.target.value)
   }
 
-  const handleUSDInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleETHInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    setValueInUSD(e.target.value ? Number(e.target.value) : undefined)
-    setValueInETH(0)
-    onChange(e)
+    setInputValueInETH(e.target.value)
+    setValueInUSD(undefined)
+    console.log('value changed virtually', e.target.value)
+    debouncedChangeHandler(e.target.value)
   }
 
-  const handleETHInputClick = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    await updateETH(valueInUSD)
-  }
-
-  const updateETH = async (value: number | undefined) => {
+  const updateUSD = async (valueInETF: string) => {
     // Don't send one more request if we're waiting for a response already.
     if (loading) {
       return
     }
 
     setLoading(true)
-    if (value === undefined || value == null || value === 0) {
-      setValueInETH(0)
+    if (
+      valueInETF === undefined ||
+      valueInETF == null ||
+      valueInETF.trim().length === 0 ||
+      !validateCurrency(valueInETF)
+    ) {
+      setValueInUSD('')
       setLoading(false)
       return
     }
 
-    const amountInETH = await convertUSDToETH(value)
-    setValueInETH(amountInETH)
+    const amountInUSD = await convertETHToUSD(valueInETF)
+
+    setValueInUSD(amountInUSD)
     setLoading(false)
   }
 
   useEffect(() => {
-    if (value) {
-      updateETH(Number(value))
+    if (defaultETHValue) {
+      updateUSD(defaultETHValue)
     }
-  }, [])
-
-  let valueUSDProp = {}
-  if (valueInUSD !== undefined) {
-    valueUSDProp = { value: valueInUSD }
-  }
-
-  let valueETHProp = {}
-  if (valueInETH !== undefined) {
-    valueETHProp = { value: valueInETH }
-  }
+  }, [defaultETHValue])
 
   return (
     <div className={c('my-2 field', { required: required })}>
       {label && <Label inputId={id}>{label}</Label>}
       <div className="flex flex-row">
         <div className="flex flex-row items-center border shadow-sm rounded-l-md border-accent bg-gray-50">
-          <div className="px-3 py-3 text-xs font-semibold border-r border-gray-200">
-            USD
-          </div>
+          <button className="flex flex-row items-center justify-center px-3 py-3 text-xs font-semibold border-r border-gray-200">
+            ETH
+          </button>
           <input
-            id={id}
-            name={id}
-            disabled={disabled}
-            className="block w-full px-3 py-3 border border-transparent currency-input placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-            type="number"
-            min="1"
-            step="1"
-            onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === '.' || e.key === 'e') {
-                e.preventDefault()
-              }
-            }}
-            onChange={handleUSDInputChange}
-            onBlur={handleUSDInputBlur}
-            {...valueUSDProp}
+            className="block w-full px-3 py-3 placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+            type="text"
+            onChange={handleETHInputChange}
+            onBlur={handleETHInputBlur}
+            value={inputValueInETH}
             {...rest}
           />
         </div>
 
         <div className="flex flex-row items-center border shadow-sm rounded-r-md border-accent bg-gray-50">
-          <button
-            onClick={handleETHInputClick}
-            className={c(
-              'flex flex-row items-center justify-center order-2 px-3 py-3 text-xs font-semibold border-l border-gray-200 cursor-pointer'
-            )}
-          >
-            ETH
-            {loading ? (
-              <ArrowPathIcon className="ml-1 w-[12px] text-primary animate-spin" />
-            ) : (
-              <ChevronRightIcon className="ml-1 w-[12px] text-primary" />
-            )}
-          </button>
           <input
+            id={id}
+            name={id}
             disabled={true}
-            className="order-1 block w-full px-3 py-3 placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-            type="text"
-            {...valueETHProp}
+            className="block w-full px-3 py-3 border border-transparent currency-input placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+            value={valueInUSD}
           />
+          <div className="flex flex-row items-center justify-center px-3 py-3 text-xs font-semibold border-l border-gray-200">
+            USD
+            {loading && (
+              <ArrowPathIcon className="ml-1 w-[12px] text-primary animate-spin" />
+            )}
+          </div>
         </div>
       </div>
       {description && (
         <div className="block mt-2 text-xs text-left text-gray-500 text-thin">
           {description}
           <div className="mt-1">
-            * The amount in ETH is provided for your reference only and it can
+            * The amount in USD is provided for your reference only and it can
             change to the moment of agreement termination.
           </div>
         </div>

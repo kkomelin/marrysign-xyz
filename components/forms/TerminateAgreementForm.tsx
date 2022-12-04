@@ -1,4 +1,4 @@
-import { BigNumber, BytesLike } from 'ethers'
+import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { handleContractError } from '../../lib/helpers'
@@ -18,7 +18,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   const { showAppLoading, hideAppLoading } = useAppContext()
 
   const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false)
-  const [valueInUSD, setValueInUSD] = useState<number>(0)
+  const [valueInUSD, setValueInUSD] = useState<string | undefined>(undefined)
   const [loading, setLoading] = useState<boolean>(false)
 
   const openConfirmDialog = () => {
@@ -51,7 +51,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
     }
   }
 
-  const updateUSD = async (valueInETF: BigNumber | undefined) => {
+  const updateUSD = async (valueInETF: string) => {
     // Don't send one more request if we're waiting for a response already.
     if (loading) {
       return
@@ -61,22 +61,24 @@ const TerminateAgreementForm: FC<Props> = (props) => {
     if (
       valueInETF === undefined ||
       valueInETF == null ||
-      valueInETF === BigNumber.from(0)
+      ethers.utils.parseEther(valueInETF) === BigNumber.from(0)
     ) {
-      setValueInUSD(0)
+      setValueInUSD('0')
       setLoading(false)
       return
     }
 
     const amountInUSD = await convertETHToUSD(valueInETF)
 
-    setValueInUSD(Number(amountInUSD))
+    setValueInUSD(amountInUSD)
     setLoading(false)
   }
 
   useEffect(() => {
     if (agreement) {
-      updateUSD(BigNumber.from(agreement.terminationCost))
+      updateUSD(
+        ethers.utils.formatEther(agreement.terminationCost as BigNumberish)
+      )
     }
   }, [agreement])
 
@@ -103,11 +105,16 @@ const TerminateAgreementForm: FC<Props> = (props) => {
         title="You can terminate your agreement but..."
         description={
           <div>
-            You will be charged the equivalent of{' '}
-            <b>${agreement.terminationCost.toString()} ETH</b>{' '}
-            {valueInUSD ? <b>(currently ${valueInUSD} USD)</b> : ''}. Most of it
-            will be transferred to your ex, except our{' '}
-            <b>{SERVICE_FEE_PERCENT}%</b> service fee.
+            You will be charged{' '}
+            <b>
+              {ethers.utils.formatEther(
+                agreement.terminationCost as BigNumberish
+              )}{' '}
+              ETH
+            </b>{' '}
+            {valueInUSD && `(currently ${valueInUSD} USD)`}.{' '}
+            <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will be transferred to your ex,
+            except our <b>{SERVICE_FEE_PERCENT}%</b> service fee.
           </div>
         }
         confirmButtonLabel="Terminate & pay fees"

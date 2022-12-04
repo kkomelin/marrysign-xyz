@@ -13,6 +13,7 @@ export const APP_SLOGAN: string = 'Unrestricted Crypto Marriages'
 // @todo: Replace with the app handle.
 export const APP_TWITTER_HANDLE: string = 'kkomelin'
 
+export const SUGGESTED_TERMINATION_COST_ETH = '0.0001'
 export const SERVICE_FEE_PERCENT = 10
 
 export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']
@@ -20,3 +21,4 @@ export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']
 // false until the launch.
 export const LOGIN_ENABLED = process.env.NODE_ENV !== 'production'
 export const SUBSCRIBE_TO_NEWS_PATH = 'https://news.marrysign.com/'
+

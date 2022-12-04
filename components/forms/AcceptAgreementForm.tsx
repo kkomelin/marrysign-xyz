@@ -1,11 +1,11 @@
-import { BytesLike } from 'ethers'
+import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
 import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
-import { convertUSDToETH } from '../../lib/services/chainlink'
+import { convertETHToUSD } from '../../lib/services/chainlink'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import Button from '../controls/Button'
@@ -20,7 +20,7 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const { onAgreementAccepted, agreement, onAgreementRefused } = props
   const { address } = useAccount()
   const { showAppLoading, hideAppLoading } = useAppContext()
-  const [valueInETH, setValueInETH] = useState<number | undefined>(undefined)
+  const [valueInUSD, setValueInUSD] = useState<string | undefined>(undefined)
 
   const handleAcceptAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -68,13 +68,13 @@ const AcceptAgreementForm: FC<Props> = (props) => {
 
   useEffect(() => {
     if (agreement != null) {
-      convertUSDToETH(Number(agreement.terminationCost)).then(
-        (amountInETH: number) => {
-          if (amountInETH) {
-            setValueInETH(amountInETH)
-          }
+      convertETHToUSD(
+        ethers.utils.formatEther(agreement.terminationCost as BigNumber)
+      ).then((amountInUSD: string) => {
+        if (amountInUSD) {
+          setValueInUSD(amountInUSD)
         }
-      )
+      })
     }
   }, [agreement])
 
@@ -105,10 +105,15 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                 <div>
                   <p className="mt-2">
                     Your partner suggested{' '}
-                    <b>${agreement.terminationCost.toString()} USD</b>{' '}
-                    {valueInETH ? <b>(currently {valueInETH} ETH)</b> : ''} as a
-                    termination cost which a
-                    terminating partner will be required to pay in ETH in the event of termination.{' '}
+                    <b>
+                      {ethers.utils.formatEther(
+                        agreement.terminationCost as BigNumberish
+                      )}{' '}
+                      ETH
+                    </b>{' '}
+                    {valueInUSD && `(currently ${valueInUSD} USD)`} as a
+                    termination cost which a terminating partner will be
+                    required to pay in ETH in the event of termination.{' '}
                     <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will go to the
                     opposite partner as a compensation, and{' '}
                     <b>{SERVICE_FEE_PERCENT}%</b> will go to MarrySign as a

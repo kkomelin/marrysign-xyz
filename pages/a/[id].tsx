@@ -75,8 +75,6 @@ const AgreementPage: NextPage = () => {
   }
 
   const handleAgreementAccepted = (agreementId: BytesLike) => {
-    toast('Congrats! Your crypto-marriage is registered! Time to celebrate!')
-
     const updatedAgreement = {
       ...userAgreement,
       state: EAgreementState.Accepted,

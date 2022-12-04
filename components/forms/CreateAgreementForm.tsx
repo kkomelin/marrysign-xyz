@@ -1,8 +1,11 @@
-import { BigNumber, BytesLike, utils } from 'ethers'
+import { BigNumber, BytesLike, ethers } from 'ethers'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
-import { SERVICE_FEE_PERCENT } from '../../lib/config'
+import {
+  SERVICE_FEE_PERCENT,
+  SUGGESTED_TERMINATION_COST_ETH,
+} from '../../lib/config'
 import { DEFAULT_VOW } from '../../lib/config/strings'
 import { handleContractError, validateCurrency } from '../../lib/helpers'
 import { createAgreement } from '../../lib/services/agreement'
@@ -20,8 +23,8 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const { address } = useAccount()
   const [partner1Name, setPartner1Name] = useState<string>('') // Alice Smith
   const [partner2Name, setPartner2Name] = useState<string>('') // Bob Johnson
-  const [terminationCost, setTerminationCost] = useState<BigNumber>(
-    utils.parseEther('0.0001')
+  const [terminationCost, setTerminationCost] = useState<string>(
+    SUGGESTED_TERMINATION_COST_ETH
   )
   const [partner2Address, setPartner2Address] = useState<string>('') // 0x098F4f427732984e6f205AFe66e1f9015B5A45c7
   const [vow, setVow] = useState<string>(DEFAULT_VOW)
@@ -30,7 +33,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    if (terminationCost === BigNumber.from(0)) {
+    if (ethers.utils.parseEther(terminationCost) === BigNumber.from(0)) {
       toast.warn('The termination cost should be greater than 0.')
       return
     }
@@ -53,9 +56,10 @@ const CreateAgreementForm: FC<Props> = (props) => {
       return
     }
 
-    if (!validateCurrency(terminationCost.toString().trim())) {
+    if (!validateCurrency(terminationCost.trim())) {
       toast.warn(
-        'Please check the termination cost value. It should be in the US Dollars without cents, e.g. 100'
+        'Please check the termination cost value. It should be in Ethers, e.g. ' +
+          SUGGESTED_TERMINATION_COST_ETH
       )
       return
     }
@@ -67,7 +71,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         partner2Name,
         partner2Address,
         vow,
-        terminationCost,
+        ethers.utils.parseEther(terminationCost),
         (agreementId: BytesLike) => {
           hideAppLoading()
           return onAgreementCreated(agreementId)
@@ -123,13 +127,13 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <CurrencyField
           label="Termination cost"
-          description={`A terminating partner pays the equivalent of this USD amount in ETH in the event of termination. ${
+          description={`A terminating partner pays this amount in ETH in the event of termination. ${
             100 - SERVICE_FEE_PERCENT
           }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
-          value={terminationCost}
+          defaultETHValue={terminationCost}
           required={true}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setTerminationCost(Number(e.target.value))
+          onChange={(value: string) => {
+            setTerminationCost(value)
           }}
         />
         {/* Validate the termination cost number */}
