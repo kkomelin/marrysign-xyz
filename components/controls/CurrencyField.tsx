@@ -1,6 +1,5 @@
 import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import c from 'clsx'
-import { BigNumber } from 'ethers'
 import { ChangeEvent, FC, FocusEvent, useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { validateCurrency } from '../../lib/helpers'
@@ -12,7 +11,6 @@ type Props = {
   label?: string
   onChange: (value: string) => void
   placeholder?: string
-  value?: string | BigNumber
   description?: string
   required?: boolean
   defaultETHValue?: string
@@ -36,11 +34,9 @@ const CurrencyField: FC<Props> = (props) => {
 
   const [loading, setLoading] = useState<boolean>(false)
 
-  // Debounce callback
-  const debouncedChangeHandler = useDebouncedCallback((value: string) => {
-    console.log('value changed physically', value)
+  const debouncedChangeHandler = useDebouncedCallback(async (value: string) => {
     onChange(value)
-  }, 500)
+  }, 700)
 
   const handleETHInputBlur = async (e: FocusEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -56,7 +52,6 @@ const CurrencyField: FC<Props> = (props) => {
     e.preventDefault()
     setInputValueInETH(e.target.value)
     setValueInUSD(undefined)
-    console.log('value changed virtually', e.target.value)
     debouncedChangeHandler(e.target.value)
   }
 
