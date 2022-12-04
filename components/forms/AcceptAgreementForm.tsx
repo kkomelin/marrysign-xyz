@@ -1,7 +1,7 @@
 import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
-import { SERVICE_FEE_PERCENT } from '../../lib/config'
+import { APP_NAME, SERVICE_FEE_PERCENT } from '../../lib/config'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
 import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
@@ -83,23 +83,15 @@ const AcceptAgreementForm: FC<Props> = (props) => {
       <form className="flex flex-col justify-center w-full max-w-sm py-5">
         {agreementContent && (
           <>
-            <div className="mb-2 font-semibold text-red-600">
-              By pressing Accept, you,{' '}
-              {agreement.alice === address
-                ? agreementContent.partner1.name
-                : agreementContent.partner2.name}
-              , promise the following to{' '}
-              {agreement.alice === address
-                ? agreementContent.partner2.name
-                : agreementContent.partner1.name}
-              :
-            </div>
-            <div>{agreementContent.vow}</div>
-
             {agreement && agreement.state === EAgreementState.Created && (
               <div className="py-3 my1-5">
                 <div className="mb-2 font-semibold text-red-600">
-                  By pressing Accept, you also agree with the termination cost:
+                  By pressing Accept, you,{' '}
+                  {agreement.alice === address
+                    ? agreementContent.partner1.name
+                    : agreementContent.partner2.name}{' '}
+                  accept the above mentioned and agree with the termination
+                  cost:
                 </div>
 
                 <div>
@@ -112,12 +104,12 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                       ETH
                     </b>{' '}
                     {valueInUSD && `(currently ${valueInUSD} USD)`} as a
-                    termination cost which a terminating partner will be
-                    required to pay in ETH in the event of termination.{' '}
-                    <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will go to the
+                    termination cost which a terminating partner would be
+                    required to pay in the event of termination.{' '}
+                    <b>{100 - SERVICE_FEE_PERCENT}%</b> of it would go to the
                     opposite partner as a compensation, and{' '}
-                    <b>{SERVICE_FEE_PERCENT}%</b> will go to MarrySign as a
-                    service fee.
+                    <b>{SERVICE_FEE_PERCENT}%</b> to {APP_NAME} as a service
+                    fee.
                   </p>
                 </div>
               </div>

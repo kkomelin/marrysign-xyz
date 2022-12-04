@@ -1,7 +1,8 @@
 import { ArrowPathIcon } from '@heroicons/react/20/solid'
 import c from 'clsx'
-import { ChangeEvent, FC, FocusEvent, useEffect, useState } from 'react'
+import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
+import { SUGGESTED_TERMINATION_COST_ETH } from '../../lib/config'
 import { validateCurrency } from '../../lib/helpers'
 import { convertETHToUSD } from '../../lib/services/chainlink'
 import Label from './Label'
@@ -27,32 +28,19 @@ const CurrencyField: FC<Props> = (props) => {
     ...rest
   } = props
 
-  const [valueInUSD, setValueInUSD] = useState<string | undefined>(undefined)
+  const [valueInUSD, setValueInUSD] = useState<string>('')
   const [inputValueInETH, setInputValueInETH] = useState<string>(
-    defaultETHValue ? defaultETHValue : '0'
+    defaultETHValue ? defaultETHValue : SUGGESTED_TERMINATION_COST_ETH
   )
 
   const [loading, setLoading] = useState<boolean>(false)
 
-  const debouncedChangeHandler = useDebouncedCallback(async (value: string) => {
-    onChange(value)
-  }, 700)
-
-  const handleETHInputBlur = async (e: FocusEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    if (e.target.value == null) {
-      setInputValueInETH('0')
-      return
-    }
-
-    await updateUSD(e.target.value)
-  }
-
   const handleETHInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
     setInputValueInETH(e.target.value)
-    setValueInUSD(undefined)
-    debouncedChangeHandler(e.target.value)
+    setValueInUSD('')
+    onChange(e.target.value)
+    debouncedUpdateUSD(e.target.value)
   }
 
   const updateUSD = async (valueInETF: string) => {
@@ -79,11 +67,13 @@ const CurrencyField: FC<Props> = (props) => {
     setLoading(false)
   }
 
+  const debouncedUpdateUSD = useDebouncedCallback(updateUSD, 700)
+
   useEffect(() => {
-    if (defaultETHValue) {
-      updateUSD(defaultETHValue)
+    if (inputValueInETH === SUGGESTED_TERMINATION_COST_ETH) {
+      updateUSD(inputValueInETH)
     }
-  }, [defaultETHValue])
+  }, [inputValueInETH])
 
   return (
     <div className={c('my-2 field', { required: required })}>
@@ -97,8 +87,7 @@ const CurrencyField: FC<Props> = (props) => {
             className="block w-full px-3 py-3 placeholder-input focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
             type="text"
             onChange={handleETHInputChange}
-            onBlur={handleETHInputBlur}
-            value={inputValueInETH}
+            defaultValue={inputValueInETH}
             {...rest}
           />
         </div>

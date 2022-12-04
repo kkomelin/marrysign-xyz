@@ -1,6 +1,6 @@
 import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
-import { SERVICE_FEE_PERCENT } from '../../lib/config'
+import { APP_NAME, SERVICE_FEE_PERCENT } from '../../lib/config'
 import { handleContractError } from '../../lib/helpers'
 import { terminateAgreement } from '../../lib/services/agreement'
 import { convertETHToUSD } from '../../lib/services/chainlink'
@@ -114,7 +114,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
             </b>{' '}
             {valueInUSD && `(currently ${valueInUSD} USD)`}.{' '}
             <b>{100 - SERVICE_FEE_PERCENT}%</b> of it will be transferred to your ex,
-            except our <b>{SERVICE_FEE_PERCENT}%</b> service fee.
+            and <b>{SERVICE_FEE_PERCENT}%</b> to {APP_NAME} as a service fee.
           </div>
         }
         confirmButtonLabel="Terminate & pay fees"

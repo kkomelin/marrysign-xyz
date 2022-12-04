@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { APP_TWITTER_HANDLE } from '../../lib/config'
+import { APP_NAME, APP_TWITTER_HANDLE } from '../../lib/config'
 
 type Props = {}
 
@@ -41,25 +41,14 @@ const Disclaimer: FC = () => {
     <div className="flex flex-row justify-center w-full px-4 py-4 text-sm text-gray-500">
       <div className="max-w-xl text-left">
         <p>
-          * Please note MarrySign agreements don't have legal power, at least
+          * Please note {APP_NAME} agreements don't have legal power, at least
           not yet.
         </p>
         <p>
           ** We store agreement data on Blockchain, which is a public storage by
           its nature, so user data privacy can not be ensured nor guaranteed.
         </p>
-        <p>
-          *** This app has been developed for{' '}
-          <a
-            href="https://hack.chain.link?utm_source=marrysign"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Chainlink Hackathon Fall 2022
-          </a>
-          .
-        </p>
-        <p>**** The app is still under development, so use it with caution.</p>
+        <p>*** The app is still under development, so use it with caution.</p>
       </div>
     </div>
   )

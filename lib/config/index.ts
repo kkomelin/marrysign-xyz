@@ -13,7 +13,7 @@ export const APP_SLOGAN: string = 'Unrestricted Crypto Marriages'
 // @todo: Replace with the app handle.
 export const APP_TWITTER_HANDLE: string = 'kkomelin'
 
-export const SUGGESTED_TERMINATION_COST_ETH = '0.0001'
+export const SUGGESTED_TERMINATION_COST_ETH = '0.02'
 export const SERVICE_FEE_PERCENT = 10
 
 export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']

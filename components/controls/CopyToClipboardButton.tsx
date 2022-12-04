@@ -40,7 +40,7 @@ const CopyToClipboardButton: FC<Props> = ({ agreementId, className }) => {
 
       {isClicked && (
         <a
-          className="px-3 py-2 text-sm break-all hover:underline"
+          className="px-3 py-2 text-sm text-center break-all hover:underline"
           href={sharedUrl}
           target="_blank"
         >

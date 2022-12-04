@@ -3,6 +3,7 @@ import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import {
+  APP_NAME,
   SERVICE_FEE_PERCENT,
   SUGGESTED_TERMINATION_COST_ETH,
 } from '../../lib/config'
@@ -129,7 +130,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
           label="Termination cost"
           description={`A terminating partner pays this amount in ETH in the event of termination. ${
             100 - SERVICE_FEE_PERCENT
-          }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to MarrySign as a service fee.`}
+          }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to${APP_NAME} as a service fee.`}
           defaultETHValue={terminationCost}
           required={true}
           onChange={(value: string) => {
