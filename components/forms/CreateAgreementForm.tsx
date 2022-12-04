@@ -1,4 +1,4 @@
-import { BytesLike } from 'ethers'
+import { BigNumber, BytesLike, utils } from 'ethers'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
@@ -20,7 +20,9 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const { address } = useAccount()
   const [partner1Name, setPartner1Name] = useState<string>('') // Alice Smith
   const [partner2Name, setPartner2Name] = useState<string>('') // Bob Johnson
-  const [terminationCost, setTerminationCost] = useState<number>(10)
+  const [terminationCost, setTerminationCost] = useState<BigNumber>(
+    utils.parseEther('0.0001')
+  )
   const [partner2Address, setPartner2Address] = useState<string>('') // 0x098F4f427732984e6f205AFe66e1f9015B5A45c7
   const [vow, setVow] = useState<string>(DEFAULT_VOW)
   const { showAppLoading, hideAppLoading } = useAppContext()
@@ -28,7 +30,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    if (terminationCost === 0) {
+    if (terminationCost === BigNumber.from(0)) {
       toast.warn('The termination cost should be greater than 0.')
       return
     }
@@ -104,7 +106,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <TextField
           label="Your partner's ETH address"
-          placeholder='0xf3...2266'
+          placeholder="0xf3...2266"
           value={partner2Address}
           required={true}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>

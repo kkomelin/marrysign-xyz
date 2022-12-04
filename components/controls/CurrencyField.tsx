@@ -9,7 +9,7 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { convertUSDToETH } from '../../lib/services/chainlink'
+import { convertETHToUSD } from '../../lib/services/chainlink'
 import Label from './Label'
 
 type Props = {

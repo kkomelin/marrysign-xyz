@@ -18,5 +18,5 @@ export const SERVICE_FEE_PERCENT = 10
 export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']
 
 // false until the launch.
-export const LOGIN_ENABLED = false
+export const LOGIN_ENABLED = process.env.NODE_ENV !== 'production'
 export const SUBSCRIBE_TO_NEWS_PATH = 'https://news.marrysign.com/'

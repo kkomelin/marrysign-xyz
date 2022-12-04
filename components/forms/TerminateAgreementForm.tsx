@@ -1,12 +1,10 @@
-import { BytesLike, ethers } from 'ethers'
+import { BigNumber, BytesLike } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
 import { SERVICE_FEE_PERCENT } from '../../lib/config'
 import { handleContractError } from '../../lib/helpers'
 import { terminateAgreement } from '../../lib/services/agreement'
-import { convertUSDToETH } from '../../lib/services/chainlink'
+import { convertETHToUSD } from '../../lib/services/chainlink'
 import { MarrySign } from '../../typechain'
-import { ECustomContractError } from '../../types/ECustomContractError'
 import { ICustomContractError } from '../../types/ICustomContractError'
 import { useAppContext } from '../hooks/useAppContext'
 import ConfirmDialog from '../misc/ConfigmDialog'
@@ -20,7 +18,7 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   const { showAppLoading, hideAppLoading } = useAppContext()
 
   const [confirmDialogOpen, setConfirmDialogOpen] = useState<boolean>(false)
-  const [valueInETH, setValueInETH] = useState<number>(0)
+  const [valueInUSD, setValueInUSD] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
 
   const openConfirmDialog = () => {
@@ -35,21 +33,9 @@ const TerminateAgreementForm: FC<Props> = (props) => {
     try {
       showAppLoading('Terminating the agreement...')
 
-      // @fixme: We totally rely on CL service here. A fallback is very necessary here to wider this bottleneck!
-      if (valueInETH === 0) {
-        toast.error(
-          'Cannot terminate your agreement at the moment. Please contact the app developer.'
-        )
-        hideAppLoading()
-        return
-      }
-
-      const terminationCostInWei = ethers.utils.parseEther(
-        valueInETH.toString()
-      )
       const successful = await terminateAgreement(
         agreement.id.toString(),
-        terminationCostInWei,
+        BigNumber.from(agreement.terminationCost),
         (agreementId: BytesLike) => {
           hideAppLoading()
           return onAgreementTerminated(agreementId)
@@ -61,47 +47,36 @@ const TerminateAgreementForm: FC<Props> = (props) => {
       }
     } catch (e: ICustomContractError) {
       hideAppLoading()
-
-      if (
-        (e?.code === 'UNPREDICTABLE_GAS_LIMIT' &&
-          e?.message &&
-          e.message.indexOf(ECustomContractError.WrongAmount) !== 0) ||
-        e?.errorCode === ECustomContractError.WrongAmount
-      ) {
-        console.log(e)
-
-        toast.warn(
-          'The USD/ETH exchange rate has changed significantly. Could you please try one more time?'
-        )
-        return
-      }
-
       handleContractError(e)
     }
   }
 
-  const updateETH = async (value: number | undefined) => {
+  const updateUSD = async (valueInETF: BigNumber | undefined) => {
     // Don't send one more request if we're waiting for a response already.
     if (loading) {
       return
     }
 
     setLoading(true)
-    if (value === undefined || value == null || value === 0) {
-      setValueInETH(0)
+    if (
+      valueInETF === undefined ||
+      valueInETF == null ||
+      valueInETF === BigNumber.from(0)
+    ) {
+      setValueInUSD(0)
       setLoading(false)
       return
     }
 
-    const amountInETH = await convertUSDToETH(value)
+    const amountInUSD = await convertETHToUSD(valueInETF)
 
-    setValueInETH(amountInETH)
+    setValueInUSD(Number(amountInUSD))
     setLoading(false)
   }
 
   useEffect(() => {
     if (agreement) {
-      updateETH(Number(agreement.terminationCost))
+      updateUSD(BigNumber.from(agreement.terminationCost))
     }
   }, [agreement])
 
@@ -129,8 +104,8 @@ const TerminateAgreementForm: FC<Props> = (props) => {
         description={
           <div>
             You will be charged the equivalent of{' '}
-            <b>${agreement.terminationCost.toString()} USD</b>{' '}
-            {valueInETH ? <b>(currently {valueInETH} ETH)</b> : ''}. Most of it
+            <b>${agreement.terminationCost.toString()} ETH</b>{' '}
+            {valueInUSD ? <b>(currently ${valueInUSD} USD)</b> : ''}. Most of it
             will be transferred to your ex, except our{' '}
             <b>{SERVICE_FEE_PERCENT}%</b> service fee.
           </div>

@@ -1,4 +1,4 @@
-import { BigNumberish, BytesLike, ethers } from 'ethers'
+import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { MarrySign__factory } from '../../../typechain'
 import { ENetwork } from '../../../types/ENetwork'
 import { hasEthereum, nowTimestamp, stringToHex } from '../../helpers'
@@ -33,7 +33,7 @@ export const createAgreement = async (
   partner2Name: string,
   partner2Address: string,
   vow: string,
-  terminationCost: number,
+  terminationCost: BigNumber,
   onCreate?: (agreementId: BytesLike) => void
 ) => {
   _checkPrerequisites()

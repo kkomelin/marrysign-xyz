@@ -1,4 +1,4 @@
-import { BytesLike, ethers } from 'ethers'
+import { BigNumber, BytesLike, ethers } from 'ethers'
 import { toast } from 'react-toastify'
 import { ICustomContractError } from '../../types/ICustomContractError'
 import { APP_URL } from '../config'
@@ -81,6 +81,6 @@ export const placeholderText = (
 }
 
 export const validateCurrency = (amount: string) => {
-  const regex = /^\d+$/
+  const regex = /^\d+\.(\d+)?$/
   return regex.test(amount)
 }

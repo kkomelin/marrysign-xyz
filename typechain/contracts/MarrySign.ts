@@ -60,15 +60,12 @@ export declare namespace MarrySign {
 
 export interface MarrySignInterface extends utils.Interface {
   functions: {
-    "ALLOWED_TERMINATION_COST_DIFFERENCE()": FunctionFragment;
     "acceptAgreement(bytes32,uint256)": FunctionFragment;
     "createAgreement(address,bytes,uint256,uint256)": FunctionFragment;
     "getAcceptedAgreements()": FunctionFragment;
     "getAgreement(bytes32)": FunctionFragment;
     "getAgreementByAddress(address)": FunctionFragment;
     "getAgreementCount()": FunctionFragment;
-    "getPriceFeed()": FunctionFragment;
-    "getPriceFeedVersion()": FunctionFragment;
     "refuseAgreement(bytes32,uint256)": FunctionFragment;
     "terminateAgreement(bytes32)": FunctionFragment;
     "withdraw()": FunctionFragment;
@@ -76,24 +73,17 @@ export interface MarrySignInterface extends utils.Interface {
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "ALLOWED_TERMINATION_COST_DIFFERENCE"
       | "acceptAgreement"
       | "createAgreement"
       | "getAcceptedAgreements"
       | "getAgreement"
       | "getAgreementByAddress"
       | "getAgreementCount"
-      | "getPriceFeed"
-      | "getPriceFeedVersion"
       | "refuseAgreement"
       | "terminateAgreement"
       | "withdraw"
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: "ALLOWED_TERMINATION_COST_DIFFERENCE",
-    values?: undefined
-  ): string;
   encodeFunctionData(
     functionFragment: "acceptAgreement",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
@@ -124,14 +114,6 @@ export interface MarrySignInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
-    functionFragment: "getPriceFeed",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPriceFeedVersion",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
     functionFragment: "refuseAgreement",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
@@ -141,10 +123,6 @@ export interface MarrySignInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "withdraw", values?: undefined): string;
 
-  decodeFunctionResult(
-    functionFragment: "ALLOWED_TERMINATION_COST_DIFFERENCE",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(
     functionFragment: "acceptAgreement",
     data: BytesLike
@@ -167,14 +145,6 @@ export interface MarrySignInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getAgreementCount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPriceFeed",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPriceFeedVersion",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -271,10 +241,6 @@ export interface MarrySign extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    ALLOWED_TERMINATION_COST_DIFFERENCE(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-
     acceptAgreement(
       id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
@@ -305,10 +271,6 @@ export interface MarrySign extends BaseContract {
 
     getAgreementCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getPriceFeed(overrides?: CallOverrides): Promise<[string]>;
-
-    getPriceFeedVersion(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     refuseAgreement(
       id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
@@ -324,10 +286,6 @@ export interface MarrySign extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
-
-  ALLOWED_TERMINATION_COST_DIFFERENCE(
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   acceptAgreement(
     id: PromiseOrValue<BytesLike>,
@@ -359,10 +317,6 @@ export interface MarrySign extends BaseContract {
 
   getAgreementCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getPriceFeed(overrides?: CallOverrides): Promise<string>;
-
-  getPriceFeedVersion(overrides?: CallOverrides): Promise<BigNumber>;
-
   refuseAgreement(
     id: PromiseOrValue<BytesLike>,
     refusedAt: PromiseOrValue<BigNumberish>,
@@ -379,10 +333,6 @@ export interface MarrySign extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    ALLOWED_TERMINATION_COST_DIFFERENCE(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     acceptAgreement(
       id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
@@ -413,10 +363,6 @@ export interface MarrySign extends BaseContract {
 
     getAgreementCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPriceFeed(overrides?: CallOverrides): Promise<string>;
-
-    getPriceFeedVersion(overrides?: CallOverrides): Promise<BigNumber>;
-
     refuseAgreement(
       id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
@@ -446,10 +392,6 @@ export interface MarrySign extends BaseContract {
   };
 
   estimateGas: {
-    ALLOWED_TERMINATION_COST_DIFFERENCE(
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     acceptAgreement(
       id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
@@ -478,10 +420,6 @@ export interface MarrySign extends BaseContract {
 
     getAgreementCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPriceFeed(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getPriceFeedVersion(overrides?: CallOverrides): Promise<BigNumber>;
-
     refuseAgreement(
       id: PromiseOrValue<BytesLike>,
       refusedAt: PromiseOrValue<BigNumberish>,
@@ -499,10 +437,6 @@ export interface MarrySign extends BaseContract {
   };
 
   populateTransaction: {
-    ALLOWED_TERMINATION_COST_DIFFERENCE(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     acceptAgreement(
       id: PromiseOrValue<BytesLike>,
       acceptedAt: PromiseOrValue<BigNumberish>,
@@ -532,12 +466,6 @@ export interface MarrySign extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getAgreementCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getPriceFeed(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getPriceFeedVersion(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
 
     refuseAgreement(
       id: PromiseOrValue<BytesLike>,
