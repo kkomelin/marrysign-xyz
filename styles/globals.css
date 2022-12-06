@@ -37,3 +37,6 @@
 .formkit-alert.formkit-alert-success {
   @apply text-green-500 text-center text-lg;
 }
+.formkit-alert.formkit-alert-error {
+  @apply text-red-500 text-center text-lg;
+}
