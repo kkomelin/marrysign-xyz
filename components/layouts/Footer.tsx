@@ -100,7 +100,7 @@ const Follow: FC<FollowProps> = ({ twitterUrl }) => {
 
 const Disclaimer: FC = () => {
   return (
-    <div className="flex flex-row justify-center w-full px-4 py-4 text-sm text-gray-500">
+    <div className="flex flex-row justify-center w-full px-4 py-8 text-sm text-gray-500">
       <div className="max-w-xl text-left">
         <p>
           * Please note {APP_NAME} agreements don't have legal power, at least
