@@ -33,3 +33,7 @@
     margin: 0;
   }
 }
+
+.formkit-alert.formkit-alert-success {
+  @apply text-green-500 text-center text-lg;
+}

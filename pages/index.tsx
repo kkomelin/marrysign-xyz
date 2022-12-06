@@ -80,7 +80,7 @@ const Home: NextPage = () => {
         <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink href="/create" size="large" color="secondary">
-              Get crypto married
+              Get crypto-married
             </ButtonLink>
           ) : (
             <ButtonLink
@@ -99,7 +99,7 @@ const Home: NextPage = () => {
         than <span className="text-secondary">Las Vegas</span>
       </div>
 
-      <div className="w-full py-20 bg-pink-50">
+      <div className="w-full py-16 md:py-20 bg-pink-50">
         <h2
           id="how-it-works"
           className="px-4 pb-10 text-4xl text-center uppercase"
@@ -136,7 +136,7 @@ const Home: NextPage = () => {
                 step={5}
                 className="bg-gradient-to-r from-purple-400 to-pink-600"
               />
-              Celebrate your crypto marriage together!
+              Celebrate your crypto-marriage together!
             </div>
           </div>
           <div className="flex flex-col justify-center p-5 text-center min-h-[150px] items-center">
