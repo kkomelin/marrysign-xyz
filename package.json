@@ -17,7 +17,7 @@
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
     "@mui/icons-material": "^5.10.16",
-    "@mui/material": "^5.10.16",
+    "@mui/material": "^5.10.17",
     "@rainbow-me/rainbowkit": "^0.8.0",
     "boring-avatars": "^1.7.0",
     "clsx": "^1.2.1",
