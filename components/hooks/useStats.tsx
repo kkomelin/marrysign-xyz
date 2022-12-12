@@ -1,12 +1,24 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
+import { hotjar } from 'react-hotjar'
 import { isProd } from '../../lib/helpers'
 import * as ga from '../../lib/helpers/ga'
 
-const useGaPageView = () => {
+const HJID = 3284638
+const HJSV = 6
+const isProduction = isProd()
+
+const useStats = () => {
   const router = useRouter()
 
-  const isProduction = isProd()
+  useEffect(() => {
+    // Do nothing if it's not Production.
+    if (!isProduction) {
+      return
+    }
+
+    hotjar.initialize(HJID, HJSV)
+  }, [isProduction, HJID, HJSV])
 
   useEffect(() => {
     // Do nothing if it's not Production.
@@ -16,6 +28,7 @@ const useGaPageView = () => {
 
     const handleRouteChange = (url: string) => {
       ga.pageview(url)
+      hotjar.stateChange(url)
     }
 
     // Subscribe to router changes and log page views to GA.
@@ -27,4 +40,4 @@ const useGaPageView = () => {
   }, [router.events, isProduction])
 }
 
-export default useGaPageView
+export default useStats

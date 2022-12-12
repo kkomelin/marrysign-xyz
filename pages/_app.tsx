@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { AppContextProvider } from '../components/context/AppContext'
-import useGaPageView from '../components/hooks/useGaPageView'
+import useStats from '../components/hooks/useStats'
 import InfoScreen from '../components/misc/InfoScreen'
 import AuthProvider from '../components/providers/AuthProvider'
 import UserAgreementProvider from '../components/providers/UserAgreementProvider'
@@ -21,7 +21,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   const [isForceLoadUserAgreementEnabled, setIsForceLoadUserAgreementEnabled] =
     useState<boolean>(false)
 
-  useGaPageView()
+  useStats()
 
   const enableForceLoadUserAgreement = () => {
     setIsForceLoadUserAgreementEnabled(true)
