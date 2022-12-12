@@ -6,3 +6,4 @@ export const pageview = (url: string) => {
 export const event = (action: string, params: any) => {
   window.gtag('event', action, params)
 }
+
