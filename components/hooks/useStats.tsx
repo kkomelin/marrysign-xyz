@@ -18,7 +18,7 @@ const useStats = () => {
     }
 
     hotjar.initialize(HJID, HJSV)
-  }, [isProduction, HJID, HJSV])
+  }, [])
 
   useEffect(() => {
     // Do nothing if it's not Production.
@@ -37,7 +37,7 @@ const useStats = () => {
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router.events, isProduction])
+  }, [router.events])
 }
 
 export default useStats
