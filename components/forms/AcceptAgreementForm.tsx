@@ -1,7 +1,8 @@
 import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
-import { APP_NAME, SERVICE_FEE_PERCENT } from '../../lib/config'
+import { APP_NAME, SERVICE_FEE_ETH } from '../../lib/config'
+import { SERVICE_FEE_DESCRIPTION } from '../../lib/config/strings'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
 import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
@@ -105,11 +106,10 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                     </b>{' '}
                     {valueInUSD && `(currently ${valueInUSD} USD)`} as a
                     termination cost which a terminating partner would be
-                    required to pay in the event of termination.{' '}
-                    <b>{100 - SERVICE_FEE_PERCENT}%</b> of it would go to the
-                    opposite partner as a compensation, and{' '}
-                    <b>{SERVICE_FEE_PERCENT}%</b> to {APP_NAME} as a service
-                    fee.
+                    required to pay to another in the event of termination.{' '}
+                    {APP_NAME} does't charge a service fee for termination,
+                    except the Ethereum-blockchain network fee which is variable
+                    and depends on the network load.
                   </p>
                 </div>
               </div>
@@ -118,13 +118,21 @@ const AcceptAgreementForm: FC<Props> = (props) => {
         )}
 
         <div className="flex flex-col justify-between">
-          <Button onClick={handleAcceptAgreement} className="w-full">
+          <Button
+            onClick={handleAcceptAgreement}
+            className="w-full"
+            description={
+              !ethers.utils.parseEther(SERVICE_FEE_ETH).eq(0)
+                ? SERVICE_FEE_DESCRIPTION
+                : undefined
+            }
+          >
             Accept
           </Button>
           <Button
             color="secondary"
             onClick={handleRefuseAgreement}
-            description="No termination cost involved"
+            description="No agreement termination cost involved"
             className="w-full"
           >
             Refuse

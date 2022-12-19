@@ -3,11 +3,10 @@ import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
 import {
-  APP_NAME,
-  SERVICE_FEE_PERCENT,
+  SERVICE_FEE_ETH,
   SUGGESTED_TERMINATION_COST_ETH,
 } from '../../lib/config'
-import { DEFAULT_VOW } from '../../lib/config/strings'
+import { DEFAULT_VOW, SERVICE_FEE_DESCRIPTION } from '../../lib/config/strings'
 import { handleContractError, validateCurrency } from '../../lib/helpers'
 import { createAgreement } from '../../lib/services/agreement'
 import Button from '../controls/Button'
@@ -128,17 +127,24 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <CurrencyField
           label="Termination cost"
-          description={`A terminating partner pays this amount in ETH in the event of termination. ${
-            100 - SERVICE_FEE_PERCENT
-          }% of it goes to the opposite partner as a compensation, and ${SERVICE_FEE_PERCENT}% goes to${APP_NAME} as a service fee.`}
+          description={`A terminating partner pays this amount in ETH to the opposite partner a a compensation in the event of termination.`}
           defaultETHValue={terminationCost}
           required={true}
           onChange={(value: string) => {
             setTerminationCost(value)
           }}
         />
-        {/* Validate the termination cost number */}
-        <Button onClick={handleCreateAgreement}>Create agreement</Button>
+        
+        <Button
+          onClick={handleCreateAgreement}
+          description={
+            !ethers.utils.parseEther(SERVICE_FEE_ETH).eq(0)
+              ? SERVICE_FEE_DESCRIPTION
+              : undefined
+          }
+        >
+          Create agreement
+        </Button>
       </form>
     </div>
   )
