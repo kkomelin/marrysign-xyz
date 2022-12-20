@@ -150,11 +150,6 @@ const _getNetworkRpcUrl = () => {
         process.env.NEXT_PUBLIC_GOERLI_RPC_URL ||
         'https://eth-goerli.alchemyapi.io/v2/your-api-key'
       )
-    case ENetwork.PolygonMumbai:
-      return (
-        process.env.NEXT_PUBLIC_POLYGON_MUMBAIN_RPC_URL ||
-        'https://fluent-multi-research.matic-testnet.discover.quiknode.pro/your-api-key'
-      )
     case ENetwork.Local:
     default:
       return undefined
