@@ -1,7 +1,7 @@
 import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
-import { APP_NAME, SERVICE_FEE_ETH } from '../../lib/config'
+import { SERVICE_FEE_ETH } from '../../lib/config'
 import { SERVICE_FEE_DESCRIPTION } from '../../lib/config/strings'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
@@ -68,7 +68,10 @@ const AcceptAgreementForm: FC<Props> = (props) => {
   const agreementContent = parseAgreementContent(agreement.content as BytesLike)
 
   useEffect(() => {
-    if (agreement != null) {
+    if (
+      agreement != null &&
+      !BigNumber.from(0).eq(agreement.terminationCost as BigNumber)
+    ) {
       convertETHToUSD(
         ethers.utils.formatEther(agreement.terminationCost as BigNumber)
       ).then((amountInUSD: string) => {
@@ -78,6 +81,10 @@ const AcceptAgreementForm: FC<Props> = (props) => {
       })
     }
   }, [agreement])
+
+  const zeroTerminationCost = BigNumber.from(0).eq(
+    agreement.terminationCost as BigNumber
+  )
 
   return (
     <div className="flex flex-col items-center justify-center w-full p-5 mt-6 bg-white border rounded-lg">
@@ -90,26 +97,33 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                   By pressing Accept, you,{' '}
                   {agreement.alice === address
                     ? agreementContent.partner1.name
-                    : agreementContent.partner2.name}{' '}
-                  accept the above mentioned and agree with the termination
-                  cost:
+                    : agreementContent.partner2.name}
+                  , accept the above mentioned
+                  {!zeroTerminationCost
+                    ? ' and agree with the termination cost:'
+                    : ':'}
                 </div>
 
                 <div>
                   <p className="mt-2">
-                    Your partner suggested{' '}
-                    <b>
-                      {ethers.utils.formatEther(
-                        agreement.terminationCost as BigNumberish
-                      )}{' '}
-                      ETH
-                    </b>{' '}
-                    {valueInUSD && `(currently ${valueInUSD} USD)`} as a
-                    termination cost which a terminating partner would be
-                    required to pay to another in the event of termination.{' '}
-                    {APP_NAME} does't charge a service fee for termination,
+                    {!zeroTerminationCost && (
+                      <>
+                        Your partner suggested{' '}
+                        <b>
+                          {ethers.utils.formatEther(
+                            agreement.terminationCost as BigNumberish
+                          )}{' '}
+                          ETH
+                        </b>{' '}
+                        {valueInUSD && `(currently ${valueInUSD} USD)`} as a
+                        termination cost which a terminating partner would be
+                        required to pay to the opposite partner in the event of
+                        termination.{' '}
+                      </>
+                    )}
+                    {/* {APP_NAME} does't charge a service fee for termination,
                     except the Ethereum-blockchain network fee which is variable
-                    and depends on the network load.
+                    and depends on the network load. */}
                   </p>
                 </div>
               </div>

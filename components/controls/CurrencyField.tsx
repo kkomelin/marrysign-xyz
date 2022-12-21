@@ -37,10 +37,13 @@ const CurrencyField: FC<Props> = (props) => {
 
   const handleETHInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    setInputValueInETH(e.target.value)
+    const value =
+      e.target.value.trim().length !== 0 ? e.target.value.trim() : '0'
+
+    setInputValueInETH(value)
     setValueInUSD('')
-    onChange(e.target.value)
-    debouncedUpdateUSD(e.target.value)
+    onChange(value)
+    debouncedUpdateUSD(value)
   }
 
   const updateUSD = async (valueInETF: string) => {

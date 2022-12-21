@@ -74,12 +74,19 @@ const TerminateAgreementForm: FC<Props> = (props) => {
   }
 
   useEffect(() => {
-    if (agreement) {
+    if (
+      agreement &&
+      !BigNumber.from(0).eq(agreement.terminationCost as BigNumber)
+    ) {
       updateUSD(
         ethers.utils.formatEther(agreement.terminationCost as BigNumberish)
       )
     }
   }, [agreement])
+
+  const zeroTerminationCost = BigNumber.from(0).eq(
+    agreement.terminationCost as BigNumber
+  )
 
   return (
     <div className="flex flex-col items-center justify-center w-full p-6 mt-6">
@@ -99,23 +106,30 @@ const TerminateAgreementForm: FC<Props> = (props) => {
           </Button> */}
         </div>
       </form>
+
       <ConfirmDialog
         open={confirmDialogOpen}
-        title="You can terminate your agreement but..."
+        title={`You can terminate your agreement ${
+          !zeroTerminationCost ? 'but...' : ''
+        }`}
         description={
-          <div>
-            You will be charged{' '}
-            <b>
-              {ethers.utils.formatEther(
-                agreement.terminationCost as BigNumberish
-              )}{' '}
-              ETH
-            </b>{' '}
-            {valueInUSD && `(currently ${valueInUSD} USD)`}. It will be
-            transferred to your ex.
-          </div>
+          !zeroTerminationCost ? (
+            <div>
+              You will be charged{' '}
+              <b>
+                {ethers.utils.formatEther(
+                  agreement.terminationCost as BigNumberish
+                )}{' '}
+                ETH
+              </b>{' '}
+              {valueInUSD && `(currently ${valueInUSD} USD)`}, which will be
+              transferred to your ex.
+            </div>
+          ) : undefined
         }
-        confirmButtonLabel="Terminate & pay fees"
+        confirmButtonLabel={
+          !zeroTerminationCost ? 'Pay & terminate' : 'Terminate'
+        }
         onConfirm={handleTerminateAgreement}
         onClose={closeConfirmDialog}
         onCancel={closeConfirmDialog}

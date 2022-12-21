@@ -21,10 +21,8 @@ const DEVELOPMENT_ETH_PRICE = 2000
 
 export const convertETHToUSD = async (value: string) => {
   try {
+    // Use Chainling Datafeed fallback on the local networks.
     if (LOCAL_NETWORKS.includes(CURRENT_NETWORK)) {
-      console.log(
-        `[development] CL DataFeed fallback used. Assuming that ETH price = ${DEVELOPMENT_ETH_PRICE}`
-      )
       return ethers.utils.formatEther(
         ethers.utils.parseEther(value).mul(DEVELOPMENT_ETH_PRICE)
       )

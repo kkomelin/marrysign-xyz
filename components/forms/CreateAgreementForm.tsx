@@ -1,4 +1,4 @@
-import { BigNumber, BytesLike, ethers } from 'ethers'
+import { BytesLike, ethers } from 'ethers'
 import { ChangeEvent, FC, MouseEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAccount } from 'wagmi'
@@ -32,11 +32,6 @@ const CreateAgreementForm: FC<Props> = (props) => {
 
   const handleCreateAgreement = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-
-    if (ethers.utils.parseEther(terminationCost) === BigNumber.from(0)) {
-      toast.warn('The termination cost should be greater than 0.')
-      return
-    }
 
     if (
       partner1Name.length === 0 ||
@@ -127,14 +122,14 @@ const CreateAgreementForm: FC<Props> = (props) => {
         />
         <CurrencyField
           label="Termination cost"
-          description={`A terminating partner pays this amount in ETH to the opposite partner a a compensation in the event of termination.`}
+          description={`A terminating partner agrees to pay this amount in ETH to the opposite partner as a compensation in the event of termination.`}
           defaultETHValue={terminationCost}
-          required={true}
+          required={false}
           onChange={(value: string) => {
-            setTerminationCost(value)
+            setTerminationCost(value.trim().length !== 0 ? value : '0')
           }}
         />
-        
+
         <Button
           onClick={handleCreateAgreement}
           description={

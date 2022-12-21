@@ -59,7 +59,7 @@ const WizardPage: NextPage = () => {
     <MainLayout>
       <div className="flex flex-col w-full">
         <h2 className="mt-2 mb-10 text-3xl font-light leading-10 text-center text-secondary">
-          Create your marital agreement in three simple steps
+          Create your crypto-agreement
         </h2>
 
         <Stepper
