@@ -29,7 +29,8 @@ const Follow: FC<FollowProps> = ({ twitterUrl }) => {
         className="inline-block mx-1 text-indigo-400 hover:underline"
       >
         @{APP_TWITTER_HANDLE}
-      </a>
+      </a>{' '}
+      <span>on Twitter</span>
     </div>
   )
 }
@@ -43,8 +44,8 @@ const Disclaimer: FC = () => {
           not yet.
         </p>
         <p>
-          ** We store agreement data on Blockchain, which is public storage by
-          its nature, so user data privacy can not be ensured nor guaranteed.
+          ** We store agreement data on Blockchain, which is public by its
+          nature, so user data privacy can not be ensured nor guaranteed.
         </p>
         <p>*** The app is still under development, so use it with caution.</p>
       </div>
