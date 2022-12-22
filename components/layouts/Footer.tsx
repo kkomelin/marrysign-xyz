@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import { APP_NAME, APP_TWITTER_HANDLE } from '../../lib/config'
-import JoinWaitlist from '../misc/JoinWaitlist'
 
 type Props = {}
 const Footer: FC<Props> = () => {
@@ -8,7 +7,7 @@ const Footer: FC<Props> = () => {
 
   return (
     <footer className="flex flex-col items-center justify-center w-full text-gray-500 bg-purple-100 ">
-      <JoinWaitlist />
+      {/* <JoinWaitlist /> */}
       <Follow twitterUrl={twitterUrl} />
       <Disclaimer />
     </footer>
