@@ -21,7 +21,7 @@ const Follow: FC = () => {
   }, [])
 
   return (
-    <div className="flex flex-row items-center justify-center w-full px-4 py-8 bg-white">
+    <div className="flex flex-row items-center justify-center w-full px-4 py-8 bg-pink-50">
       <a
         className="twitter-follow-button"
         href={`https://twitter.com/${APP_TWITTER_HANDLE}`}
