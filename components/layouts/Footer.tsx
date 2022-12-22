@@ -1,35 +1,35 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { APP_NAME, APP_TWITTER_HANDLE } from '../../lib/config'
 
 type Props = {}
 const Footer: FC<Props> = () => {
-  let twitterUrl = `https://twitter.com/${APP_TWITTER_HANDLE}`
-
   return (
     <footer className="flex flex-col items-center justify-center w-full text-gray-500 bg-purple-100 ">
       {/* <JoinWaitlist /> */}
-      <Follow twitterUrl={twitterUrl} />
+      <Follow />
       <Disclaimer />
     </footer>
   )
 }
 
-type FollowProps = {
-  twitterUrl: string
-}
-const Follow: FC<FollowProps> = ({ twitterUrl }) => {
+const Follow: FC = () => {
+  useEffect(() => {
+    const s = document.createElement('script')
+    s.setAttribute('src', 'https://platform.twitter.com/widgets.js')
+    s.setAttribute('async', 'true')
+    document.head.appendChild(s)
+  }, [])
+
   return (
-    <div className="flex flex-row items-center justify-center w-full px-4 py-8 bg-pink-50 ">
-      <span>For updates, follow</span>
+    <div className="flex flex-row items-center justify-center w-full px-4 py-8 bg-pink-50">
       <a
-        href={twitterUrl}
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-        className="inline-block mx-1 text-indigo-400 hover:underline"
+        className="twitter-follow-button"
+        href={`https://twitter.com/${APP_TWITTER_HANDLE}`}
+        data-size="large"
+        data-show-count={false}
       >
-        @{APP_TWITTER_HANDLE}
-      </a>{' '}
-      <span>on Twitter</span>
+        Follow @{APP_TWITTER_HANDLE}
+      </a>
     </div>
   )
 }
