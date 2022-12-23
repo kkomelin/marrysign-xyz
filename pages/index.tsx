@@ -161,10 +161,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className="w-full px-3 py-16 border-t border-primary md:py-20 bg-pink-50">
-        <h2
-          id="pricing"
-          className="px-4 pb-10 text-4xl text-center uppercase"
-        >
+        <h2 id="pricing" className="px-4 pb-10 text-4xl text-center uppercase">
           Pricing
         </h2>
         <div className="flex flex-col justify-center max-w-md mx-auto">
@@ -183,9 +180,9 @@ const Home: NextPage = () => {
                     ~{CREATE_AGREEMENT_FEE_ETH} ETH{' '}
                     {valueInUSD &&
                       valueInUSD !== '0' &&
-                      `($${
+                      `($${(
                         CREATE_AGREEMENT_FEE_ETH * parseFloat(valueInUSD)
-                      } USD)`}
+                      ).toFixed(2)} USD)`}
                   </div>
                 </div>
                 <div className="flex flex-row justify-between">
@@ -194,9 +191,9 @@ const Home: NextPage = () => {
                     ~{OTHER_AGREEMENT_OPS_FEE_ETH} ETH{' '}
                     {valueInUSD &&
                       valueInUSD !== '0' &&
-                      `($${
+                      `($${(
                         OTHER_AGREEMENT_OPS_FEE_ETH * parseFloat(valueInUSD)
-                      } USD)`}
+                      ).toFixed(2)} USD)`}
                   </div>
                 </div>
               </div>
