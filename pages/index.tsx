@@ -12,7 +12,7 @@ import { APP_SLOGAN } from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { getAcceptedAgreements } from '../lib/services/agreement'
 import { contractStructToObject } from '../lib/services/agreement/helpers'
-import { convertETHToUSD } from '../lib/services/price/chainlink'
+import { convertETHToUSD } from '../lib/services/price/coinstats'
 import { MarrySign } from '../typechain'
 import { ICustomContractError } from '../types/ICustomContractError'
 
