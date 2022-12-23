@@ -4,8 +4,8 @@
  * which is authored by https://github.com/rgottleber
  */
 import { ethers } from 'ethers'
-import { ENetwork } from '../../../types/ENetwork'
-import { LOCAL_NETWORKS } from '../../config'
+import { ENetwork } from '../../../../types/ENetwork'
+import { LOCAL_NETWORKS } from '../../../config'
 import { aggregatorV3InterfaceABI } from './abi'
 
 const CHAINLINK_NODE_URL =
@@ -39,12 +39,12 @@ export const convertETHToUSD = async (value: string) => {
       ethers.utils.parseEther(value).mul(priceOfOneETH)
     )
   } catch (e) {
-    console.log(e)
+    console.error(e)
     return '0'
   }
 }
 
-export async function getETHPriceInUSD() {
+async function getETHPriceInUSD() {
   if (CHAINLINK_NODE_URL == null || CHAINLINK_CONTRACT_ADDRESS == null) {
     throw new Error('Please set Chainlink details through your .env file.')
   }

@@ -126,7 +126,7 @@ const CreateAgreementForm: FC<Props> = (props) => {
           defaultETHValue={terminationCost}
           required={false}
           onChange={(value: string) => {
-            setTerminationCost(value.trim().length !== 0 ? value : '0')
+            setTerminationCost(value.trim().length !== 0 ? value : 'n/a')
           }}
         />
 

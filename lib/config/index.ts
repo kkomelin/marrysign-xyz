@@ -10,7 +10,6 @@ export const APP_SLOGAN: string = 'Unrestricted Crypto-Marriages'
 // export const APP_SLOGAN: string =
 //   'Closer than Copenhagen & quicker than Las Vegas'
 // No @ in Twitter handle, please.
-// @todo: Replace with the app handle.
 export const APP_TWITTER_HANDLE: string = 'MarrySign'
 
 export const SUGGESTED_TERMINATION_COST_ETH = '0.02'

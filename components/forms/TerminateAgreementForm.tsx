@@ -2,7 +2,7 @@ import { BigNumber, BigNumberish, BytesLike, ethers } from 'ethers'
 import { FC, MouseEvent, useEffect, useState } from 'react'
 import { handleContractError } from '../../lib/helpers'
 import { terminateAgreement } from '../../lib/services/agreement'
-import { convertETHToUSD } from '../../lib/services/chainlink'
+import { convertETHToUSD } from '../../lib/services/price/coinstats'
 import { MarrySign } from '../../typechain'
 import { ICustomContractError } from '../../types/ICustomContractError'
 import { useAppContext } from '../hooks/useAppContext'
@@ -122,8 +122,10 @@ const TerminateAgreementForm: FC<Props> = (props) => {
                 )}{' '}
                 ETH
               </b>{' '}
-              {valueInUSD && `(currently ${valueInUSD} USD)`}, which will be
-              transferred to your ex.
+              {valueInUSD &&
+                Number(valueInUSD) !== 0 &&
+                `(currently ${valueInUSD} USD)`}
+              , which will be transferred to your ex.
             </div>
           ) : undefined
         }

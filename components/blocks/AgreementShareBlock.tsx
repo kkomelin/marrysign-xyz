@@ -33,7 +33,7 @@ const AgreementShareBlock: FC<Props> = (props) => {
               toast('The link copied to clipboard')
             } catch (err) {
               toast.error('An error has occurred. Please try again.')
-              console.log(err)
+              console.error(err)
             }
           }}
         >

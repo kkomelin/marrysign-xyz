@@ -150,6 +150,11 @@ const _getNetworkRpcUrl = () => {
         process.env.NEXT_PUBLIC_GOERLI_RPC_URL ||
         'https://eth-goerli.alchemyapi.io/v2/your-api-key'
       )
+    case ENetwork.Mainnet:
+      return (
+        process.env.NEXT_PUBLIC_MAINNET_RPC_URL ||
+        'https://eth-mainnet.alchemyapi.io/v2/your-api-key'
+      )
     case ENetwork.Local:
     default:
       return undefined

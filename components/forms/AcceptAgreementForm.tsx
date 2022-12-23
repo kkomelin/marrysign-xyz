@@ -6,7 +6,7 @@ import { SERVICE_FEE_DESCRIPTION } from '../../lib/config/strings'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
 import { acceptAgreement, refuseAgreement } from '../../lib/services/agreement'
-import { convertETHToUSD } from '../../lib/services/chainlink'
+import { convertETHToUSD } from '../../lib/services/price/coinstats'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import Button from '../controls/Button'
@@ -115,10 +115,12 @@ const AcceptAgreementForm: FC<Props> = (props) => {
                           )}{' '}
                           ETH
                         </b>{' '}
-                        {valueInUSD && `(currently ${valueInUSD} USD)`} as a
-                        termination cost which a terminating partner would be
-                        required to pay to the opposite partner in the event of
-                        termination.{' '}
+                        {valueInUSD &&
+                          Number(valueInUSD) !== 0 &&
+                          `(currently ${valueInUSD} USD)`}{' '}
+                        as a termination cost which a terminating partner would
+                        be required to pay to the opposite partner in the event
+                        of termination.{' '}
                       </>
                     )}
                     {/* {APP_NAME} does't charge a service fee for termination,

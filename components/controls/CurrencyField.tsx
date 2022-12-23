@@ -4,7 +4,7 @@ import { ChangeEvent, FC, useEffect, useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
 import { SUGGESTED_TERMINATION_COST_ETH } from '../../lib/config'
 import { validateCurrency } from '../../lib/helpers'
-import { convertETHToUSD } from '../../lib/services/chainlink'
+import { convertETHToUSD } from '../../lib/services/price/coinstats'
 import Label from './Label'
 
 type Props = {

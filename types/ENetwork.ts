@@ -1,5 +1,5 @@
 export enum ENetwork {
-  Local = 'local',
+  Local = 'localhost',
   Goerli = 'goerli',
   Mainnet = 'mainnet',
 }

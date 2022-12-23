@@ -7,20 +7,20 @@ import {
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets'
 import { configureChains, createClient } from 'wagmi'
-import { goerli, hardhat } from 'wagmi/chains'
+import { hardhat, mainnet } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { APP_NAME } from '../config'
 import { isProd } from '../helpers'
 
-let networkds = [
+let networks = [
   // goerli,
   hardhat /* localhost */,
 ]
 if (isProd()) {
-  networkds = [goerli /*, mainnet */]
+  networks = [/*goerli */ mainnet]
 }
 
-const { chains, provider } = configureChains(networkds, [publicProvider()])
+const { chains, provider } = configureChains(networks, [publicProvider()])
 
 const connectors = connectorsForWallets([
   {
