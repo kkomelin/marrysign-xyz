@@ -61,9 +61,14 @@ const Header: FC<Props> = () => {
 
       <nav className="flex flex-row justify-start order-3 w-full sm:justify-end sm:order-2 grow sm:w-0">
         <ul>
-          <li>
+          <li className="inline mr-3">
             <Link className="py-1 text-lg" href="/#how-it-works">
               How it Works
+            </Link>
+          </li>
+          <li className="inline ml-3 mr-3">
+            <Link className="py-1 text-lg" href="/#pricing">
+              Pricing
             </Link>
           </li>
         </ul>

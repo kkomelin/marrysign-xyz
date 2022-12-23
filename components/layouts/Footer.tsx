@@ -46,7 +46,7 @@ const Disclaimer: FC = () => {
           ** We store agreement data on Blockchain, which is public by its
           nature, so user data privacy can not be ensured nor guaranteed.
         </p>
-        <p>*** The app is still under development, so use it with caution.</p>
+        <p>*** The app is still under development, so use it with caution and report bugs to us.</p>
       </div>
     </div>
   )

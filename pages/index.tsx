@@ -12,13 +12,18 @@ import { APP_SLOGAN } from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { getAcceptedAgreements } from '../lib/services/agreement'
 import { contractStructToObject } from '../lib/services/agreement/helpers'
+import { convertETHToUSD } from '../lib/services/price/chainlink'
 import { MarrySign } from '../typechain'
 import { ICustomContractError } from '../types/ICustomContractError'
+
+const CREATE_AGREEMENT_FEE_ETH = 0.0066
+const OTHER_AGREEMENT_OPS_FEE_ETH = 0.0016
 
 const Home: NextPage = () => {
   const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
   const { userAgreement } = useAppContext()
   const { isDisconnected } = useAccount()
+  const [valueInUSD, setValueInUSD] = useState<string | undefined>(undefined)
 
   const loadAgreements = async () => {
     try {
@@ -38,6 +43,14 @@ const Home: NextPage = () => {
     loadAgreements()
   }, [])
 
+  useEffect(() => {
+    convertETHToUSD('1').then((amountInUSD: string) => {
+      if (amountInUSD) {
+        setValueInUSD(amountInUSD)
+      }
+    })
+  }, [])
+
   return (
     <FrontpageLayout>
       <div className="flex flex-col items-center justify-center p-5 mx-auto mb-10 sm:mb-10">
@@ -47,6 +60,12 @@ const Home: NextPage = () => {
 
         <div className="px-12 py-8 mt-4 bg-purple-400 rounded-lg shadow-sm sm:py-10 sm:px-14 bg-opacity-20">
           <ol>
+            <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
+              <HeartIcon className="w-4 mr-3 text-secondary" />
+              <span>
+                No <span className="text-secondary">time</span> restrictions
+              </span>
+            </li>
             <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               <HeartIcon className="w-4 mr-3 text-secondary" />
               <span>
@@ -137,6 +156,55 @@ const Home: NextPage = () => {
             <ButtonLink size="large" href="/create" color="secondary">
               Let's get started
             </ButtonLink>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full px-3 py-16 border-t border-primary md:py-20 bg-pink-50">
+        <h2
+          id="pricing"
+          className="px-4 pb-10 text-4xl text-center uppercase"
+        >
+          Pricing
+        </h2>
+        <div className="flex flex-col justify-center max-w-md mx-auto">
+          <div className="flex flex-col justify-start p-5 text-center bg-white border rounded-lg border-primary min-h-[150px]">
+            <div className="text-xl font-bold text-primary">Free Beta</div>
+            <div className="flex flex-row justify-between mt-4">
+              <div>Service fees</div>
+              <div>0</div>
+            </div>
+            <div className="flex flex-col items-start justify-start mt-3">
+              <div className="mb-1 font-semibold">Ethereum network fees</div>
+              <div className="flex flex-col w-full">
+                <div className="flex flex-row justify-between">
+                  <div>Create agreement</div>
+                  <div className="font-semibold">
+                    ~{CREATE_AGREEMENT_FEE_ETH} ETH{' '}
+                    {valueInUSD &&
+                      valueInUSD !== '0' &&
+                      `($${
+                        CREATE_AGREEMENT_FEE_ETH * parseFloat(valueInUSD)
+                      } USD)`}
+                  </div>
+                </div>
+                <div className="flex flex-row justify-between">
+                  <div>Other operations</div>
+                  <div className="font-semibold">
+                    ~{OTHER_AGREEMENT_OPS_FEE_ETH} ETH{' '}
+                    {valueInUSD &&
+                      valueInUSD !== '0' &&
+                      `($${
+                        OTHER_AGREEMENT_OPS_FEE_ETH * parseFloat(valueInUSD)
+                      } USD)`}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-start justify-start mt-3 text-sm text-left text-accent2">
+              * Provided Ethereum network fees are not constant and depend of
+              current Ethereum price and network load.
+            </div>
           </div>
         </div>
       </div>
