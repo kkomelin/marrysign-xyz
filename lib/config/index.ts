@@ -5,7 +5,7 @@ export const APP_URL: string =
     : 'http://localhost:3000'
 // export const APP_DESCRIPTION: string =
 //   'We empower any couple to register marriage online'
-export const APP_DESCRIPTION: string = 'Crypto-marriages without restrictions on age, location, culture, gender or anything else.'
+export const APP_DESCRIPTION: string = 'Crypto-marriages without restrictions on time, location, culture, gender or anything else.'
 export const APP_SLOGAN: string = 'Unrestricted Crypto-Marriages'
 // export const APP_SLOGAN: string =
 //   'Closer than Copenhagen & quicker than Las Vegas'
