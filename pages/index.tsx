@@ -50,12 +50,6 @@ const Home: NextPage = () => {
             <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
               <HeartIcon className="w-4 mr-3 text-secondary" />
               <span>
-                No <span className="text-secondary">age</span> restrictions
-              </span>
-            </li>
-            <li className="flex flex-row items-center mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
-              <HeartIcon className="w-4 mr-3 text-secondary" />
-              <span>
                 No <span className="text-secondary">location</span> restrictions
               </span>
             </li>
