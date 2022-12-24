@@ -2,16 +2,15 @@ import { HeartIcon } from '@heroicons/react/20/solid'
 import c from 'clsx'
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
-import AgreementList from '../components/AgreementList'
 import ButtonLink from '../components/controls/ButtonLink'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
-import { APP_SLOGAN } from '../lib/config'
+import { AGREEMENT_EXAMPLE_ID, APP_SLOGAN } from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
-import { getAcceptedAgreements } from '../lib/services/agreement'
-import { contractStructToObject } from '../lib/services/agreement/helpers'
+import { getAgreementCount } from '../lib/services/agreement'
 import { convertETHToUSD } from '../lib/services/price/coinstats'
 import { MarrySign } from '../typechain'
 import { ICustomContractError } from '../types/ICustomContractError'
@@ -21,27 +20,37 @@ const OTHER_AGREEMENT_OPS_FEE_ETH = 0.0016
 
 const Home: NextPage = () => {
   const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
+  const [agreementCount, setAgreementCount] = useState<number>(0)
   const { userAgreement } = useAppContext()
   const { isDisconnected } = useAccount()
   const [valueInUSD, setValueInUSD] = useState<string | undefined>(undefined)
 
-  const loadAgreements = async () => {
+  // const loadAgreements = async () => {
+  //   try {
+  //     const agreements = await getAgreementCount()
+  //     setAgreements(
+  //       agreements.map((agreement: any[]) => contractStructToObject(agreement))
+  //     )
+  //   } catch (e: ICustomContractError) {
+  //     handleContractErrorSilently(e)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   if (isDisconnected) {
+  //     return
+  //   }
+  //   loadAgreements()
+  // }, [])
+
+  const fetchAgreementCount = async () => {
     try {
-      const agreements = await getAcceptedAgreements()
-      setAgreements(
-        agreements.map((agreement: any[]) => contractStructToObject(agreement))
-      )
+      const count = await getAgreementCount()
+      setAgreementCount(count)
     } catch (e: ICustomContractError) {
       handleContractErrorSilently(e)
     }
   }
-
-  useEffect(() => {
-    if (isDisconnected) {
-      return
-    }
-    loadAgreements()
-  }, [])
 
   useEffect(() => {
     convertETHToUSD('1').then((amountInUSD: string) => {
@@ -49,6 +58,8 @@ const Home: NextPage = () => {
         setValueInUSD(amountInUSD)
       }
     })
+
+    fetchAgreementCount()
   }, [])
 
   return (
@@ -160,7 +171,23 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="w-full px-3 py-16 border-t border-primary md:py-20 bg-pink-50">
+      <div className="w-full px-6 py-10 text-2xl font-semibold text-center text-white uppercase bg-blue-400">
+        {agreementCount > 0 ? (
+          <div>
+            {agreementCount} agreement{agreementCount > 1 ? 's' : ''} created
+          </div>
+        ) : (
+          <div>...</div>
+        )}
+        <Link
+          href={agreementPath(AGREEMENT_EXAMPLE_ID)}
+          className="text-base text-yellow-200 underline normal-case underline-offset-2"
+        >
+          agreement example
+        </Link>
+      </div>
+
+      <div className="w-full px-6 py-16 border-primary md:py-20 bg-pink-50">
         <h2 id="pricing" className="px-4 pb-10 text-4xl text-center uppercase">
           Pricing
         </h2>
@@ -169,36 +196,42 @@ const Home: NextPage = () => {
             <div className="text-xl font-bold text-primary">Free Beta</div>
             <div className="flex flex-row justify-between mt-4">
               <div>Service fees</div>
-              <div>0</div>
+              <div className="font-semibold">0</div>
             </div>
             <div className="flex flex-col items-start justify-start mt-3">
-              <div className="mb-1 font-semibold">Ethereum network fees</div>
+              <div className="mb-1 font-semibold text-left">
+                Ethereum network fees
+              </div>
               <div className="flex flex-col w-full">
-                <div className="flex flex-row justify-between">
-                  <div>Create agreement</div>
-                  <div className="font-semibold">
+                <div className="flex flex-row justify-between mt-2">
+                  <div className="text-left">Create agreement</div>
+                  <div className="font-semibold text-right">
                     ~{CREATE_AGREEMENT_FEE_ETH} ETH{' '}
-                    {valueInUSD &&
-                      valueInUSD !== '0' &&
-                      `($${(
-                        CREATE_AGREEMENT_FEE_ETH * parseFloat(valueInUSD)
-                      ).toFixed(2)} USD)`}
+                    <div className="text-sm font-normal">
+                      {valueInUSD &&
+                        valueInUSD !== '0' &&
+                        `($${(
+                          CREATE_AGREEMENT_FEE_ETH * parseFloat(valueInUSD)
+                        ).toFixed(2)} USD)`}
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-row justify-between">
-                  <div>Other operations</div>
-                  <div className="font-semibold">
+                <div className="flex flex-row justify-between mt-2">
+                  <div className="text-left">Other operations</div>
+                  <div className="font-semibold text-right">
                     ~{OTHER_AGREEMENT_OPS_FEE_ETH} ETH{' '}
-                    {valueInUSD &&
-                      valueInUSD !== '0' &&
-                      `($${(
-                        OTHER_AGREEMENT_OPS_FEE_ETH * parseFloat(valueInUSD)
-                      ).toFixed(2)} USD)`}
+                    <div className="text-sm font-normal">
+                      {valueInUSD &&
+                        valueInUSD !== '0' &&
+                        `($${(
+                          OTHER_AGREEMENT_OPS_FEE_ETH * parseFloat(valueInUSD)
+                        ).toFixed(2)} USD)`}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-start justify-start mt-3 text-sm text-left text-accent2">
+            <div className="flex flex-col items-start justify-start mt-3 text-xs text-left md:text-sm text-accent2">
               * Provided Ethereum network fees are not constant and depend of
               current Ethereum price and network load.
             </div>
@@ -206,7 +239,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      {agreements.length > 0 && (
+      {/* {agreements.length > 0 && (
         <div className="w-full py-16 bg-white">
           <h2 className="px-4 pb-10 text-4xl text-center uppercase">
             Happily Crypto-Married
@@ -216,7 +249,7 @@ const Home: NextPage = () => {
             userAgreementId={userAgreement?.id as BytesLike}
           />
         </div>
-      )}
+      )} */}
     </FrontpageLayout>
   )
 }

@@ -6,7 +6,7 @@ import { hasEthereum, nowTimestamp, stringToHex } from '../../helpers'
 export const getAgreementCount = async () => {
   _checkPrerequisites()
 
-  const value = await (await _getContract()).getAgreementCount()
+  const value = await(await _getContractAnonymously()).getAgreementCount()
   return value.toNumber()
 }
 
