@@ -170,7 +170,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className="w-full px-6 py-10 text-2xl font-semibold text-center text-white uppercase bg-blue-400">
+      <div className="w-full px-6 py-10 text-2xl font-semibold text-center text-white uppercase bg-violet-400">
         {agreementCount > 0 ? (
           <div>
             {agreementCount} agreement{agreementCount > 1 ? 's' : ''} created
