@@ -4,7 +4,7 @@ import { ENetwork } from '../../../types/ENetwork'
 import { hasEthereum, nowTimestamp, stringToHex } from '../../helpers'
 
 export const getAgreementCount = async () => {
-  _checkPrerequisites()
+  _checkPrerequisitesContractAddress()
 
   const value = await(await _getContractAnonymously()).getAgreementCount()
   return value.toNumber()
@@ -17,7 +17,7 @@ export const getAcceptedAgreements = async () => {
 }
 
 export const getAgreementByAddress = async (partnerAddress: string) => {
-  _checkPrerequisites()
+  _checkPrerequisitesFull()
 
   return await (await _getContract()).getAgreementByAddress(partnerAddress)
 }
@@ -36,7 +36,7 @@ export const createAgreement = async (
   terminationCost: BigNumber,
   onCreate?: (agreementId: BytesLike) => void
 ) => {
-  _checkPrerequisites()
+  _checkPrerequisitesFull()
 
   const createdAt = nowTimestamp()
   const agreementData = {
@@ -76,7 +76,7 @@ export const acceptAgreement = async (
   id: string,
   onAccept?: (agreementId: BytesLike) => void
 ) => {
-  _checkPrerequisites()
+  _checkPrerequisitesFull()
 
   const contract = await _getContract()
 
@@ -98,7 +98,7 @@ export const refuseAgreement = async (
   id: string,
   onRefuse?: (agreementId: BytesLike) => void
 ) => {
-  _checkPrerequisites()
+  _checkPrerequisitesFull()
 
   const contract = await _getContract()
 
@@ -121,7 +121,7 @@ export const terminateAgreement = async (
   terminationCost: BigNumberish,
   onTerminate?: (agreementId: BytesLike) => void
 ) => {
-  _checkPrerequisites()
+  _checkPrerequisitesFull()
 
   const contract = await _getContract()
 
@@ -220,7 +220,7 @@ const _checkPrerequisitesContractAddress = () => {
   }
 }
 
-const _checkPrerequisites = () => {
+const _checkPrerequisitesFull = () => {
   _checkPrerequisitesWalletConnected()
   _checkPrerequisitesContractAddress()
 }

@@ -12,14 +12,13 @@ import { AGREEMENT_EXAMPLE_ID, APP_SLOGAN } from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { getAgreementCount } from '../lib/services/agreement'
 import { convertETHToUSD } from '../lib/services/price/coinstats'
-import { MarrySign } from '../typechain'
 import { ICustomContractError } from '../types/ICustomContractError'
 
 const CREATE_AGREEMENT_FEE_ETH = 0.0066
 const OTHER_AGREEMENT_OPS_FEE_ETH = 0.0016
 
 const Home: NextPage = () => {
-  const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
+  // const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
   const [agreementCount, setAgreementCount] = useState<number>(0)
   const { userAgreement } = useAppContext()
   const { isDisconnected } = useAccount()
