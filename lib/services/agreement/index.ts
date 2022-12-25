@@ -159,7 +159,6 @@ const _getNetworkRpcUrl = () => {
     default:
       return undefined
   }
-  
 }
 
 /**
