@@ -20,3 +20,4 @@ export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']
 export const SUBSCRIBE_TO_NEWS_PATH = 'https://news.marrysign.com/'
 
 export const AGREEMENT_EXAMPLE_ID = '0xb5f2d7e8369348d7ceefed8129e15e901c6f23f6eda77c4a30dba6620f068b55'
+export const HOTJAR_ID = 3284638

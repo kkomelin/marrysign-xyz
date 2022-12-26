@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { hotjar } from 'react-hotjar'
+import { HOTJAR_ID } from '../../lib/config'
 import { isProd } from '../../lib/helpers'
 import * as ga from '../../lib/helpers/ga'
 
-const HJID = 3284638
+const HJID = Number(process.env.NEXT_PUBLIC_HOTJAR_ID || HOTJAR_ID)
 const HJSV = 6
 const isProduction = isProd()
 

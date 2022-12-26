@@ -7,14 +7,18 @@ import {
   APP_TWITTER_HANDLE,
   APP_URL,
 } from '../../lib/config'
-import { toAbsolute } from '../../lib/helpers'
+import { isStagingProd, toAbsolute } from '../../lib/helpers'
 
 type MetaProps = {}
 const Meta: FC<PropsWithChildren<MetaProps>> = ({ children }) => {
-
   return (
     <>
       <Head>
+        {isStagingProd() && (
+          <link rel="canonical" href="https://marrysign.com/" />
+        )}
+        {isStagingProd() && <meta name="robots" content="noindex" />}
+
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="shortcut icon" href="/images/favicon.ico" />

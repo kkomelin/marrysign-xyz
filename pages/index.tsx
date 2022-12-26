@@ -17,6 +17,9 @@ import { ICustomContractError } from '../types/ICustomContractError'
 const CREATE_AGREEMENT_FEE_ETH = 0.0066
 const OTHER_AGREEMENT_OPS_FEE_ETH = 0.0016
 
+const agreementExampleId =
+  process.env.NEXT_PUBLIC_AGREEMENT_EXAMPLE_ID || AGREEMENT_EXAMPLE_ID
+
 const Home: NextPage = () => {
   // const [agreements, setAgreements] = useState<MarrySign.AgreementStruct[]>([])
   const [agreementCount, setAgreementCount] = useState<number>(0)
@@ -179,7 +182,7 @@ const Home: NextPage = () => {
           <div>...</div>
         )}
         <Link
-          href={agreementPath(AGREEMENT_EXAMPLE_ID)}
+          href={agreementPath(agreementExampleId)}
           className="text-base text-yellow-200 underline normal-case underline-offset-2"
         >
           agreement example

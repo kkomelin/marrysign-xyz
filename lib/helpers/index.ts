@@ -1,11 +1,16 @@
-import { BigNumber, BytesLike, ethers } from 'ethers'
+import { BytesLike, ethers } from 'ethers'
 import { toast } from 'react-toastify'
+import { ENetwork } from '../../types/ENetwork'
 import { ICustomContractError } from '../../types/ICustomContractError'
 import { APP_URL } from '../config'
 import { USER_FRIENDLY_ERROR_MESSAGE } from '../config/strings'
 
 export const isProd = () => {
   return process.env.NODE_ENV === 'production'
+}
+
+export const isStagingProd = () => {
+  return process.env.NEXT_PUBLIC_CURRENT_NETWORK === ENetwork.Goerli
 }
 
 export const stringToHex = (text: string): string => {
