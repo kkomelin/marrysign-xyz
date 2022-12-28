@@ -5,7 +5,7 @@ import { FC, PropsWithChildren, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { agreementPath, handleContractError } from '../../lib/helpers'
 import { getAgreementByAddress } from '../../lib/services/agreement'
-import { contractStructToObject } from '../../lib/services/agreement/helpers'
+import { agreementStructToObject } from '../../lib/services/agreement/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { ECustomContractError } from '../../types/ECustomContractError'
@@ -33,7 +33,7 @@ const UserAgreementProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
     try {
       showAppLoading('Embrace the moment...')
       const agreement = await getAgreementByAddress(address)
-      const converted = contractStructToObject(agreement)
+      const converted = agreementStructToObject(agreement)
       setUserAgreement(converted as MarrySign.AgreementStruct)
 
       if (

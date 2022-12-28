@@ -14,8 +14,9 @@ import { useAppContext } from '../../components/hooks/useAppContext'
 import MainLayout from '../../components/layouts/MainLayout'
 import { parseAgreementContent } from '../../lib/content'
 import { handleContractError } from '../../lib/helpers'
+import { agreementMetaTitle } from '../../lib/helpers/meta'
 import { getAgreementById } from '../../lib/services/agreement'
-import { contractStructToObject } from '../../lib/services/agreement/helpers'
+import { agreementStructToObject } from '../../lib/services/agreement/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
 import { ECustomContractError } from '../../types/ECustomContractError'
@@ -61,7 +62,7 @@ const AgreementPage: NextPage = () => {
         return agreementNotFound()
       }
       setAgreement(
-        contractStructToObject(agreement) as MarrySign.AgreementStruct
+        agreementStructToObject(agreement) as MarrySign.AgreementStruct
       )
     } catch (e: ICustomContractError) {
       if (e.errorName === ECustomContractError.AgreementNotFound) {
@@ -145,8 +146,22 @@ const AgreementPage: NextPage = () => {
       ? parseAgreementContent(agreement.content as BytesLike)
       : null
 
+  // @todo Supply meta-data from server-side to make seo-friendly.
+  const metaTitle = agreementMetaTitle(agreementContent, agreement)
+
   return (
-    <MainLayout>
+    <MainLayout
+      meta={
+        metaTitle ? (
+          <>
+            <title key="title">{metaTitle}</title>
+            <meta property="og:title" content={metaTitle} key="og:title" />
+          </>
+        ) : (
+          <></>
+        )
+      }
+    >
       <div className="flex flex-col items-center justify-center">
         {agreement && agreementContent && (
           <AgreementInfoBlock

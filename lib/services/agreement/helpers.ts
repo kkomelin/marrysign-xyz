@@ -43,17 +43,18 @@ export const toTimestamp = (
   return Number(contractTimestamp.toString() + '000')
 }
 
-export const formatContractDate = (
-  contractTimestamp: BigNumberish | number
+export const formatAgreementDate = (
+  contractTimestamp: BigNumberish | number,
+  formatPattern: string = 'PPPP'
 ) => {
-  return format(toTimestamp(contractTimestamp), 'PPPP')
+  return format(toTimestamp(contractTimestamp), formatPattern)
 }
 
 /**
  * Take an array returned by contract and convert it to JS object.
  * Borrowed from https://github.com/ethers-io/ethers.js/discussions/2429#discussioncomment-3765296
  */
-export const contractStructToObject = <A extends Array<unknown>>(
+export const agreementStructToObject = <A extends Array<unknown>>(
   arr: A
 ): IExtractPropsFromArray<A> => {
   const keys = Object.keys(arr).filter((key) => isNaN(Number(key)))

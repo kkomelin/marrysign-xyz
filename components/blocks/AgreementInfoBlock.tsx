@@ -2,7 +2,7 @@ import { BigNumberish } from 'ethers'
 import { FC } from 'react'
 import {
   agreementStateToLongString,
-  formatContractDate,
+  formatAgreementDate,
 } from '../../lib/services/agreement/helpers'
 import { MarrySign } from '../../typechain'
 import { EAgreementState } from '../../types/EAgreementState'
@@ -25,7 +25,7 @@ const AgreementInfoBlock: FC<Props> = (props) => {
     agreementContent
   )
 
-  const date = formatContractDate(agreement.updatedAt as BigNumberish)
+  const date = formatAgreementDate(agreement.updatedAt as BigNumberish)
 
   return (
     <div className="w-full max-w-2xl px-6 py-2 text-lg text-center">
