@@ -306,7 +306,7 @@ const Home: NextPage = () => {
               Give it a try
             </ButtonLink>
             <div className="block mt-1 text-xs text-center text-gray-500 text-thin">
-              Can cancel any time
+              Can cancel at any time
             </div>
           </div>
         </div>
