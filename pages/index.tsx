@@ -175,7 +175,7 @@ const Home: NextPage = () => {
             <ButtonLink
               href="/create"
               color="secondary"
-              className="max-w-sm mx-auto mt-3"
+              className="max-w-sm mx-auto mt-3 text-center"
             >
               Are you with us?
             </ButtonLink>
@@ -294,6 +294,19 @@ const Home: NextPage = () => {
             <div className="flex flex-col items-start justify-start mt-3 text-xs text-left md:text-sm text-accent2">
               * Provided Ethereum network fees are not constant and depend of
               current Ethereum price and network load.
+            </div>
+          </div>
+
+          <div>
+            <ButtonLink
+              href="/create"
+              color="secondary"
+              className="max-w-xs mx-auto mt-8 text-center"
+            >
+              Give it a try
+            </ButtonLink>
+            <div className="block mt-1 text-xs text-center text-gray-500 text-thin">
+              Can cancel any time
             </div>
           </div>
         </div>
