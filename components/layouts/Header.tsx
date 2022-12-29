@@ -62,15 +62,20 @@ const Header: FC<Props> = () => {
           )}
         </div>
 
-        <nav className="flex flex-row justify-start order-3 w-full sm:justify-end sm:order-2 grow sm:w-0">
+        <nav className="flex flex-row flex-wrap justify-start order-3 w-full md:text-lg sm:justify-end sm:order-2 grow sm:w-0">
           <ul>
-            <li className="inline mr-3">
-              <Link className="py-1 text-lg" href="/#how-it-works">
+            <li className="inline mr-2 md:mr-3">
+              <Link className="py-1" href="/#our-story">
+                Our Story
+              </Link>
+            </li>
+            <li className="inline ml-2 mr-2 md:ml-3 md:mr-3">
+              <Link className="py-1" href="/#how-it-works">
                 How it Works
               </Link>
             </li>
-            <li className="inline ml-3 mr-3">
-              <Link className="py-1 text-lg" href="/#pricing">
+            <li className="inline ml-2 mr-2 md:ml-3 md:mr-3">
+              <Link className="py-1" href="/#pricing">
                 Pricing
               </Link>
             </li>

@@ -2,6 +2,7 @@ import { HeartIcon } from '@heroicons/react/20/solid'
 import c from 'clsx'
 import { BytesLike } from 'ethers'
 import type { NextPage } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
@@ -123,6 +124,63 @@ const Home: NextPage = () => {
       <div className="w-full px-6 py-10 text-2xl font-semibold text-center text-white uppercase bg-pink-300">
         Closer than <span className="text-secondary">Copenhagen</span> & quicker
         than <span className="text-secondary">Las Vegas</span>
+      </div>
+
+      <div className="w-full py-16 bg-white md:py-20">
+        <h2
+          id="our-story"
+          className="px-4 pb-10 text-4xl text-center uppercase"
+        >
+          Our Story
+        </h2>
+        <div className="flex flex-col max-w-3xl px-6 mx-auto mt-4">
+          <div className="mx-auto">
+            <Image
+              width={180}
+              height={180}
+              src="/images/frontpage/konstantin-photo.png"
+              alt="MarrySign Founder's Photo"
+              className="mx-auto bg-purple-400 rounded-full shadow-sm bg-opacity-20"
+            />
+          </div>
+          <div className="mt-8 text-base text-center text-purple-500 md:text-lg">
+            <p className="pb-3">Welcome to MarrySign, frens!</p>
+            <p className="pb-3">
+              I'm Konstantin, a web developer and indie app maker.
+            </p>
+
+            <p className="pb-3">
+              My lovely spouse Irina and I lived together for a few years until
+              we decided to get married. It was a well-thought decision, you
+              know. And when we finally came to the registration office, they
+              turned us around and forced us to wait for two months because of
+              "the standard procedures". "Wtf? We want it now!"
+            </p>
+            <p className="pb-3">
+              When my gay friends decided to get married, they had to go to
+              Denmark because same-sex marriages were totally illegal in their
+              country. Why does someone else control who you build a family
+              with?
+            </p>
+            <p className="pb-3">
+              Couples take huge loans to just please hundreds of guests at their
+              marriage. Who is your wedding for, people?!
+            </p>
+            <p className="pb-3">
+              Does it all sound right to you? To me, it's not. That's why I
+              started MarrySign, a cheap, quick and unrestricted alternative to
+              traditional marriages.
+            </p>
+
+            <ButtonLink
+              href="/create"
+              color="secondary"
+              className="max-w-sm mx-auto mt-3"
+            >
+              Are you with us?
+            </ButtonLink>
+          </div>
+        </div>
       </div>
 
       <div className="w-full py-16 md:py-20 bg-pink-50">
