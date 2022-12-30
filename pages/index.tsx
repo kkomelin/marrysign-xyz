@@ -162,7 +162,7 @@ const Home: NextPage = () => {
               country.
             </p>
             <p className="pb-3">
-              I know couples which take loans to just please hundreds of guests
+              I know couples which took loans to just please hundreds of guests
               at their wedding as if it's not their personal holiday.
             </p>
             <p className="pb-3">
