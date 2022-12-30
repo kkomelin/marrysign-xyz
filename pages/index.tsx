@@ -9,7 +9,7 @@ import { useAccount } from 'wagmi'
 import ButtonLink from '../components/controls/ButtonLink'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
-import { AGREEMENT_EXAMPLE_ID, APP_SLOGAN } from '../lib/config'
+import { AGREEMENT_EXAMPLE_ID, APP_NAME, APP_SLOGAN } from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { getAgreementCount } from '../lib/services/agreement'
 import { convertETHToUSD } from '../lib/services/price/coinstats'
@@ -128,25 +128,25 @@ const Home: NextPage = () => {
 
       <div className="w-full py-16 bg-white md:py-20">
         <h2
-          id="our-story"
-          className="px-4 pb-10 text-4xl text-center uppercase"
+          id="about"
+          className="px-4 pb-10 text-4xl text-center uppercase md:pb-6"
         >
           Our Story
         </h2>
-        <div className="flex flex-col max-w-3xl px-6 mx-auto mt-4">
-          <div className="mx-auto">
+        <div className="flex flex-col justify-center px-6 mx-auto md:flex-row">
+          <div className="flex flex-col items-center justify-center md:pr-14">
             <Image
               width={180}
               height={180}
               src="/images/frontpage/konstantin-photo.png"
-              alt="MarrySign Founder's Photo"
-              className="mx-auto bg-purple-400 rounded-full shadow-sm bg-opacity-20"
+              alt={APP_NAME + " Founder's Photo"}
+              className="bg-purple-400 rounded-full shadow-sm bg-opacity-20"
             />
           </div>
-          <div className="mt-8 text-base text-center text-purple-500 md:text-lg">
-            <p className="pb-3">Welcome to MarrySign, frens!</p>
+          <div className="max-w-3xl mt-8 text-base text-left text-purple-500 md:text-lg ">
+            <p className="pb-3">Welcome to {APP_NAME}, friends!</p>
             <p className="pb-3">
-              I'm Konstantin, a web developer and indie app maker.
+              I'm Konstantin, a web developer and {APP_NAME} founder.
             </p>
 
             <p className="pb-3">
@@ -154,28 +154,27 @@ const Home: NextPage = () => {
               we decided to get married. It was a well-thought decision, you
               know. And when we finally came to the registration office, they
               turned us around and forced us to wait for two months because of
-              "the standard procedures". "Wtf? We want it now!"
+              "the standard procedures".
             </p>
             <p className="pb-3">
               When my gay friends decided to get married, they had to go to
               Denmark because same-sex marriages were totally illegal in their
-              country. Why does someone else control who you build a family
-              with?
+              country.
             </p>
             <p className="pb-3">
-              Couples take huge loans to just please hundreds of guests at their
-              marriage. Who is your wedding for, people?!
+              I know couples which take loans to just please hundreds of guests
+              at their wedding as if it's not their personal holiday.
             </p>
             <p className="pb-3">
               Does it all sound right to you? To me, it's not. That's why I
-              started MarrySign, a cheap, quick and unrestricted alternative to
+              started {APP_NAME}, a cheap, quick and unrestricted alternative to
               traditional marriages.
             </p>
 
             <ButtonLink
               href="/create"
               color="secondary"
-              className="max-w-sm mx-auto mt-3 text-center"
+              className="max-w-sm mt-6 text-center"
             >
               Are you with us?
             </ButtonLink>
@@ -303,11 +302,8 @@ const Home: NextPage = () => {
               color="secondary"
               className="max-w-xs mx-auto mt-8 text-center"
             >
-              Give it a try
+              Get crypto-married now
             </ButtonLink>
-            <div className="block mt-1 text-xs text-center text-gray-500 text-thin">
-              Can cancel at any time
-            </div>
           </div>
         </div>
       </div>

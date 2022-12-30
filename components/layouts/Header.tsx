@@ -65,8 +65,8 @@ const Header: FC<Props> = () => {
         <nav className="flex flex-row flex-wrap justify-start order-3 w-full md:text-lg sm:justify-end sm:order-2 grow sm:w-0">
           <ul>
             <li className="inline mr-2 md:mr-3">
-              <Link className="py-1" href="/#our-story">
-                Our Story
+              <Link className="py-1" href="/#about">
+                About
               </Link>
             </li>
             <li className="inline ml-2 mr-2 md:ml-3 md:mr-3">

@@ -38,15 +38,18 @@ const Disclaimer: FC = () => {
   return (
     <div className="flex flex-row justify-center w-full px-4 py-8 text-sm text-gray-500">
       <div className="max-w-xl text-left">
-        <p>
-          * Please note {APP_NAME} agreements don't have legal power, at least
-          not yet.
+        <p className="mb-2">
+          Please note {APP_NAME} agreements don't have legal power, at least not
+          yet.
         </p>
-        <p>
-          ** We store agreement data on Blockchain, which is public by its
-          nature, so user data privacy can not be ensured nor guaranteed.
+        <p className="mb-2">
+          We store agreement data on Blockchain, which is public by its nature,
+          so user data privacy can not be ensured nor guaranteed.
         </p>
-        <p>*** The app is still under development, so use it with caution and report bugs to us.</p>
+        <p className="mb-2">
+          {APP_NAME} is still under development, so if you notice any issues
+          please <a href="mailto:support@marrysign.com">report to us</a>.
+        </p>
       </div>
     </div>
   )
