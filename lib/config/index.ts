@@ -6,7 +6,7 @@ export const APP_URL: string =
 // export const APP_DESCRIPTION: string =
 //   'We empower any couple to register marriage online'
 export const APP_DESCRIPTION: string = 'Crypto-marriages without restrictions on time, location, culture, gender or anything else.'
-export const APP_SLOGAN: string = 'Crypto-Marriages With No Limits'
+export const APP_SLOGAN: string = 'Crypto-Marriages of the Future'
 // export const APP_SLOGAN: string =
 //   'Closer than Copenhagen & quicker than Las Vegas'
 // No @ in Twitter handle, please.
