@@ -13,10 +13,10 @@ const FaqBlock: FC = () => {
           id="panel1a-header"
           className="text-lg font-semibold text-primary"
         >
-          Do crypto-marriages have legal power?
+          Do {APP_NAME} crypto-agreements have legal power?
         </AccordionSummary>
         <AccordionDetails className="text-gray-600">
-          {APP_NAME} agreements don't have legal power, at least not yet.
+          {APP_NAME} crypto-agreements don't have legal power, at least not yet.
         </AccordionDetails>
       </Accordion>
       <Accordion>
