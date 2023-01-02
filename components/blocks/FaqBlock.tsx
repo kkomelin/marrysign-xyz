@@ -6,6 +6,28 @@ import { APP_NAME } from '../../lib/config'
 const FaqBlock: FC = () => {
   return (
     <div className="w-full max-w-2xl px-6 py-2 text-base text-left">
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          className="text-lg font-semibold text-primary"
+        >
+          What are the Ethereum network fees and why I need to pay them?
+        </AccordionSummary>
+        <AccordionDetails>
+          <p>
+            <b>Ethereum network fees (aka gas fees)</b> are a way to pay for
+            computational resources used for executing transations on the
+            Ethereum blockchain. Gas fees are paid in Ethereum's native
+            currency, Ether (ETH).
+          </p>
+          <p>
+            The gas fees are paid to the Ethereum network and not to the
+            MarrySign platform.
+          </p>
+        </AccordionDetails>
+      </Accordion>
       <Accordion className="faq-block">
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -63,28 +85,6 @@ const FaqBlock: FC = () => {
             If the agreement creator set a non-zero <b>Termination Cost</b>, a
             partner who terminates the agreement will have to pay this amount to
             the oppostite partner as a compensation.
-          </p>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-          className="text-lg font-semibold text-primary"
-        >
-          What are the Ethereum network fees and why I need to pay them?
-        </AccordionSummary>
-        <AccordionDetails>
-          <p>
-            <b>Ethereum network fees (aka gas fees)</b> are a way to pay for
-            computational resources used for executing transations on the
-            Ethereum blockchain. Gas fees are paid in Ethereum's native
-            currency, Ether (ETH).
-          </p>
-          <p>
-            The gas fees are paid to the Ethereum network and not to the
-            MarrySign platform.
           </p>
         </AccordionDetails>
       </Accordion>
