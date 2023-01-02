@@ -13,7 +13,7 @@ const FaqBlock: FC = () => {
           id="panel1a-header"
           className="text-lg font-semibold text-primary"
         >
-          What are the Ethereum network fees and why I need to pay them?
+          What are the Ethereum network fees and why do I need to pay them?
         </AccordionSummary>
         <AccordionDetails>
           <p>
