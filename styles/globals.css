@@ -20,6 +20,12 @@
   a {
     @apply text-indigo-400 hover:underline;
   }
+  p {
+    @apply pb-3 text-gray-600;
+    b {
+      @apply font-semibold;
+    }
+  }
 
   .field.required label:after {
     content:"*";
@@ -32,6 +38,15 @@
     -webkit-appearance: none;
     margin: 0;
   }
+/*
+  .faq-block {
+    .MuiAccordion-root {
+      .MuiAccordionSummary-content {
+        @apply font-semibold text-primary text-left;
+      }
+    }
+  }
+  */
 }
 
 .formkit-alert.formkit-alert-success {

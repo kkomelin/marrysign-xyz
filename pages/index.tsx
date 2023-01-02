@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FC, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
+import FaqBlock from '../components/blocks/FaqBlock'
 import ButtonLink from '../components/controls/ButtonLink'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
@@ -143,7 +144,7 @@ const Home: NextPage = () => {
               className="bg-purple-400 rounded-full shadow-sm bg-opacity-20"
             />
           </div>
-          <div className="max-w-3xl mt-8 text-base text-left text-purple-500 md:text-lg ">
+          <div className="max-w-3xl mt-8 text-base text-left md:text-lg ">
             <p className="pb-3">Welcome to {APP_NAME}, friends!</p>
             <p className="pb-3">
               I'm Konstantin, a web developer and {APP_NAME} founder.
@@ -305,6 +306,15 @@ const Home: NextPage = () => {
               Get crypto-married now
             </ButtonLink>
           </div>
+        </div>
+      </div>
+
+      <div className="w-full px-6 py-16 bg-white border-primary md:py-20">
+        <h2 id="faq" className="px-4 pb-10 text-4xl text-center uppercase">
+          FAQ
+        </h2>
+        <div className="flex flex-col justify-center max-w-2xl mx-auto">
+          <FaqBlock />
         </div>
       </div>
 

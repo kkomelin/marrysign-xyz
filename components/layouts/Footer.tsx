@@ -47,8 +47,9 @@ const Disclaimer: FC = () => {
           so user data privacy can not be ensured nor guaranteed.
         </p>
         <p className="mb-2">
-          {APP_NAME} is still under development, so if you notice any issues
-          please <a href="mailto:support@marrysign.com">report to us</a>.
+          If you experience any issues or have ideas on how to improve{' '}
+          {APP_NAME}, please{' '}
+          <a href="mailto:support@marrysign.com">contact us</a>.
         </p>
       </div>
     </div>

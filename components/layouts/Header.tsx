@@ -79,6 +79,11 @@ const Header: FC<Props> = () => {
                 Pricing
               </Link>
             </li>
+            <li className="inline ml-2 mr-2 md:ml-3 md:mr-3">
+              <Link className="py-1" href="/#faq">
+                FAQ
+              </Link>
+            </li>
           </ul>
         </nav>
       </header>
