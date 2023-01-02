@@ -135,7 +135,7 @@ const Home: NextPage = () => {
           Our Story
         </h2>
         <div className="flex flex-col justify-center px-6 mx-auto md:flex-row">
-          <div className="flex flex-col items-center justify-center md:pr-14">
+          <div className="flex flex-col items-center justify-center md:pr-14 min-w-[180px]">
             <Image
               width={180}
               height={180}
@@ -175,7 +175,7 @@ const Home: NextPage = () => {
             <ButtonLink
               href="/create"
               color="secondary"
-              className="max-w-sm mt-6 text-center"
+              className="max-w-sm mx-auto mt-6 text-center md:mx-0"
             >
               Are you with us?
             </ButtonLink>
