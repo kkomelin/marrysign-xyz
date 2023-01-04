@@ -47,8 +47,18 @@ const Disclaimer: FC = () => {
           so user data privacy can not be ensured nor guaranteed.
         </p>
         <p className="mb-2">
-          If you experience any issues or have ideas on how to improve{' '}
-          {APP_NAME}, please{' '}
+          The blockchain part is{' '}
+          <a
+            href="https://github.com/kkomelin/marrysign"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
+            Open Source
+          </a>
+          , so you can always audit it.
+        </p>
+        <p className="mb-2">
+          If you experience any issues or have improvement suggestions, please{' '}
           <a href="mailto:support@marrysign.com">contact us</a>.
         </p>
       </div>
