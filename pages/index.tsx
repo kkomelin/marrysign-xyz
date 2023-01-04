@@ -233,16 +233,23 @@ const Home: NextPage = () => {
 
       <div className="w-full px-6 py-10 text-2xl font-semibold text-center text-white uppercase bg-violet-400">
         {agreementCount > 0 ? (
-          <div>
+          <div className='mb-2'>
             {agreementCount} agreement{agreementCount > 1 ? 's' : ''} created
           </div>
         ) : (
-          <div>...</div>
+          <div className='mb-2'>...</div>
         )}
         <Link
           href={agreementPath(agreementExampleId)}
           className="text-base text-yellow-200 underline normal-case underline-offset-2"
         >
+          <Image
+            width={200}
+            height={400}
+            src="/images/agreement-example.png"
+            alt="MarrySign agreement example thumbnail"
+            className='mx-auto rounded'
+          />
           agreement example
         </Link>
       </div>
