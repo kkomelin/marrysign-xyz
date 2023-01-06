@@ -76,7 +76,6 @@ const AgreementPage: NextPage = () => {
 
       // Nothing has changed, so there is nothing to do.
       if (currentAgreement.state === updatedAgreement.state) {
-        console.log('same')
         return
       }
 
