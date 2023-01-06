@@ -53,6 +53,73 @@ const AgreementPage: NextPage = () => {
     }, 800)
   }
 
+  const refreshAgreement = async (
+    id: string,
+    currentAgreement?: MarrySign.AgreementStruct,
+    currentAddress?: string
+  ) => {
+    try {
+      // We only refresh agreements in their Created or Accepted states.
+      if (
+        currentAgreement == null ||
+        ![EAgreementState.Created, EAgreementState.Accepted].includes(
+          currentAgreement?.state as EAgreementState
+        )
+      ) {
+        return
+      }
+
+      const agreementNew = await getAgreementById(id)
+      const updatedAgreement = agreementStructToObject(
+        agreementNew
+      ) as MarrySign.AgreementStruct
+
+      // Nothing has changed, so there is nothing to do.
+      if (currentAgreement.state === updatedAgreement.state) {
+        console.log('same')
+        return
+      }
+
+      // Notify Alice if the agreement has been accepted by Bob.
+      if (
+        updatedAgreement.state === EAgreementState.Accepted &&
+        currentAddress === currentAgreement.alice
+      ) {
+        setAgreement(updatedAgreement)
+        setUserAgreement(updatedAgreement)
+        enableForceLoadUserAgreement()
+
+        fireConfetti()
+      }
+
+      // Notify Alice if the agreement has been rejected by Bob.
+      if (updatedAgreement.state === EAgreementState.Refused) {
+        setAgreement(updatedAgreement)
+        setUserAgreement(updatedAgreement)
+        enableForceLoadUserAgreement()
+
+        router.push('/')
+        toast(
+          'Your partner has refused to accept the agreement. Contact them or create a new one.'
+        )
+        return
+      }
+
+      // Notify Alice if the agreement has been terminated by Bob.
+      if (updatedAgreement.state === EAgreementState.Terminated) {
+        setAgreement(updatedAgreement)
+        setUserAgreement(updatedAgreement)
+        enableForceLoadUserAgreement()
+
+        router.push('/')
+        toast('Your partner has terminated the agreement.')
+        return
+      }
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
   const loadAgreement = async (id: string) => {
     try {
       showAppLoading('Loading the agreement...')
@@ -139,6 +206,25 @@ const AgreementPage: NextPage = () => {
 
     loadAgreement(router.query.id.toString())
   }, [router])
+
+  useEffect(() => {
+    // // exit early when we reach 0
+    // if (!timeLeft) return;
+
+    if (router.query.id == null || address == null) {
+      return
+    }
+
+    const intervalId = setInterval(() => {
+      if (router.query.id == null || address == null) {
+        return
+      }
+
+      refreshAgreement(router.query.id.toString(), agreement, address)
+    }, 20000)
+
+    return () => clearInterval(intervalId)
+  }, [agreement, router, address])
 
   const agreementContent =
     agreement?.content &&
