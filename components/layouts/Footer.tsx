@@ -1,5 +1,10 @@
+import Link from 'next/link'
 import { FC, useEffect } from 'react'
-import { APP_NAME, APP_TWITTER_HANDLE } from '../../lib/config'
+import {
+  APP_NAME,
+  APP_TWITTER_HANDLE,
+  CONTACT_FOUNDER_LINK,
+} from '../../lib/config'
 
 type Props = {}
 const Footer: FC<Props> = () => {
@@ -57,9 +62,17 @@ const Disclaimer: FC = () => {
           </a>
           , so you can always audit it.
         </p>
-        <p className="mb-2">
-          If you experience any issues or have improvement suggestions, please{' '}
-          <a href="mailto:support@marrysign.com">contact us</a>.
+        <p className="mb-2 font-bold text-pink-600">
+          The project has been discontinued. Have an idea or like the domain
+          name?{' '}
+          <Link
+            href={CONTACT_FOUNDER_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-pink-600 underline"
+          >
+            Contact the founder
+          </Link>
         </p>
       </div>
     </div>
