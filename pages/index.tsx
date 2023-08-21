@@ -10,7 +10,12 @@ import FaqBlock from '../components/blocks/FaqBlock'
 import ButtonLink from '../components/controls/ButtonLink'
 import { useAppContext } from '../components/hooks/useAppContext'
 import FrontpageLayout from '../components/layouts/FrontpageLayout'
-import { AGREEMENT_EXAMPLE_ID, APP_NAME, APP_SLOGAN } from '../lib/config'
+import {
+  AGREEMENT_EXAMPLE_ID,
+  APP_NAME,
+  APP_SLOGAN,
+  IS_DISCONTINUED,
+} from '../lib/config'
 import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
 import { getAgreementCount } from '../lib/services/agreement'
 import { convertETHToUSD } from '../lib/services/price/coinstats'
@@ -107,7 +112,11 @@ const Home: NextPage = () => {
 
         <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
-            <ButtonLink href="/create" size="large" color="secondary">
+            <ButtonLink
+              href={!IS_DISCONTINUED ? '/create' : '#'}
+              size="large"
+              color="secondary"
+            >
               Get Crypto-Married
             </ButtonLink>
           ) : (
@@ -173,7 +182,7 @@ const Home: NextPage = () => {
             </p>
 
             <ButtonLink
-              href="/create"
+              href={!IS_DISCONTINUED ? '/create' : '#'}
               color="secondary"
               className="max-w-sm mx-auto mt-6 text-center md:mx-0"
             >
@@ -224,7 +233,11 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="flex flex-col justify-center p-5 text-center min-h-[150px] items-center">
-            <ButtonLink size="large" href="/create" color="secondary">
+            <ButtonLink
+              size="large"
+              href={!IS_DISCONTINUED ? '/create' : '#'}
+              color="secondary"
+            >
               Let's get started
             </ButtonLink>
           </div>
@@ -248,7 +261,7 @@ const Home: NextPage = () => {
             height={400}
             src="/images/agreement-example.png"
             alt="MarrySign agreement example thumbnail"
-            className='mx-auto mt-4 rounded'
+            className="mx-auto mt-4 rounded"
           />
           agreement example
         </Link>
@@ -306,7 +319,7 @@ const Home: NextPage = () => {
 
           <div>
             <ButtonLink
-              href="/create"
+              href={!IS_DISCONTINUED ? '/create' : '#'}
               color="secondary"
               className="max-w-xs mx-auto mt-8 text-center"
             >

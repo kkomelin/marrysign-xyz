@@ -9,6 +9,7 @@ import ButtonLink from '../controls/ButtonLink'
 import ConnectButton from '../controls/ConnectButton'
 import { useAppContext } from '../hooks/useAppContext'
 import AgreementStateVisualization from '../misc/AgreementStateVisualization'
+import DiscontinuedTopBar from '../misc/DiscontinuedTopBar'
 import StagingTopBar from '../misc/StagingTopBar'
 
 type Props = {}
@@ -19,6 +20,7 @@ const Header: FC<Props> = () => {
   return (
     <>
       {isStagingProd() && <StagingTopBar />}
+      <DiscontinuedTopBar />
       <header className="flex flex-row flex-wrap items-center justify-between w-full gap-5 px-6 py-6">
         <h1 className="relative order-1 ">
           <Link
