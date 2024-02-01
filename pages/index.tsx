@@ -107,7 +107,7 @@ const Home: NextPage = () => {
           </ol>
         </div>
 
-        <div className="flex flex-row justify-center py-4">
+        <div className="flex flex-row justify-center py-4 mt-5">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink
               href={!IS_DISCONTINUED ? '/create' : '#'}

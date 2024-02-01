@@ -41,7 +41,7 @@ const Header: FC<Props> = () => {
                   ? agreementPath(userAgreement.id as BytesLike)
                   : '/create'
               }
-              className="mt-0"
+              className="!mt-0"
             >
               <span className="flex flex-row items-center gap-2">
                 <span className="text-sm sm:text-md whitespace-nowrap">
