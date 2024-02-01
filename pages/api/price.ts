@@ -17,15 +17,21 @@ export default async function handler(
 
   const API_KEY = process.env.COINSTATS_API_KEY || ''
 
-  const sdk = api('@coinstatsopenapi/v1.0#1o8o2ilr4uy9pu')
-  sdk.auth(API_KEY)
-
   try {
+    const sdk = api('@coinstatsopenapi/v1.0#1o8o2ilr4uy9pu')
+    sdk.auth(API_KEY)
+
     const data = await sdk.coinController_coinItem({
       currency: 'USD',
       coinId: 'ethereum',
     })
-    res.status(200).json({ price: data.price })
+
+    if (data?.data == null) {
+      res.status(404).json({ error: 'Price is not available atm.' })
+      return
+    }
+
+    res.status(200).json({ price: data.data.price })
   } catch (e) {
     res.status(404).json({ error: 'Price is not available atm.' })
   }
