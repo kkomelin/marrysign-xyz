@@ -15,13 +15,6 @@ export default async function handler(
     return
   }
 
-  const { key } = req.query
-
-  if (process.env.NEXT_PUBLIC_LOCAL_PRICE_API_KEY !== key) {
-    res.status(403).json({ error: '403' })
-    return
-  }
-
   const API_KEY = process.env.COINSTATS_API_KEY || ''
 
   const sdk = api('@coinstatsopenapi/v1.0#1o8o2ilr4uy9pu')

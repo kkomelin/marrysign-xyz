@@ -5,8 +5,6 @@ import { LOCAL_NETWORKS } from '../../../config'
 const CURRENT_NETWORK =
   process.env.NEXT_PUBLIC_CURRENT_NETWORK || ENetwork.Local
 
-const API_KEY = process.env.NEXT_PUBLIC_LOCAL_PRICE_API_KEY || ''
-
 // When we deploy a CL Datafeed mock for local development, we hardcode the ETH price.
 const DEVELOPMENT_ETH_PRICE = 2000
 
@@ -35,7 +33,7 @@ export const convertETHToUSD = async (value: string) => {
 
 async function getETHPriceInUSD(): Promise<BigNumber | null> {
   try {
-    const response = await fetch('/api/price?key=' + API_KEY)
+    const response = await fetch('/api/price')
     const data = await response.json()
 
     if (data == null || data?.price === undefined) {
