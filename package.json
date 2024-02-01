@@ -19,6 +19,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.2",
     "@rainbow-me/rainbowkit": "^0.8.1",
+    "api": "^6.1.1",
     "boring-avatars": "^1.7.0",
     "clsx": "^1.2.1",
     "date-fns": "^2.29.3",
