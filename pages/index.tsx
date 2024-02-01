@@ -157,7 +157,7 @@ const Home: NextPage = () => {
             </p>
 
             <p className="pb-3">
-              My lovely spouse Irina and I lived together for a few years until
+              My beloved spouse and I lived together for a few years until
               we decided to get married. It was a well-thought decision, you
               know. And when we finally came to the registration office, they
               turned us around and forced us to wait for two months because of
