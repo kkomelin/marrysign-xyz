@@ -23,4 +23,4 @@ export const AGREEMENT_EXAMPLE_ID = '0xb5f2d7e8369348d7ceefed8129e15e901c6f23f6e
 export const HOTJAR_ID = 3284638
 
 export const CONTACT_FOUNDER_LINK = 'https://komelin.com/#get-in-touch'
-export const IS_DISCONTINUED = true
+export const IS_DISCONTINUED = false

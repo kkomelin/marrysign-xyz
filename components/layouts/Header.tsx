@@ -2,7 +2,7 @@ import { BytesLike } from 'ethers'
 import Link from 'next/link'
 import { FC } from 'react'
 import { useAccount } from 'wagmi'
-import { APP_NAME } from '../../lib/config'
+import { APP_NAME, IS_DISCONTINUED } from '../../lib/config'
 import { agreementPath, isStagingProd } from '../../lib/helpers'
 import { EAgreementState } from '../../types/EAgreementState'
 import ButtonLink from '../controls/ButtonLink'
@@ -20,7 +20,7 @@ const Header: FC<Props> = () => {
   return (
     <>
       {isStagingProd() && <StagingTopBar />}
-      <DiscontinuedTopBar />
+      {IS_DISCONTINUED && <DiscontinuedTopBar />}
       <header className="flex flex-row flex-wrap items-center justify-between w-full gap-5 px-6 py-6">
         <h1 className="relative order-1 ">
           <Link

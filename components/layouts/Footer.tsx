@@ -62,14 +62,12 @@ const Disclaimer: FC = () => {
           </a>
           , so you can always audit it.
         </p>
-        <p className="mb-2 font-bold text-pink-600">
-          The project has been discontinued. Have an idea or like the domain
-          name?{' '}
+        <p className="mb-2">
+          Have a question or idea?{' '}
           <Link
             href={CONTACT_FOUNDER_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-pink-600 underline"
           >
             Contact the founder
           </Link>
