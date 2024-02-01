@@ -1,7 +1,7 @@
 export const APP_NAME: string = 'MarrySign'
 export const APP_URL: string =
   process.env.NODE_ENV === 'production'
-    ? 'https://marrysign.com'
+    ? 'https://marrysign.xyz'
     : 'http://localhost:3000'
 // export const APP_DESCRIPTION: string =
 //   'We empower any couple to register marriage online'
@@ -17,7 +17,7 @@ export const SERVICE_FEE_ETH = '0'
 
 export const LOCAL_NETWORKS = ['local', 'localhost', 'hardhat']
 
-export const SUBSCRIBE_TO_NEWS_PATH = 'https://news.marrysign.com/'
+export const SUBSCRIBE_TO_NEWS_PATH = 'https://news.marrysign.xyz/'
 
 export const AGREEMENT_EXAMPLE_ID = '0xb5f2d7e8369348d7ceefed8129e15e901c6f23f6eda77c4a30dba6620f068b55'
 export const HOTJAR_ID = 3284638

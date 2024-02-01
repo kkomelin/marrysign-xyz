@@ -104,13 +104,10 @@ const Home: NextPage = () => {
                 No <span className="text-secondary">gender</span> restrictions
               </span>
             </li>
-            {/* <li className="mb-3 text-lg sm:mb-4 sm:text-xl last:mb-0">
-              Absolutely no <span className="text-secondary">bs</span>
-            </li> */}
           </ol>
         </div>
 
-        <div className="flex flex-row justify-center py-4 mt-5">
+        <div className="flex flex-row justify-center py-4">
           {isDisconnected || userAgreement == null ? (
             <ButtonLink
               href={!IS_DISCONTINUED ? '/create' : '#'}

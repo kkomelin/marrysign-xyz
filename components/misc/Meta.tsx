@@ -15,7 +15,7 @@ const Meta: FC<PropsWithChildren<MetaProps>> = ({ children }) => {
     <>
       <Head>
         {isStagingProd() && (
-          <link rel="canonical" href="https://marrysign.com/" />
+          <link rel="canonical" href="https://marrysign.xyz/" />
         )}
         {isStagingProd() && <meta name="robots" content="noindex" />}
 
