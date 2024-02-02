@@ -9,7 +9,7 @@ import CustomAvatar from '../misc/CustomAvatar'
 type Props = {}
 const AuthProvider: FC<PropsWithChildren<Props>> = ({ children }) => {
   return (
-    <WagmiConfig config={auth.wagmiConfig}>
+    <WagmiConfig client={auth.wagmiClient}>
       <RainbowKitProvider
         appInfo={{
           appName: APP_NAME,

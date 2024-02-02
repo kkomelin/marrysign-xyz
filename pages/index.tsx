@@ -16,8 +16,10 @@ import {
   APP_SLOGAN,
   IS_DISCONTINUED,
 } from '../lib/config'
-import { agreementPath } from '../lib/helpers'
+import { agreementPath, handleContractErrorSilently } from '../lib/helpers'
+import { getAgreementCount } from '../lib/services/agreement'
 import { convertETHToUSD } from '../lib/services/price/coinstats'
+import { ICustomContractError } from '../types/ICustomContractError'
 
 const CREATE_AGREEMENT_FEE_ETH = 0.0066
 const OTHER_AGREEMENT_OPS_FEE_ETH = 0.0016
@@ -50,14 +52,14 @@ const Home: NextPage = () => {
   //   loadAgreements()
   // }, [])
 
-  // const fetchAgreementCount = async () => {
-  //   try {
-  //     const count = await getAgreementCount()
-  //     setAgreementCount(count)
-  //   } catch (e: ICustomContractError) {
-  //     handleContractErrorSilently(e)
-  //   }
-  // }
+  const fetchAgreementCount = async () => {
+    try {
+      const count = await getAgreementCount()
+      setAgreementCount(count)
+    } catch (e: ICustomContractError) {
+      handleContractErrorSilently(e)
+    }
+  }
 
   useEffect(() => {
     convertETHToUSD('1').then((amountInUSD: string) => {
@@ -66,7 +68,7 @@ const Home: NextPage = () => {
       }
     })
 
-    // fetchAgreementCount()
+    fetchAgreementCount()
   }, [])
 
   return (
@@ -240,13 +242,13 @@ const Home: NextPage = () => {
       </div>
 
       <div className="w-full px-6 py-10 text-2xl font-semibold text-center text-white uppercase bg-violet-400">
-        {/* {agreementCount > 0 ? (
+        {agreementCount > 0 ? (
           <div>
             {agreementCount} agreement{agreementCount > 1 ? 's' : ''} created
           </div>
         ) : (
           <div>...</div>
-        )} */}
+        )}
         <Link
           href={agreementPath(agreementExampleId)}
           className="text-base text-yellow-200 underline normal-case underline-offset-2"
