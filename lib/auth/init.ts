@@ -6,7 +6,7 @@ import {
   trustWallet,
   walletConnectWallet,
 } from '@rainbow-me/rainbowkit/wallets'
-import { configureChains, createClient } from 'wagmi'
+import { configureChains, createConfig } from 'wagmi'
 import { goerli, hardhat, mainnet } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 import { APP_NAME } from '../config'
@@ -24,7 +24,9 @@ if (isProd()) {
   }
 }
 
-const { chains, provider } = configureChains(networks, [publicProvider()])
+const { chains, publicClient } = configureChains(networks, [publicProvider()])
+
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || ''
 
 const connectors = connectorsForWallets([
   {
@@ -34,24 +36,30 @@ const connectors = connectorsForWallets([
         chains,
         shimDisconnect: true,
       }),
-      metaMaskWallet({ chains }),
-      walletConnectWallet({ chains }),
+      metaMaskWallet({
+        chains,
+        projectId,
+      }),
+      walletConnectWallet({
+        chains,
+        projectId,
+      }),
       coinbaseWallet({
         chains,
         appName: APP_NAME,
       }),
-      trustWallet({ chains }),
+      trustWallet({ chains, projectId }),
     ],
   },
 ])
 
-const wagmiClient = createClient({
+const wagmiConfig = createConfig({
   autoConnect: false,
   connectors,
-  provider,
+  publicClient,
 })
 
 export default {
   chains,
-  wagmiClient,
+  wagmiConfig,
 }
